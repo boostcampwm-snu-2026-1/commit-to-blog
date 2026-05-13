@@ -40,6 +40,8 @@ backend/app/
 - Keep route functions thin: validate request, call service/repository, return model.
 - Add backend tests for every endpoint contract change.
 - Default local behavior must work with `USE_MOCKS=true` and dummy keys.
+- GitHub SSO must use server-side `AuthSession` rows; the browser cookie stores only an opaque session id.
+- Restrict company access with `GITHUB_ALLOWED_ORGS` and promote maintainers with `GITHUB_ADMIN_LOGINS`.
 - Do not commit `.env`, SQLite scratch databases, cache folders, or generated test reports.
 
 ## Validation

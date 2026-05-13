@@ -28,6 +28,9 @@ cd backend && uv run ruff check .
 cd backend && uv run ruff format --check .
 cd backend && uv run pytest
 cd backend && uv run alembic upgrade head
+cd frontend && npm run lint
+cd frontend && npm run format:check
+cd frontend && npm run typecheck
 cd frontend && npm run build
 cd frontend && npx playwright test --project=chrome
 docker compose config --quiet

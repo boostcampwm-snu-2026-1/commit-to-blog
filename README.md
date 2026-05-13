@@ -67,3 +67,29 @@ API 문법 조사와 적용 근거는 [API Integration Research](docs/api-integr
 - [Maintenance Plan](docs/maintenance.md)
 - [Product Roadmap](docs/product-roadmap.md)
 - [Operations Runbook](docs/operations.md)
+## Production Gates
+
+Backend:
+
+```bash
+cd backend
+uv sync --extra test --group dev
+uv run ruff check .
+uv run ruff format --check .
+uv run pytest
+uv run sh scripts/verify_staging_migration.sh
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm ci
+npm run lint
+npm run format:check
+npm run typecheck
+npm run build
+```
+
+Use `GITHUB_ALLOWED_ORGS` for company-only GitHub SSO access and run the GitHub Actions `workflow_dispatch`
+staging migration job with `STAGING_DATABASE_URL` before production rollout.
