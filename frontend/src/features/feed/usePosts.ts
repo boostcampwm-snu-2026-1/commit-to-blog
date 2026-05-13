@@ -11,7 +11,10 @@ export function usePosts(enabled = true) {
   useEffect(() => {
     if (!enabled) return;
     const status = statusFilter === "all" ? undefined : statusFilter;
-    api.posts({ status }).then(setPosts).catch(() => setPosts([]));
+    api
+      .posts({ status })
+      .then(setPosts)
+      .catch(() => setPosts([]));
   }, [enabled, statusFilter]);
 
   useEffect(() => {
@@ -20,7 +23,10 @@ export function usePosts(enabled = true) {
   }, [enabled]);
 
   function refreshAnalytics() {
-    api.postAnalytics().then(setAnalytics).catch(() => setAnalytics(null));
+    api
+      .postAnalytics()
+      .then(setAnalytics)
+      .catch(() => setAnalytics(null));
   }
 
   function upsertPost(post: BlogPost) {

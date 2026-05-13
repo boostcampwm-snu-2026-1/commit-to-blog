@@ -44,3 +44,15 @@ cd frontend
 npm run build
 npx playwright test --project=chrome
 ```
+## Validation
+
+```bash
+cd frontend
+npm run lint
+npm run format:check
+npm run typecheck
+npm run build
+npm run gui:check
+```
+
+CI runs lint, formatting, typecheck, high-severity audit, build, and Chrome E2E before merge.

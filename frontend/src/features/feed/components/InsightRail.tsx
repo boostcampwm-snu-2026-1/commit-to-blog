@@ -15,7 +15,9 @@ export function InsightRail({ posts, analytics }: Props) {
     <aside className="rail">
       <section className="panel">
         <h3>MVP Scope</h3>
-        <p className="muted">GitHub 활동을 선택하고 Claude 형식의 LLM 요약을 거쳐 바로 공유 가능한 개발 포스트로 저장합니다.</p>
+        <p className="muted">
+          GitHub 활동을 선택하고 Claude 형식의 LLM 요약을 거쳐 바로 공유 가능한 개발 포스트로 저장합니다.
+        </p>
       </section>
       <section className="panel">
         <h3>Mock Safe</h3>

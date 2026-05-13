@@ -21,7 +21,9 @@ export function SavedPosts({ posts, onChanged, onEdit, onLike, onComment }: Prop
     return (
       <section className="panel">
         <h2>Feed</h2>
-        <p className="muted">아직 저장된 포스트가 없습니다. Post Studio에서 커밋을 선택하고 첫 개발 포스트를 생성하세요.</p>
+        <p className="muted">
+          아직 저장된 포스트가 없습니다. Post Studio에서 커밋을 선택하고 첫 개발 포스트를 생성하세요.
+        </p>
       </section>
     );
   }
@@ -80,7 +82,12 @@ export function SavedPosts({ posts, onChanged, onEdit, onLike, onComment }: Prop
               <button onClick={() => onEdit(post)} title="수정">
                 <Edit3 size={16} /> 수정
               </button>
-              <button className="primary" onClick={() => publish(post.id)} disabled={post.status === "published"} title="발행">
+              <button
+                className="primary"
+                onClick={() => publish(post.id)}
+                disabled={post.status === "published"}
+                title="발행"
+              >
                 <Send size={16} /> 발행
               </button>
             </div>

@@ -109,7 +109,9 @@ export const api = {
   repositories: () => request<Repository[]>("/github/repositories"),
   branches: (repository: string) => request<Branch[]>(`/github/branches?repository=${encodeURIComponent(repository)}`),
   commits: (repository: string, branch: string) =>
-    request<Commit[]>(`/github/commits?repository=${encodeURIComponent(repository)}&branch=${encodeURIComponent(branch)}`),
+    request<Commit[]>(
+      `/github/commits?repository=${encodeURIComponent(repository)}&branch=${encodeURIComponent(branch)}`,
+    ),
   draft: (payload: { repository_full_name: string; branch: string; commit_shas: string[] }) =>
     request<Draft>("/drafts", { method: "POST", body: JSON.stringify(payload) }),
   posts: (filters?: { status?: PostStatus; repository?: string }) => {

@@ -30,7 +30,11 @@ export function EditPost({ post, onCancel, onSave }: Props) {
       </div>
       <div className="field">
         <label htmlFor="edit-title">Title</label>
-        <input id="edit-title" value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} />
+        <input
+          id="edit-title"
+          value={draft.title}
+          onChange={(event) => setDraft({ ...draft, title: event.target.value })}
+        />
       </div>
       <div className="field">
         <label htmlFor="edit-summary">Caption</label>

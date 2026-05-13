@@ -8,7 +8,10 @@ export function useRepositories(enabled = true) {
 
   useEffect(() => {
     if (!enabled) return;
-    api.repositories().then(setRepositories).catch(() => setRepositories([]));
+    api
+      .repositories()
+      .then(setRepositories)
+      .catch(() => setRepositories([]));
   }, [enabled]);
 
   return repositories;

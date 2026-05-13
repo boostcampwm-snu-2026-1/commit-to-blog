@@ -62,7 +62,10 @@ export function CreateBlog({ onSaved }: Props) {
       .catch(() => setError("커밋 목록을 불러오지 못했습니다."));
   }, [repository, branch]);
 
-  const selected = useMemo(() => commits.filter((commit) => selectedCommits.includes(commit.sha)), [commits, selectedCommits]);
+  const selected = useMemo(
+    () => commits.filter((commit) => selectedCommits.includes(commit.sha)),
+    [commits, selectedCommits],
+  );
   const metrics = useMemo(
     () => ({
       commits: selected.length,
@@ -76,7 +79,9 @@ export function CreateBlog({ onSaved }: Props) {
   const canSave = draft.title.trim() && draft.summary.trim() && draft.content.trim();
 
   function toggleCommit(sha: string) {
-    setSelectedCommits((current) => (current.includes(sha) ? current.filter((item) => item !== sha) : [...current, sha]));
+    setSelectedCommits((current) =>
+      current.includes(sha) ? current.filter((item) => item !== sha) : [...current, sha],
+    );
   }
 
   async function generateDraft() {
@@ -151,7 +156,11 @@ export function CreateBlog({ onSaved }: Props) {
         <div className="commitList">
           {commits.map((commit) => (
             <label className="commitItem" key={commit.sha}>
-              <input type="checkbox" checked={selectedCommits.includes(commit.sha)} onChange={() => toggleCommit(commit.sha)} />
+              <input
+                type="checkbox"
+                checked={selectedCommits.includes(commit.sha)}
+                onChange={() => toggleCommit(commit.sha)}
+              />
               <span>
                 <strong>{commit.message}</strong>
                 <span className="commitStats">
@@ -175,11 +184,19 @@ export function CreateBlog({ onSaved }: Props) {
         </div>
         <div className="field">
           <label htmlFor="hero">Hero</label>
-          <input id="hero" value={draft.hero_emoji} onChange={(event) => setDraft({ ...draft, hero_emoji: event.target.value })} />
+          <input
+            id="hero"
+            value={draft.hero_emoji}
+            onChange={(event) => setDraft({ ...draft, hero_emoji: event.target.value })}
+          />
         </div>
         <div className="field">
           <label htmlFor="title">Title</label>
-          <input id="title" value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} />
+          <input
+            id="title"
+            value={draft.title}
+            onChange={(event) => setDraft({ ...draft, title: event.target.value })}
+          />
         </div>
         <div className="field">
           <label htmlFor="summary">Caption</label>

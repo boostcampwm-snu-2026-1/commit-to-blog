@@ -19,10 +19,14 @@ export default function Home() {
   const [auth, setAuth] = useState<AuthStatus | null>(null);
   const isAuthenticated = auth?.authenticated === true;
   const repositories = useRepositories(isAuthenticated);
-  const { posts, analytics, statusFilter, setStatusFilter, upsertPost, updatePost, likePost, commentPost } = usePosts(isAuthenticated);
+  const { posts, analytics, statusFilter, setStatusFilter, upsertPost, updatePost, likePost, commentPost } =
+    usePosts(isAuthenticated);
 
   useEffect(() => {
-    api.me().then(setAuth).catch(() => setAuth({ authenticated: false, user: null }));
+    api
+      .me()
+      .then(setAuth)
+      .catch(() => setAuth({ authenticated: false, user: null }));
   }, []);
 
   function handleSaved(post: BlogPost) {
