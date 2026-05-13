@@ -58,14 +58,11 @@ npm run dev
 
 API 문법 조사와 적용 근거는 [API Integration Research](docs/api-integration-research.md)에 정리했습니다.
 
-## Mission Documents
+## Project Documents
 
-- [1주차 계획](docs/weekly-plans/week1.md)
-- [2주차 계획](docs/weekly-plans/week2.md)
-- [AI Workflow](docs/ai-workflow.md)
 - [API Integration Research](docs/api-integration-research.md)
-- [Feature Log](docs/feature-log.md)
 - [Backend Guide](docs/backend.md)
 - [Frontend Guide](docs/frontend.md)
 - [Maintenance Plan](docs/maintenance.md)
-- [Custom Skill](.codex/skills/github-blog-workflow/SKILL.md)
+- [Product Roadmap](docs/product-roadmap.md)
+- [Operations Runbook](docs/operations.md)
