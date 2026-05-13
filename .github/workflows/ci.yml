@@ -1,0 +1,143 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend tests and migrations
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: commit_blog
+          POSTGRES_PASSWORD: commit_blog
+          POSTGRES_DB: commit_blog
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U commit_blog -d commit_blog"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      USE_MOCKS: "true"
+      DATABASE_URL: postgresql+psycopg://commit_blog:commit_blog@localhost:5432/commit_blog
+      CORS_ORIGINS: http://localhost:3000
+      FRONTEND_BASE_URL: http://localhost:3000
+      SESSION_SECRET: ci_session_secret
+      GITHUB_TOKEN: dummy_github_token_for_local_mock
+      GITHUB_OAUTH_CLIENT_ID: dummy_github_oauth_client_id
+      GITHUB_OAUTH_CLIENT_SECRET: dummy_github_oauth_client_secret
+      GITHUB_OAUTH_REDIRECT_URI: http://localhost:8000/auth/github/callback
+      ANTHROPIC_API_KEY: dummy_anthropic_key_for_local_mock
+      ANTHROPIC_MODEL: claude-opus-4-7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install backend dependencies
+        run: uv sync --extra test
+      - name: Verify staging migration
+        run: uv run sh scripts/verify_staging_migration.sh
+      - name: Run backend tests
+        run: uv run pytest
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Build frontend
+        run: npm run build
+
+  e2e:
+    name: End-to-end Chrome flow
+    runs-on: ubuntu-latest
+    needs:
+      - backend
+      - frontend
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: commit_blog
+          POSTGRES_PASSWORD: commit_blog
+          POSTGRES_DB: commit_blog
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U commit_blog -d commit_blog"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      USE_MOCKS: "true"
+      DATABASE_URL: postgresql+psycopg://commit_blog:commit_blog@localhost:5432/commit_blog
+      CORS_ORIGINS: http://localhost:3000
+      FRONTEND_BASE_URL: http://localhost:3000
+      SESSION_SECRET: ci_session_secret
+      GITHUB_TOKEN: dummy_github_token_for_local_mock
+      GITHUB_OAUTH_CLIENT_ID: dummy_github_oauth_client_id
+      GITHUB_OAUTH_CLIENT_SECRET: dummy_github_oauth_client_secret
+      GITHUB_OAUTH_REDIRECT_URI: http://localhost:8000/auth/github/callback
+      ANTHROPIC_API_KEY: dummy_anthropic_key_for_local_mock
+      ANTHROPIC_MODEL: claude-opus-4-7
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install backend dependencies
+        working-directory: backend
+        run: uv sync --extra test
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+      - name: Install Chrome for Playwright
+        working-directory: frontend
+        run: npx playwright install --with-deps chrome
+      - name: Run migrations
+        working-directory: backend
+        run: uv run alembic upgrade head
+      - name: Start backend
+        working-directory: backend
+        run: |
+          uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+      - name: Start frontend
+        working-directory: frontend
+        run: |
+          npm run dev -- --port 3000 &
+      - name: Wait for services
+        run: |
+          for i in {1..30}; do
+            curl -fsS http://localhost:8000/health && curl -fsS http://localhost:3000 && exit 0
+            sleep 2
+          done
+          exit 1
+      - name: Run E2E
+        working-directory: frontend
+        run: npx playwright test --project=chrome
