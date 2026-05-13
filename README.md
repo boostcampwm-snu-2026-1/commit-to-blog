@@ -65,4 +65,7 @@ API 문법 조사와 적용 근거는 [API Integration Research](docs/api-integr
 - [AI Workflow](docs/ai-workflow.md)
 - [API Integration Research](docs/api-integration-research.md)
 - [Feature Log](docs/feature-log.md)
+- [Backend Guide](docs/backend.md)
+- [Frontend Guide](docs/frontend.md)
+- [Maintenance Plan](docs/maintenance.md)
 - [Custom Skill](.codex/skills/github-blog-workflow/SKILL.md)
