@@ -18,6 +18,16 @@ test("creates, saves, and publishes a generated blog post", async ({ page }) => 
   await expect(page.getByRole("heading", { name: /블로그 생성 MVP/ })).toBeVisible();
   await expect(page.getByText("draft").first()).toBeVisible();
 
+  await page.getByTitle("좋아요").click();
+  await expect(page.getByTitle("좋아요")).toContainText("1");
+  await page.getByTitle("댓글").click();
+  await expect(page.getByTitle("댓글")).toContainText("1");
+
   await page.getByRole("button", { name: /발행/ }).first().click();
   await expect(page.getByText("published").first()).toBeVisible();
+
+  await page.getByRole("button", { name: "Published" }).click();
+  await expect(page.getByRole("heading", { name: /블로그 생성 MVP/ })).toBeVisible();
+  await page.getByRole("button", { name: "Drafts" }).click();
+  await expect(page.getByText("아직 저장된 포스트가 없습니다.")).toBeVisible();
 });
