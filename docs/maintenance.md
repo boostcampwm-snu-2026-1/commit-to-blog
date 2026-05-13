@@ -32,5 +32,5 @@ docker compose config --quiet
 ## Known Tradeoffs
 
 - PostgreSQL is the production target, while tests use SQLite for speed.
-- Alembic is not yet introduced; add migrations before the first shared staging database.
+- Alembic is not yet introduced; startup currently performs additive compatibility migrations for existing `blogpost` columns. Move to Alembic before the first shared staging database.
 - Mock LLM output is deterministic so E2E tests are stable.
