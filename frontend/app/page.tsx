@@ -17,7 +17,7 @@ export default function Home() {
   const [tab, setTab] = useState<Tab>("saved");
   const [editing, setEditing] = useState<BlogPost | null>(null);
   const repositories = useRepositories();
-  const { posts, upsertPost, updatePost } = usePosts();
+  const { posts, analytics, statusFilter, setStatusFilter, upsertPost, updatePost, likePost, commentPost } = usePosts();
 
   function handleSaved(post: BlogPost) {
     upsertPost(post);
@@ -40,10 +40,23 @@ export default function Home() {
 
         <div className="layoutGrid">
           <div>
+            <div className="feedToolbar">
+              <button className={statusFilter === "all" ? "active" : ""} onClick={() => setStatusFilter("all")}>
+                All
+              </button>
+              <button className={statusFilter === "draft" ? "active" : ""} onClick={() => setStatusFilter("draft")}>
+                Drafts
+              </button>
+              <button className={statusFilter === "published" ? "active" : ""} onClick={() => setStatusFilter("published")}>
+                Published
+              </button>
+            </div>
             {tab === "saved" ? (
               <SavedPosts
                 posts={posts}
                 onChanged={upsertPost}
+                onLike={likePost}
+                onComment={commentPost}
                 onEdit={(post) => {
                   setEditing(post);
                   setTab("create");
@@ -55,7 +68,7 @@ export default function Home() {
               <CreateBlog onSaved={handleSaved} />
             )}
           </div>
-          <InsightRail posts={posts} />
+          <InsightRail posts={posts} analytics={analytics} />
         </div>
       </main>
     </div>

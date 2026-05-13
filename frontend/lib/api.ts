@@ -46,6 +46,17 @@ export type BlogPost = {
   updated_at: string;
 };
 
+export type PostStatus = "draft" | "published";
+
+export type PostAnalytics = {
+  total_posts: number;
+  draft_posts: number;
+  published_posts: number;
+  total_likes: number;
+  total_comments: number;
+  average_reading_minutes: number;
+};
+
 export type Draft = {
   title: string;
   repository_full_name: string;
@@ -85,9 +96,18 @@ export const api = {
     request<Commit[]>(`/github/commits?repository=${encodeURIComponent(repository)}&branch=${encodeURIComponent(branch)}`),
   draft: (payload: { repository_full_name: string; branch: string; commit_shas: string[] }) =>
     request<Draft>("/drafts", { method: "POST", body: JSON.stringify(payload) }),
-  posts: () => request<BlogPost[]>("/posts"),
+  posts: (filters?: { status?: PostStatus; repository?: string }) => {
+    const params = new URLSearchParams();
+    if (filters?.status) params.set("status", filters.status);
+    if (filters?.repository) params.set("repository", filters.repository);
+    const query = params.toString();
+    return request<BlogPost[]>(`/posts${query ? `?${query}` : ""}`);
+  },
+  postAnalytics: () => request<PostAnalytics>("/posts/analytics"),
   createPost: (payload: Draft) => request<BlogPost>("/posts", { method: "POST", body: JSON.stringify(payload) }),
   updatePost: (id: number, payload: Partial<BlogPost> | Draft) =>
     request<BlogPost>(`/posts/${id}`, { method: "PATCH", body: JSON.stringify(payload) }),
   publishPost: (id: number) => request<BlogPost>(`/posts/${id}/publish`, { method: "POST" }),
+  likePost: (id: number) => request<BlogPost>(`/posts/${id}/like`, { method: "POST" }),
+  commentPost: (id: number) => request<BlogPost>(`/posts/${id}/comments`, { method: "POST" }),
 };

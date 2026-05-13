@@ -1,13 +1,16 @@
 "use client";
 
 import { Sparkles } from "lucide-react";
-import { BlogPost } from "@/lib/api";
+import { BlogPost, PostAnalytics } from "@/lib/api";
 
 type Props = {
   posts: BlogPost[];
+  analytics: PostAnalytics | null;
 };
 
-export function InsightRail({ posts }: Props) {
+export function InsightRail({ posts, analytics }: Props) {
+  const published = analytics?.published_posts ?? posts.filter((post) => post.status === "published").length;
+
   return (
     <aside className="rail">
       <section className="panel">
@@ -28,8 +31,16 @@ export function InsightRail({ posts }: Props) {
             <span>posts</span>
           </div>
           <div className="metric">
-            <strong>{posts.filter((post) => post.status === "published").length}</strong>
+            <strong>{published}</strong>
             <span>live</span>
+          </div>
+          <div className="metric">
+            <strong>{analytics?.total_likes ?? 0}</strong>
+            <span>likes</span>
+          </div>
+          <div className="metric">
+            <strong>{analytics?.average_reading_minutes ?? 0}</strong>
+            <span>avg min</span>
           </div>
         </div>
       </section>

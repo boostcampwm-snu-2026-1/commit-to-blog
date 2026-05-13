@@ -7,9 +7,11 @@ type Props = {
   posts: BlogPost[];
   onChanged: (post: BlogPost) => void;
   onEdit: (post: BlogPost) => void;
+  onLike: (id: number) => void;
+  onComment: (id: number) => void;
 };
 
-export function SavedPosts({ posts, onChanged, onEdit }: Props) {
+export function SavedPosts({ posts, onChanged, onEdit, onLike, onComment }: Props) {
   async function publish(id: number) {
     const updated = await api.publishPost(id);
     onChanged(updated);
@@ -50,10 +52,10 @@ export function SavedPosts({ posts, onChanged, onEdit }: Props) {
 
           <div className="postFooter">
             <div className="actions">
-              <button className="ghost" title="좋아요">
+              <button className="ghost" title="좋아요" onClick={() => onLike(post.id)}>
                 <Heart size={19} /> {post.likes}
               </button>
-              <button className="ghost" title="댓글">
+              <button className="ghost" title="댓글" onClick={() => onComment(post.id)}>
                 <MessageCircle size={19} /> {post.comments}
               </button>
               <button className="ghost" title="공유">
