@@ -15,14 +15,32 @@ export type Commit = {
   author: string;
   committed_at: string;
   url: string;
+  additions: number;
+  deletions: number;
+  changed_files: number;
+  files: CommitFile[];
+};
+
+export type CommitFile = {
+  filename: string;
+  status: string;
+  additions: number;
+  deletions: number;
+  patch?: string | null;
 };
 
 export type BlogPost = {
   id: number;
   title: string;
+  repository_full_name: string;
   branch: string;
   summary: string;
   content: string;
+  hero_emoji: string;
+  author: string;
+  reading_minutes: number;
+  likes: number;
+  comments: number;
   status: "draft" | "published";
   created_at: string;
   updated_at: string;
@@ -30,9 +48,17 @@ export type BlogPost = {
 
 export type Draft = {
   title: string;
+  repository_full_name: string;
   branch: string;
   summary: string;
   content: string;
+  hero_emoji: string;
+  author: string;
+  reading_minutes: number;
+  commit_count?: number;
+  changed_files?: number;
+  additions?: number;
+  deletions?: number;
 };
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";

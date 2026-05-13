@@ -25,3 +25,12 @@
 ## F-06 Environment and Secrets
 
 - 확인 내용: `.env.example`에는 dummy key만 포함하고 실제 `.env`는 커밋 대상에서 제외한다.
+
+## F-07 Official API Syntax Refresh
+
+- 확인 내용: GitHub REST API version header를 `2026-03-10`으로 갱신하고 branch/commit/detail 엔드포인트를 공식 문서 기준으로 정리했다.
+- 확인 내용: Claude 호출은 공식 Python SDK의 `client.messages.create(...)` 문법을 유지하고 모델은 `.env`로 교체 가능하게 했다.
+
+## F-08 Social MVP Experience
+
+- 확인 내용: 저장된 포스트를 SNS 피드 카드로 보여주고, repository story rail, post studio, composer preview, engagement action을 제공한다.

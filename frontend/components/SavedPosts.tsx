@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit3, Send } from "lucide-react";
+import { Bookmark, Edit3, Heart, MessageCircle, MoreHorizontal, Send, Share2 } from "lucide-react";
 import { BlogPost, api } from "@/lib/api";
 
 type Props = {
@@ -18,24 +18,62 @@ export function SavedPosts({ posts, onChanged, onEdit }: Props) {
   if (posts.length === 0) {
     return (
       <section className="panel">
-        <h2>저장된 포스트</h2>
-        <p className="muted">저장된 글이 없습니다. 포스트 작성 탭에서 AI 초안을 생성하고 저장하세요.</p>
+        <h2>Feed</h2>
+        <p className="muted">아직 저장된 포스트가 없습니다. Post Studio에서 커밋을 선택하고 첫 개발 포스트를 생성하세요.</p>
       </section>
     );
   }
 
   return (
-    <section aria-label="저장된 포스트">
-      <div className="postsGrid">
-        {posts.map((post) => (
-          <article className="postCard" key={post.id}>
+    <section className="feed" aria-label="저장된 포스트">
+      {posts.map((post) => (
+        <article className="postCard" key={post.id}>
+          <header className="postHeader">
+            <div className="profile">
+              <div className="miniAvatar">{post.repository_full_name?.slice(0, 1).toUpperCase() || "D"}</div>
+              <div>
+                <strong>{post.repository_full_name || "local/mock"}</strong>
+                <div className="muted">
+                  {post.branch} · {post.reading_minutes} min read
+                </div>
+              </div>
+            </div>
+            <button className="ghost" title="더보기">
+              <MoreHorizontal size={18} />
+            </button>
+          </header>
+
+          <div className="postHero">
+            <span className="emoji">{post.hero_emoji}</span>
+            <h3>{post.title}</h3>
+          </div>
+
+          <div className="postFooter">
+            <div className="actions">
+              <button className="ghost" title="좋아요">
+                <Heart size={19} /> {post.likes}
+              </button>
+              <button className="ghost" title="댓글">
+                <MessageCircle size={19} /> {post.comments}
+              </button>
+              <button className="ghost" title="공유">
+                <Share2 size={19} />
+              </button>
+            </div>
+            <button className="ghost" title="북마크">
+              <Bookmark size={19} />
+            </button>
+          </div>
+
+          <div className="postBody">
             <div className="tagRow">
               <span className="tag">{post.branch}</span>
-              <span className="status">{post.status}</span>
+              <span className={`status ${post.status}`}>{post.status}</span>
+              <span className="muted">{new Date(post.updated_at).toLocaleString("ko-KR")}</span>
             </div>
-            <h3>{post.title}</h3>
-            <p>{post.summary}</p>
-            <p className="muted">{new Date(post.updated_at).toLocaleString("ko-KR")}</p>
+            <p>
+              <strong>{post.author}</strong> {post.summary}
+            </p>
             <div className="actions">
               <button onClick={() => onEdit(post)} title="수정">
                 <Edit3 size={16} /> 수정
@@ -44,9 +82,9 @@ export function SavedPosts({ posts, onChanged, onEdit }: Props) {
                 <Send size={16} /> 발행
               </button>
             </div>
-          </article>
-        ))}
-      </div>
+          </div>
+        </article>
+      ))}
     </section>
   );
 }

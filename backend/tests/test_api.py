@@ -59,7 +59,10 @@ def test_github_mock_flow_and_draft_generation(client: TestClient) -> None:
         },
     ).json()
     assert draft["title"]
-    assert "주요 변경" in draft["content"]
+    assert draft["repository_full_name"] == repos[0]["full_name"]
+    assert draft["changed_files"] > 0
+    assert draft["additions"] > 0
+    assert "커밋 하이라이트" in draft["content"]
 
 
 def test_post_create_update_publish(client: TestClient) -> None:
@@ -67,9 +70,13 @@ def test_post_create_update_publish(client: TestClient) -> None:
         "/posts",
         json={
             "title": "테스트 포스트",
+            "repository_full_name": "octo/commit-to-blog",
             "branch": "main",
             "summary": "요약",
             "content": "# 본문",
+            "hero_emoji": "🚀",
+            "author": "Claude Mock",
+            "reading_minutes": 2,
         },
     )
     assert created.status_code == 201
@@ -77,6 +84,7 @@ def test_post_create_update_publish(client: TestClient) -> None:
 
     updated = client.patch(f"/posts/{post['id']}", json={"summary": "수정 요약"}).json()
     assert updated["summary"] == "수정 요약"
+    assert updated["repository_full_name"] == "octo/commit-to-blog"
 
     published = client.post(f"/posts/{post['id']}/publish").json()
     assert published["status"] == "published"

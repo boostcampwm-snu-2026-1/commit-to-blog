@@ -11,6 +11,7 @@
 - FastAPI API 구현: 저장소, 브랜치, 커밋, 초안 생성, 포스트 CRUD, 발행 상태 변경
 - SQLModel 모델 및 PostgreSQL 연결
 - Next.js 화면 구현: 저장된 포스트, 포스트 작성, 편집기
+- SNS형 MVP 화면 강화: repository story, feed card, composer preview, publish action
 - Dockerfile 및 Docker Compose 작성
 - `.env.example` 작성
 - 테스트와 브라우저 검증 수행

@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000"
     github_token: str = "dummy_github_token_for_local_mock"
     anthropic_api_key: str = "dummy_anthropic_key_for_local_mock"
-    anthropic_model: str = "claude-3-5-sonnet-20241022"
+    anthropic_model: str = "claude-opus-4-7"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

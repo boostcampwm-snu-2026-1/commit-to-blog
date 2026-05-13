@@ -10,9 +10,10 @@ description: Use when implementing or reviewing a GitHub-activity-to-development
 1. Convert the assignment into numbered features and write/update `docs/feature-log.md`.
 2. Keep planning artifacts in `docs/weekly-plans/` before expanding implementation.
 3. Build external API features mock-first. The backend owns GitHub and LLM calls; the frontend never calls external APIs directly.
-4. Keep secrets in `.env`; commit only `.env.example` with dummy values.
-5. Model each feature through data shape, API endpoint, UI state, and validation command.
-6. Verify with backend tests, Swagger, frontend build, and browser UI inspection.
+4. If an external API is involved, verify current syntax against official docs and record the source in `docs/api-integration-research.md`.
+5. Keep secrets in `.env`; commit only `.env.example` with dummy values.
+6. Model each feature through data shape, API endpoint, UI state, and validation command.
+7. Verify with backend tests, Swagger, frontend build, and browser UI inspection.
 
 ## Review Checklist
 
