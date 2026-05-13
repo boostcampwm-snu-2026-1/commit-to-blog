@@ -89,5 +89,20 @@ def test_post_create_update_publish(client: TestClient) -> None:
     published = client.post(f"/posts/{post['id']}/publish").json()
     assert published["status"] == "published"
 
+    liked = client.post(f"/posts/{post['id']}/like").json()
+    assert liked["likes"] == 1
+
+    commented = client.post(f"/posts/{post['id']}/comments").json()
+    assert commented["comments"] == 1
+
     posts = client.get("/posts").json()
     assert len(posts) == 1
+
+    published_posts = client.get("/posts", params={"status": "published"}).json()
+    assert len(published_posts) == 1
+
+    analytics = client.get("/posts/analytics").json()
+    assert analytics["total_posts"] == 1
+    assert analytics["published_posts"] == 1
+    assert analytics["total_likes"] == 1
+    assert analytics["total_comments"] == 1

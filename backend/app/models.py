@@ -86,6 +86,15 @@ class BlogPostUpdate(SQLModel):
     status: PostStatus | None = None
 
 
+class PostAnalytics(SQLModel):
+    total_posts: int
+    draft_posts: int
+    published_posts: int
+    total_likes: int
+    total_comments: int
+    average_reading_minutes: float
+
+
 class DraftRequest(SQLModel):
     repository_full_name: str
     branch: str

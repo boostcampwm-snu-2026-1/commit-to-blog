@@ -3,15 +3,20 @@ from datetime import datetime, timezone
 from fastapi import HTTPException
 from sqlmodel import Session, select
 
-from app.models import BlogPost, BlogPostCreate, BlogPostUpdate, PostStatus
+from app.models import BlogPost, BlogPostCreate, BlogPostUpdate, PostAnalytics, PostStatus
 
 
 class PostRepository:
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def list(self) -> list[BlogPost]:
-        return self.session.exec(select(BlogPost).order_by(BlogPost.updated_at.desc())).all()
+    def list(self, status: PostStatus | None = None, repository: str | None = None) -> list[BlogPost]:
+        statement = select(BlogPost)
+        if status is not None:
+            statement = statement.where(BlogPost.status == status)
+        if repository:
+            statement = statement.where(BlogPost.repository_full_name == repository)
+        return self.session.exec(statement.order_by(BlogPost.updated_at.desc())).all()
 
     def create(self, payload: BlogPostCreate) -> BlogPost:
         post = BlogPost.model_validate(payload)
@@ -33,6 +38,30 @@ class PostRepository:
         post.status = PostStatus.published
         post.updated_at = datetime.now(timezone.utc)
         return self._save(post)
+
+    def like(self, post_id: int) -> BlogPost:
+        post = self._get(post_id)
+        post.likes += 1
+        post.updated_at = datetime.now(timezone.utc)
+        return self._save(post)
+
+    def add_comment(self, post_id: int) -> BlogPost:
+        post = self._get(post_id)
+        post.comments += 1
+        post.updated_at = datetime.now(timezone.utc)
+        return self._save(post)
+
+    def analytics(self) -> PostAnalytics:
+        posts = self.session.exec(select(BlogPost)).all()
+        total = len(posts)
+        return PostAnalytics(
+            total_posts=total,
+            draft_posts=sum(1 for post in posts if post.status == PostStatus.draft),
+            published_posts=sum(1 for post in posts if post.status == PostStatus.published),
+            total_likes=sum(post.likes for post in posts),
+            total_comments=sum(post.comments for post in posts),
+            average_reading_minutes=round(sum(post.reading_minutes for post in posts) / total, 2) if total else 0,
+        )
 
     def _get(self, post_id: int) -> BlogPost:
         post = self.session.get(BlogPost, post_id)
