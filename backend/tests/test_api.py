@@ -8,6 +8,8 @@ from sqlmodel.pool import StaticPool
 from app.core.config import get_settings
 from app.db.session import get_session
 from app.main import app
+from app.modules.auth.schemas import CurrentUser
+from app.modules.auth.session import create_session_token
 
 
 @pytest.fixture(name="client")
@@ -26,6 +28,9 @@ def client_fixture() -> Generator[TestClient, None, None]:
     app.dependency_overrides[get_session] = get_test_session
     get_settings.cache_clear()
     with TestClient(app) as client:
+        settings = get_settings()
+        user = CurrentUser(id=1, login="mock-octocat", name="Mock Octocat", github_access_token="mock_token")
+        client.cookies.set(settings.session_cookie_name, create_session_token(user, settings))
         yield client
     app.dependency_overrides.clear()
 
@@ -35,6 +40,13 @@ def test_health_and_swagger(client: TestClient) -> None:
     docs = client.get("/docs")
     assert docs.status_code == 200
     assert "swagger" in docs.text.lower()
+
+
+def test_auth_status_requires_session_for_protected_routes() -> None:
+    get_settings.cache_clear()
+    with TestClient(app) as anonymous:
+        assert anonymous.get("/auth/me").json() == {"authenticated": False, "user": None}
+        assert anonymous.get("/github/repositories").status_code == 401
 
 
 def test_github_mock_flow_and_draft_generation(client: TestClient) -> None:

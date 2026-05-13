@@ -17,6 +17,7 @@ Each commit should include the files needed to validate that one concern.
 - Does the frontend still call only backend routes?
 - Does mock mode still work without GitHub/Claude keys?
 - Are API docs updated when external API syntax changes?
+- Is GitHub/Claude syntax kept in `app/modules/github/service.py` and `app/modules/drafts/service.py`?
 - Are backend route tests and frontend E2E tests aligned with UI/API contracts?
 - Is generated local state ignored by git?
 

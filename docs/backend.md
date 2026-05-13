@@ -36,7 +36,7 @@ backend/app/
 
 ## Maintenance Rules
 
-- Keep GitHub/Claude syntax inside `app/services/`.
+- Keep GitHub/Claude syntax inside `app/modules/github/service.py` and `app/modules/drafts/service.py`.
 - Keep route functions thin: validate request, call service/repository, return model.
 - Add backend tests for every endpoint contract change.
 - Default local behavior must work with `USE_MOCKS=true` and dummy keys.

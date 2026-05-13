@@ -62,4 +62,25 @@ response = await client.messages.create(
 4. LLM 블로그 초안 생성
 5. Post 저장, 수정, 발행
 
-실제 API 전환 시에도 프론트엔드는 변경하지 않는다. 외부 API 문법은 `backend/app/services/github.py`, `backend/app/services/llm.py`에만 존재한다.
+실제 API 전환 시에도 프론트엔드는 변경하지 않는다. 외부 API 문법은 `backend/app/modules/github/service.py`, `backend/app/modules/drafts/service.py`에만 존재한다.
+
+## Authentication and Retry Policy
+
+GitHub OAuth uses the official web application flow:
+
+1. redirect user to `GET https://github.com/login/oauth/authorize`
+2. exchange callback `code` at `POST https://github.com/login/oauth/access_token`
+3. revalidate identity with `GET https://api.github.com/user`
+
+GitHub REST retry behavior follows official rate-limit guidance:
+
+- inspect `x-ratelimit-remaining`
+- wait until `x-ratelimit-reset` when remaining is `0`
+- honor `retry-after` when present
+- retry 403/429 rate-limit responses and transient 5xx errors with bounded attempts
+
+Claude retry behavior follows official Anthropic error/rate-limit guidance:
+
+- retry 429 rate-limit responses and transient 5xx/529 errors
+- honor `retry-after` when exposed by the SDK response
+- keep retries bounded to avoid amplifying incidents

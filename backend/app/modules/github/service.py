@@ -4,6 +4,7 @@ import httpx
 
 from app.core.config import Settings
 from app.modules.github.schemas import Branch, Commit, CommitFile, Repository
+from app.utils.http_retry import request_with_retries
 
 
 MOCK_REPOSITORIES = [
@@ -64,11 +65,12 @@ MOCK_COMMITS = {
 
 
 class GitHubService:
-    def __init__(self, settings: Settings) -> None:
+    def __init__(self, settings: Settings, access_token: str | None = None) -> None:
         self.settings = settings
+        token = access_token or settings.github_token
         self.headers = {
             "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {settings.github_token}",
+            "Authorization": f"Bearer {token}",
             "X-GitHub-Api-Version": "2026-03-10",
         }
 
@@ -77,7 +79,7 @@ class GitHubService:
             return MOCK_REPOSITORIES
 
         async with httpx.AsyncClient(base_url="https://api.github.com", headers=self.headers, timeout=15) as client:
-            response = await client.get("/user/repos", params={"sort": "updated", "per_page": 50})
+            response = await request_with_retries(client, "GET", "/user/repos", params={"sort": "updated", "per_page": 50})
             response.raise_for_status()
             return [
                 Repository(
@@ -94,7 +96,7 @@ class GitHubService:
             return MOCK_BRANCHES.get(repository_full_name, [Branch(name="main")])
 
         async with httpx.AsyncClient(base_url="https://api.github.com", headers=self.headers, timeout=15) as client:
-            response = await client.get(f"/repos/{repository_full_name}/branches")
+            response = await request_with_retries(client, "GET", f"/repos/{repository_full_name}/branches")
             response.raise_for_status()
             return [Branch(name=branch["name"]) for branch in response.json()]
 
@@ -103,7 +105,12 @@ class GitHubService:
             return MOCK_COMMITS.get(repository_full_name, [])
 
         async with httpx.AsyncClient(base_url="https://api.github.com", headers=self.headers, timeout=15) as client:
-            response = await client.get(f"/repos/{repository_full_name}/commits", params={"sha": branch, "per_page": 20})
+            response = await request_with_retries(
+                client,
+                "GET",
+                f"/repos/{repository_full_name}/commits",
+                params={"sha": branch, "per_page": 20},
+            )
             response.raise_for_status()
             commits = []
             for item in response.json():
@@ -129,7 +136,7 @@ class GitHubService:
         async with httpx.AsyncClient(base_url="https://api.github.com", headers=self.headers, timeout=15) as client:
             detailed: list[Commit] = []
             for commit in selected:
-                response = await client.get(f"/repos/{repository_full_name}/commits/{commit.sha}")
+                response = await request_with_retries(client, "GET", f"/repos/{repository_full_name}/commits/{commit.sha}")
                 response.raise_for_status()
                 payload = response.json()
                 stats = payload.get("stats", {})

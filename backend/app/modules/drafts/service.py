@@ -3,6 +3,7 @@ from anthropic import AsyncAnthropic
 from app.core.config import Settings
 from app.modules.drafts.schemas import DraftResponse
 from app.modules.github.schemas import Commit
+from app.utils.http_retry import call_with_retries
 
 
 class LlmService:
@@ -68,21 +69,23 @@ class LlmService:
             )
             for commit in commits
         )
-        response = await client.messages.create(
-            model=self.settings.anthropic_model,
-            max_tokens=1400,
-            system="You write polished Korean development blog posts from GitHub commit and file-change activity.",
-            messages=[
-                {
-                    "role": "user",
-                    "content": (
-                        "아래 GitHub 커밋 활동을 분석해서 개발 블로그 초안을 작성해줘. "
-                        "제목, 요약, Markdown 본문을 만들고, SNS 피드에 어울리게 첫 문단은 짧고 강하게 써줘. "
-                        "기술적 의사결정, 변경 파일 근거, 다음 단계를 포함해줘.\n\n"
-                        f"repository: {repository_full_name}\nbranch: {branch}\ncommits:\n{commit_context}\n{file_context}"
-                    ),
-                }
-            ],
+        response = await call_with_retries(
+            lambda: client.messages.create(
+                model=self.settings.anthropic_model,
+                max_tokens=1400,
+                system="You write polished Korean development blog posts from GitHub commit and file-change activity.",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": (
+                            "아래 GitHub 커밋 활동을 분석해서 개발 블로그 초안을 작성해줘. "
+                            "제목, 요약, Markdown 본문을 만들고, SNS 피드에 어울리게 첫 문단은 짧고 강하게 써줘. "
+                            "기술적 의사결정, 변경 파일 근거, 다음 단계를 포함해줘.\n\n"
+                            f"repository: {repository_full_name}\nbranch: {branch}\ncommits:\n{commit_context}\n{file_context}"
+                        ),
+                    }
+                ],
+            )
         )
         content = "\n".join(block.text for block in response.content if getattr(block, "type", None) == "text")
         return DraftResponse(

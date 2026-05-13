@@ -72,11 +72,25 @@ export type Draft = {
   deletions?: number;
 };
 
+export type CurrentUser = {
+  id: number;
+  login: string;
+  name?: string | null;
+  avatar_url?: string | null;
+};
+
+export type AuthStatus = {
+  authenticated: boolean;
+  user: CurrentUser | null;
+};
+
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+export const authLoginUrl = `${API_BASE}/auth/github/login`;
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
     ...init,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...(init?.headers ?? {}),
@@ -90,6 +104,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  me: () => request<AuthStatus>("/auth/me"),
+  logout: () => request<AuthStatus>("/auth/logout", { method: "POST" }),
   repositories: () => request<Repository[]>("/github/repositories"),
   branches: (repository: string) => request<Branch[]>(`/github/branches?repository=${encodeURIComponent(repository)}`),
   commits: (repository: string, branch: string) =>

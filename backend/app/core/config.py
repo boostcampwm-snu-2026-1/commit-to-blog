@@ -7,7 +7,14 @@ class Settings(BaseSettings):
     use_mocks: bool = True
     database_url: str = "sqlite:///./commit_blog.db"
     cors_origins: str = "http://localhost:3000"
+    frontend_base_url: str = "http://localhost:3000"
+    session_secret: str = "dev_session_secret_change_me"
+    session_cookie_name: str = "commitgram_session"
+    session_cookie_secure: bool = False
     github_token: str = "dummy_github_token_for_local_mock"
+    github_oauth_client_id: str = "dummy_github_oauth_client_id"
+    github_oauth_client_secret: str = "dummy_github_oauth_client_secret"
+    github_oauth_redirect_uri: str = "http://localhost:8000/auth/github/callback"
     anthropic_api_key: str = "dummy_anthropic_key_for_local_mock"
     anthropic_model: str = "claude-opus-4-7"
 

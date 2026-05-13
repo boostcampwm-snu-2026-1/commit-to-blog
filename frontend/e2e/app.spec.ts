@@ -5,7 +5,9 @@ test("creates, saves, and publishes a generated blog post", async ({ page }) => 
 
   await page.goto("/");
 
-  await expect(page.getByText("Commitgram")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Commitgram" })).toBeVisible();
+  await page.getByRole("link", { name: "Continue with GitHub" }).first().click();
+  await expect(page.getByRole("button", { name: /mock-octocat/ })).toBeVisible();
   await page.getByRole("button", { name: /Studio/ }).click();
 
   await expect(page.getByLabel("Repository")).toHaveValue("octo/commit-to-blog");

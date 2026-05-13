@@ -45,7 +45,29 @@ button {
   padding: 8px 12px;
 }
 
+.buttonLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+
 button.primary {
+  border: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: white;
+  font-weight: 700;
+}
+
+.buttonLink.primary {
   border: 0;
   background: linear-gradient(135deg, var(--brand), var(--brand-2));
   color: white;
@@ -78,6 +100,26 @@ textarea {
 
 .appShell {
   min-height: 100vh;
+}
+
+.authGate {
+  display: grid;
+  min-height: 58vh;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.authGate h1 {
+  margin: 0;
+  font-size: 44px;
+}
+
+.authGate p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
 }
 
 .topbar {

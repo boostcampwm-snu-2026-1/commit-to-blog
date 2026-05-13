@@ -3,19 +3,21 @@
 import { useEffect, useState } from "react";
 import { api, BlogPost, Draft, PostAnalytics, PostStatus } from "@/shared/api/client";
 
-export function usePosts() {
+export function usePosts(enabled = true) {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [analytics, setAnalytics] = useState<PostAnalytics | null>(null);
   const [statusFilter, setStatusFilter] = useState<PostStatus | "all">("all");
 
   useEffect(() => {
+    if (!enabled) return;
     const status = statusFilter === "all" ? undefined : statusFilter;
     api.posts({ status }).then(setPosts).catch(() => setPosts([]));
-  }, [statusFilter]);
+  }, [enabled, statusFilter]);
 
   useEffect(() => {
+    if (!enabled) return;
     refreshAnalytics();
-  }, []);
+  }, [enabled]);
 
   function refreshAnalytics() {
     api.postAnalytics().then(setAnalytics).catch(() => setAnalytics(null));
