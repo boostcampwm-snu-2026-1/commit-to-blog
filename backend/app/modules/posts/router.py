@@ -26,7 +26,10 @@ def list_posts(
 
 
 @router.get("/analytics", response_model=PostAnalytics)
-def post_analytics(posts: PostRepository = Depends(get_post_repository), user: CurrentUser = Depends(require_current_user)):
+def post_analytics(
+    posts: PostRepository = Depends(get_post_repository),
+    user: CurrentUser = Depends(require_current_user),
+):
     return posts.analytics()
 
 
@@ -50,15 +53,27 @@ def update_post(
 
 
 @router.post("/{post_id}/publish", response_model=BlogPost)
-def publish_post(post_id: int, posts: PostRepository = Depends(get_post_repository), user: CurrentUser = Depends(require_current_user)):
+def publish_post(
+    post_id: int,
+    posts: PostRepository = Depends(get_post_repository),
+    user: CurrentUser = Depends(require_current_user),
+):
     return posts.publish(post_id)
 
 
 @router.post("/{post_id}/like", response_model=BlogPost)
-def like_post(post_id: int, posts: PostRepository = Depends(get_post_repository), user: CurrentUser = Depends(require_current_user)):
+def like_post(
+    post_id: int,
+    posts: PostRepository = Depends(get_post_repository),
+    user: CurrentUser = Depends(require_current_user),
+):
     return posts.like(post_id)
 
 
 @router.post("/{post_id}/comments", response_model=BlogPost)
-def add_comment(post_id: int, posts: PostRepository = Depends(get_post_repository), user: CurrentUser = Depends(require_current_user)):
+def add_comment(
+    post_id: int,
+    posts: PostRepository = Depends(get_post_repository),
+    user: CurrentUser = Depends(require_current_user),
+):
     return posts.add_comment(post_id)

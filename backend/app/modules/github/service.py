@@ -1,11 +1,10 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import httpx
 
 from app.core.config import Settings
 from app.modules.github.schemas import Branch, Commit, CommitFile, Repository
 from app.utils.http_retry import request_with_retries
-
 
 MOCK_REPOSITORIES = [
     Repository(id=1, name="commit-to-blog", full_name="octo/commit-to-blog", default_branch="main"),
@@ -23,28 +22,48 @@ MOCK_COMMITS = {
             sha="a1b2c3d",
             message="Add GitHub repository selector",
             author="dev",
-            committed_at=datetime(2026, 5, 10, 9, 0, tzinfo=timezone.utc),
+            committed_at=datetime(2026, 5, 10, 9, 0, tzinfo=UTC),
             url="https://github.com/octo/commit-to-blog/commit/a1b2c3d",
             additions=184,
             deletions=22,
             changed_files=5,
             files=[
-                CommitFile(filename="frontend/src/features/studio/RepoSelector.tsx", status="added", additions=98, deletions=0),
-                CommitFile(filename="backend/app/modules/github/service.py", status="modified", additions=52, deletions=14),
+                CommitFile(
+                    filename="frontend/src/features/studio/RepoSelector.tsx",
+                    status="added",
+                    additions=98,
+                    deletions=0,
+                ),
+                CommitFile(
+                    filename="backend/app/modules/github/service.py",
+                    status="modified",
+                    additions=52,
+                    deletions=14,
+                ),
             ],
         ),
         Commit(
             sha="d4e5f6a",
             message="Generate blog draft from selected commits",
             author="dev",
-            committed_at=datetime(2026, 5, 11, 13, 30, tzinfo=timezone.utc),
+            committed_at=datetime(2026, 5, 11, 13, 30, tzinfo=UTC),
             url="https://github.com/octo/commit-to-blog/commit/d4e5f6a",
             additions=231,
             deletions=47,
             changed_files=7,
             files=[
-                CommitFile(filename="backend/app/modules/drafts/service.py", status="added", additions=110, deletions=0),
-                CommitFile(filename="frontend/src/features/studio/CreateBlog.tsx", status="modified", additions=78, deletions=21),
+                CommitFile(
+                    filename="backend/app/modules/drafts/service.py",
+                    status="added",
+                    additions=110,
+                    deletions=0,
+                ),
+                CommitFile(
+                    filename="frontend/src/features/studio/CreateBlog.tsx",
+                    status="modified",
+                    additions=78,
+                    deletions=21,
+                ),
             ],
         ),
     ],
@@ -53,7 +72,7 @@ MOCK_COMMITS = {
             sha="9ab8c7d",
             message="Create portfolio sync endpoint",
             author="dev",
-            committed_at=datetime(2026, 5, 12, 8, 15, tzinfo=timezone.utc),
+            committed_at=datetime(2026, 5, 12, 8, 15, tzinfo=UTC),
             url="https://github.com/octo/portfolio-api/commit/9ab8c7d",
             additions=76,
             deletions=8,
@@ -79,7 +98,12 @@ class GitHubService:
             return MOCK_REPOSITORIES
 
         async with httpx.AsyncClient(base_url="https://api.github.com", headers=self.headers, timeout=15) as client:
-            response = await request_with_retries(client, "GET", "/user/repos", params={"sort": "updated", "per_page": 50})
+            response = await request_with_retries(
+                client,
+                "GET",
+                "/user/repos",
+                params={"sort": "updated", "per_page": 50},
+            )
             response.raise_for_status()
             return [
                 Repository(
@@ -136,7 +160,11 @@ class GitHubService:
         async with httpx.AsyncClient(base_url="https://api.github.com", headers=self.headers, timeout=15) as client:
             detailed: list[Commit] = []
             for commit in selected:
-                response = await request_with_retries(client, "GET", f"/repos/{repository_full_name}/commits/{commit.sha}")
+                response = await request_with_retries(
+                    client,
+                    "GET",
+                    f"/repos/{repository_full_name}/commits/{commit.sha}",
+                )
                 response.raise_for_status()
                 payload = response.json()
                 stats = payload.get("stats", {})

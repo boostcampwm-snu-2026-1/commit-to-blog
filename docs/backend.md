@@ -13,7 +13,7 @@ FastAPI backend is the only layer that talks to external APIs and the database.
 
 ```bash
 cd backend
-uv sync --extra test
+uv sync --extra test --group dev
 uv run uvicorn app.main:app --reload
 ```
 
@@ -46,8 +46,10 @@ backend/app/
 
 ```bash
 cd backend
+uv run ruff check .
+uv run ruff format --check .
 uv run alembic upgrade head
 uv run pytest
 ```
 
-Expected result: all tests pass and `/docs` returns 200.
+Expected result: lint, formatting, migrations, tests pass and `/docs` returns 200.

@@ -5,11 +5,16 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 from app.db.session import get_session
 from app.main import app
 from app.modules.auth.schemas import CurrentUser
 from app.modules.auth.session import create_session_token
+
+
+def test_cors_config_rejects_wildcard_origin() -> None:
+    with pytest.raises(ValueError, match="CORS_ORIGINS"):
+        Settings(cors_origins="*")
 
 
 @pytest.fixture(name="client")
@@ -47,6 +52,33 @@ def test_auth_status_requires_session_for_protected_routes() -> None:
     with TestClient(app) as anonymous:
         assert anonymous.get("/auth/me").json() == {"authenticated": False, "user": None}
         assert anonymous.get("/github/repositories").status_code == 401
+
+
+def test_cors_preflight_allows_configured_frontend_origin(client: TestClient) -> None:
+    response = client.options(
+        "/health",
+        headers={
+            "Origin": "http://localhost:3000",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+    assert response.headers["access-control-allow-credentials"] == "true"
+
+
+def test_cors_preflight_rejects_unknown_origin(client: TestClient) -> None:
+    response = client.options(
+        "/health",
+        headers={
+            "Origin": "https://unknown.example",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "access-control-allow-origin" not in response.headers
 
 
 def test_github_mock_flow_and_draft_generation(client: TestClient) -> None:

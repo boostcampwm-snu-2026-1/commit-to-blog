@@ -1,7 +1,6 @@
 from sqlalchemy import inspect, text
 from sqlalchemy.engine import Engine
 
-
 BLOGPOST_ADDITIVE_COLUMNS = {
     "repository_full_name": {"postgresql": "VARCHAR DEFAULT '' NOT NULL", "sqlite": "VARCHAR DEFAULT '' NOT NULL"},
     "hero_emoji": {"postgresql": "VARCHAR DEFAULT '✨' NOT NULL", "sqlite": "VARCHAR DEFAULT '✨' NOT NULL"},

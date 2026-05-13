@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 
 from app.core.config import Settings, get_settings
 from app.modules.auth.schemas import AuthStatus, CurrentUser
-from app.modules.auth.service import GitHubOAuthService, MOCK_USER
+from app.modules.auth.service import MOCK_USER, GitHubOAuthService
 from app.modules.auth.session import create_session_token, parse_session_token, sign_payload, verify_payload
 
 router = APIRouter(prefix="/auth", tags=["auth"])

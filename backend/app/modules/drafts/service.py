@@ -18,7 +18,8 @@ class LlmService:
 
         if self.settings.use_mocks:
             lines = "\n".join(
-                f"- `{commit.sha}` {commit.message} · {commit.changed_files} files · +{commit.additions}/-{commit.deletions}"
+                f"- `{commit.sha}` {commit.message} · {commit.changed_files} files "
+                f"· +{commit.additions}/-{commit.deletions}"
                 for commit in commits
             )
             file_lines = "\n".join(
@@ -27,7 +28,10 @@ class LlmService:
                 for file in commit.files[:3]
             )
             title = f"{branch} 브랜치에서 블로그 생성 MVP 다듬기"
-            summary = f"{len(commits)}개 커밋, {changed_files}개 파일 변경, +{additions}/-{deletions} 라인을 바탕으로 개발 흐름을 정리했습니다."
+            summary = (
+                f"{len(commits)}개 커밋, {changed_files}개 파일 변경, "
+                f"+{additions}/-{deletions} 라인을 바탕으로 개발 흐름을 정리했습니다."
+            )
             content = (
                 f"# {title}\n\n"
                 "## 오늘의 개발 맥락\n\n"
@@ -37,7 +41,8 @@ class LlmService:
                 "## 변경 파일\n\n"
                 f"{file_lines or '- 변경 파일 상세는 실제 GitHub API 연결 시 채워집니다.'}\n\n"
                 "## 의사결정\n\n"
-                "외부 API는 백엔드 서비스 계층에 격리하고, mock-first 흐름으로 키 없이도 제품 경험을 증명하도록 구성했습니다.\n\n"
+                "외부 API는 백엔드 서비스 계층에 격리하고, "
+                "mock-first 흐름으로 키 없이도 제품 경험을 증명하도록 구성했습니다.\n\n"
                 "## 다음 액션\n\n"
                 "실제 diff 패치와 리뷰 코멘트를 더해 기술 회고의 밀도를 높입니다.\n"
             )
@@ -58,13 +63,17 @@ class LlmService:
 
         client = AsyncAnthropic(api_key=self.settings.anthropic_api_key)
         commit_context = "\n".join(
-            f"- sha: {commit.sha}\n  message: {commit.message}\n  author: {commit.author}\n  date: {commit.committed_at.isoformat()}"
+            f"- sha: {commit.sha}\n"
+            f"  message: {commit.message}\n"
+            f"  author: {commit.author}\n"
+            f"  date: {commit.committed_at.isoformat()}"
             for commit in commits
         )
         file_context = "\n".join(
-            f"  files:\n"
+            "  files:\n"
             + "\n".join(
-                f"    - {file.filename} ({file.status}, +{file.additions}/-{file.deletions})\n      patch: {(file.patch or '')[:800]}"
+                f"    - {file.filename} ({file.status}, +{file.additions}/-{file.deletions})\n"
+                f"      patch: {(file.patch or '')[:800]}"
                 for file in commit.files
             )
             for commit in commits
@@ -81,7 +90,9 @@ class LlmService:
                             "아래 GitHub 커밋 활동을 분석해서 개발 블로그 초안을 작성해줘. "
                             "제목, 요약, Markdown 본문을 만들고, SNS 피드에 어울리게 첫 문단은 짧고 강하게 써줘. "
                             "기술적 의사결정, 변경 파일 근거, 다음 단계를 포함해줘.\n\n"
-                            f"repository: {repository_full_name}\nbranch: {branch}\ncommits:\n{commit_context}\n{file_context}"
+                            f"repository: {repository_full_name}\n"
+                            f"branch: {branch}\n"
+                            f"commits:\n{commit_context}\n{file_context}"
                         ),
                     }
                 ],

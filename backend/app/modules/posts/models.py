@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import StrEnum
 
 from sqlmodel import Field, SQLModel
@@ -7,7 +7,7 @@ from app.modules.posts.constants import DEFAULT_AUTHOR, DEFAULT_HERO_EMOJI, DEFA
 
 
 def utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class PostStatus(StrEnum):

@@ -24,6 +24,8 @@ Each commit should include the files needed to validate that one concern.
 ## Release Gates
 
 ```bash
+cd backend && uv run ruff check .
+cd backend && uv run ruff format --check .
 cd backend && uv run pytest
 cd backend && uv run alembic upgrade head
 cd frontend && npm run build

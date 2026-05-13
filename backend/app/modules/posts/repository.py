@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import HTTPException
 from sqlmodel import Session, select
@@ -32,25 +32,25 @@ class PostRepository:
         updates = payload.model_dump(exclude_unset=True)
         for key, value in updates.items():
             setattr(post, key, value)
-        post.updated_at = datetime.now(timezone.utc)
+        post.updated_at = datetime.now(UTC)
         return self._save(post)
 
     def publish(self, post_id: int) -> BlogPost:
         post = self._get(post_id)
         post.status = PostStatus.published
-        post.updated_at = datetime.now(timezone.utc)
+        post.updated_at = datetime.now(UTC)
         return self._save(post)
 
     def like(self, post_id: int) -> BlogPost:
         post = self._get(post_id)
         post.likes += 1
-        post.updated_at = datetime.now(timezone.utc)
+        post.updated_at = datetime.now(UTC)
         return self._save(post)
 
     def add_comment(self, post_id: int) -> BlogPost:
         post = self._get(post_id)
         post.comments += 1
-        post.updated_at = datetime.now(timezone.utc)
+        post.updated_at = datetime.now(UTC)
         return self._save(post)
 
     def analytics(self) -> PostAnalytics:

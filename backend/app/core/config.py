@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -19,6 +20,14 @@ class Settings(BaseSettings):
     anthropic_model: str = "claude-opus-4-7"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+    @field_validator("cors_origins")
+    @classmethod
+    def validate_cors_origins(cls, value: str) -> str:
+        origins = [origin.strip() for origin in value.split(",") if origin.strip()]
+        if "*" in origins:
+            raise ValueError("CORS_ORIGINS cannot include '*' because credentialed session cookies are enabled")
+        return value
 
     @property
     def cors_origin_list(self) -> list[str]:

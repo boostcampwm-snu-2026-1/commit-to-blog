@@ -31,6 +31,8 @@ curl http://localhost:8000/docs
 ## Verification
 
 ```bash
+cd backend && uv run ruff check .
+cd backend && uv run ruff format --check .
 cd backend && uv run pytest
 cd backend && uv run alembic upgrade head
 cd backend && uv run sh scripts/verify_staging_migration.sh
@@ -44,7 +46,7 @@ CI runs the same gates in `.github/workflows/ci.yml`: backend tests, staging-sty
 ## Incident Checklist
 
 - Check `/health` before debugging frontend symptoms.
-- Confirm `CORS_ORIGINS` includes the frontend origin.
+- Confirm `CORS_ORIGINS` includes the frontend origin. Do not use `*` because session cookies require credentialed CORS.
 - If GitHub calls fail, verify token scopes and the `X-GitHub-Api-Version` value in `backend/app/modules/github/service.py`.
 - If Claude calls fail, verify `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, and request shape in `backend/app/modules/drafts/service.py`.
 - If local data looks stale, remove only ignored local scratch DB files; never reset tracked files.

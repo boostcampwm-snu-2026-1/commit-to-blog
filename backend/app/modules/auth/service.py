@@ -6,7 +6,6 @@ from app.core.config import Settings
 from app.modules.auth.schemas import CurrentUser
 from app.utils.http_retry import request_with_retries
 
-
 MOCK_USER = CurrentUser(
     id=1,
     login="mock-octocat",
