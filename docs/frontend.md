@@ -23,11 +23,10 @@ npx playwright test --project=chrome
 
 ```text
 frontend/
-  app/          Next.js routes and global styles
-  components/   reusable UI and workflow components
-  hooks/        client-side data/state hooks
-  lib/          backend API client and shared types
-  e2e/          Playwright Chrome flow tests
+  src/app/          Next.js routes and global styles
+  src/features/     feature-specific UI and hooks
+  src/shared/       shared API client and reusable components
+  e2e/              Playwright Chrome flow tests
 ```
 
 ## Product Design Rules

@@ -38,6 +38,7 @@ Backend:
 ```bash
 cd backend
 uv sync --extra test
+uv run alembic upgrade head
 uv run pytest
 uv run uvicorn app.main:app --reload
 ```

@@ -27,11 +27,11 @@ http://localhost:8000/docs
 
 ```text
 backend/app/
-  api/        HTTP route modules
-  services/   external API and business workflow services
-  models.py   SQLModel tables and request/response models
-  database.py engine/session lifecycle
-  config.py   environment settings
+  core/       configuration, logging, security helpers
+  db/         engine/session lifecycle
+  api/v1/     versioned API router hub
+  modules/    domain modules with router/model/schema/service/repository files
+  utils/      shared utilities
 ```
 
 ## Maintenance Rules
@@ -46,6 +46,7 @@ backend/app/
 
 ```bash
 cd backend
+uv run alembic upgrade head
 uv run pytest
 ```
 

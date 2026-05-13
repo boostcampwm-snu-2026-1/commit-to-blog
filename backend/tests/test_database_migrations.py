@@ -1,7 +1,7 @@
 from sqlmodel import Session, create_engine, text
 
-from app.database import init_db
-from app.models import BlogPost
+from app.modules.posts.models import BlogPost
+from app.utils.schema_compat import ensure_blogpost_columns
 
 
 def test_init_db_adds_missing_blogpost_columns_to_legacy_schema(tmp_path) -> None:
@@ -34,7 +34,7 @@ def test_init_db_adds_missing_blogpost_columns_to_legacy_schema(tmp_path) -> Non
             )
         )
 
-    init_db(engine)
+    ensure_blogpost_columns(engine)
 
     with Session(engine) as session:
         post = session.get(BlogPost, 1)

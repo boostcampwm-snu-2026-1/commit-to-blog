@@ -24,6 +24,7 @@ Each commit should include the files needed to validate that one concern.
 
 ```bash
 cd backend && uv run pytest
+cd backend && uv run alembic upgrade head
 cd frontend && npm run build
 cd frontend && npx playwright test --project=chrome
 docker compose config --quiet
@@ -32,5 +33,5 @@ docker compose config --quiet
 ## Known Tradeoffs
 
 - PostgreSQL is the production target, while tests use SQLite for speed.
-- Alembic is not yet introduced; startup currently performs additive compatibility migrations for existing `blogpost` columns. Move to Alembic before the first shared staging database.
+- Alembic owns database migrations. Keep new schema changes in `backend/alembic/versions/`.
 - Mock LLM output is deterministic so E2E tests are stable.

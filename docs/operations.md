@@ -19,6 +19,8 @@ Production should provide these secrets through the deployment platform secret s
 docker compose up --build
 ```
 
+The backend container runs `backend/scripts/run_migrations.sh` before starting Uvicorn.
+
 Health checks:
 
 ```bash
@@ -30,6 +32,7 @@ curl http://localhost:8000/docs
 
 ```bash
 cd backend && uv run pytest
+cd backend && uv run alembic upgrade head
 cd frontend && npm run build
 cd frontend && npx playwright test --project=chrome
 docker compose config --quiet

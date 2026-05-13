@@ -37,7 +37,7 @@ Commitgram turns engineering activity into publishable development posts. The co
    - Webhook-based CMS publishing
 
 4. Reliability and operations
-   - Alembic migrations
+   - migration review workflow
    - structured JSON logging
    - background generation queue
    - API rate-limit handling and retry policy
