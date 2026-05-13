@@ -8,8 +8,8 @@ from sqlmodel.pool import StaticPool
 from app.core.config import Settings, get_settings
 from app.db.session import get_session
 from app.main import app
+from app.modules.auth.repository import AuthSessionRepository
 from app.modules.auth.schemas import CurrentUser
-from app.modules.auth.session import create_session_token
 
 
 def test_cors_config_rejects_wildcard_origin() -> None:
@@ -34,14 +34,25 @@ def client_fixture() -> Generator[TestClient, None, None]:
     get_settings.cache_clear()
     with TestClient(app) as client:
         settings = get_settings()
-        user = CurrentUser(id=1, login="mock-octocat", name="Mock Octocat", github_access_token="mock_token")
-        client.cookies.set(settings.session_cookie_name, create_session_token(user, settings))
+        with Session(engine) as session:
+            user = CurrentUser(
+                id=1,
+                login="mock-octocat",
+                name="Mock Octocat",
+                organizations=["octo"],
+                github_access_token="mock_token",
+            )
+            session_id, _ = AuthSessionRepository(session).create(user, settings)
+        client.cookies.set(settings.session_cookie_name, session_id)
         yield client
     app.dependency_overrides.clear()
 
 
 def test_health_and_swagger(client: TestClient) -> None:
-    assert client.get("/health").json() == {"status": "ok"}
+    health = client.get("/health")
+    assert health.json() == {"status": "ok", "service": "commit-to-blog-api"}
+    assert health.headers["x-request-id"]
+    assert client.get("/ready").json() == {"status": "ready"}
     docs = client.get("/docs")
     assert docs.status_code == 200
     assert "swagger" in docs.text.lower()

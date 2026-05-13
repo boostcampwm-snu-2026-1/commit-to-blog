@@ -1,4 +1,6 @@
-from sqlmodel import SQLModel
+from sqlmodel import Field, SQLModel
+
+from app.modules.auth.models import UserRole
 
 
 class CurrentUser(SQLModel):
@@ -6,6 +8,8 @@ class CurrentUser(SQLModel):
     login: str
     name: str | None = None
     avatar_url: str | None = None
+    role: UserRole = UserRole.user
+    organizations: list[str] = Field(default_factory=list)
     github_access_token: str | None = None
 
 
