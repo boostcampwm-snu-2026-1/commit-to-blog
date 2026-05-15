@@ -1,0 +1,503 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+
+:root {
+  color-scheme: light;
+  --bg: #f5efe5;
+  --bg-accent: #f3d6a4;
+  --surface: rgba(255, 251, 246, 0.88);
+  --surface-strong: #fffdf9;
+  --text: #211710;
+  --text-muted: #69574a;
+  --line: rgba(76, 51, 29, 0.12);
+  --brand: #ba4d22;
+  --brand-dark: #863417;
+  --brand-soft: rgba(186, 77, 34, 0.12);
+  --green: #206047;
+  --green-soft: rgba(32, 96, 71, 0.12);
+  --shadow: 0 24px 60px rgba(78, 49, 23, 0.12);
+  font-family: "Noto Sans KR", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 206, 132, 0.55), transparent 24rem),
+    radial-gradient(circle at top right, rgba(102, 174, 157, 0.18), transparent 22rem),
+    linear-gradient(180deg, #fff8ef 0%, #f4ede2 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+
+.app-shell__sidebar,
+.app-shell__main {
+  min-width: 0;
+}
+
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  animation: rise-in 0.45s ease;
+}
+
+.app-shell__sidebar {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 1.5rem;
+  height: calc(100vh - 3rem);
+}
+
+.app-shell__sidebar h1,
+.page-hero h2,
+.panel h3,
+.post-card h3 {
+  font-family: "Space Grotesk", "Noto Sans KR", sans-serif;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.hero-copy,
+.sidebar-note p,
+.sidebar-note li,
+.page-hero p,
+.panel__body-copy,
+.placeholder-text {
+  color: var(--text-muted);
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--brand);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.mode-pill-group,
+.hero-meta-row,
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.mode-pill,
+.muted-chip,
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.88rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.mode-pill strong {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.mode-pill--live {
+  background: rgba(42, 113, 83, 0.1);
+  color: var(--green);
+}
+
+.mode-pill--demo {
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+}
+
+.main-nav {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.main-nav__link {
+  text-decoration: none;
+  border-radius: 18px;
+  padding: 0.95rem 1rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid transparent;
+  font-weight: 600;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.main-nav__link:hover,
+.main-nav__link--active {
+  transform: translateY(-1px);
+  border-color: rgba(186, 77, 34, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.sidebar-note {
+  margin-top: auto;
+  padding: 1rem 1.1rem;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 236, 222, 0.82));
+}
+
+.sidebar-note h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.sidebar-note ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.app-shell__main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-hero,
+.panel {
+  padding: 1.5rem;
+}
+
+.inline-note {
+  margin-top: 1rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(250, 240, 226, 0.9));
+  border: 1px solid rgba(186, 77, 34, 0.12);
+  color: var(--text-muted);
+}
+
+.form-grid,
+.editor-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.panel--accent {
+  background: linear-gradient(135deg, rgba(255, 249, 240, 0.96), rgba(255, 234, 204, 0.85));
+}
+
+.panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.field span {
+  font-weight: 700;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(76, 51, 29, 0.16);
+  background: rgba(255, 255, 255, 0.94);
+  padding: 0.9rem 1rem;
+  color: var(--text);
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: 2px solid rgba(186, 77, 34, 0.16);
+  border-color: rgba(186, 77, 34, 0.4);
+}
+
+.repository-summary,
+.meta-grid,
+.source-commit-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.repository-summary p,
+.post-card p,
+.source-commit-card p {
+  margin: 0.35rem 0;
+  color: var(--text-muted);
+}
+
+.commit-list,
+.post-grid,
+.source-commit-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.commit-card,
+.source-commit-card {
+  text-align: left;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(76, 51, 29, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.commit-card:hover,
+.post-card:hover,
+.source-commit-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(186, 77, 34, 0.24);
+  box-shadow: 0 12px 32px rgba(68, 41, 19, 0.1);
+}
+
+.commit-card--selected {
+  border-color: rgba(186, 77, 34, 0.42);
+  background: linear-gradient(180deg, rgba(255, 250, 244, 0.98), rgba(255, 236, 206, 0.86));
+}
+
+.commit-card__topline,
+.post-card__topline,
+.post-card__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+.commit-card__sha {
+  font-family: "Space Grotesk", monospace;
+  font-weight: 700;
+  color: var(--brand-dark);
+}
+
+.primary-button,
+.secondary-button {
+  border-radius: 999px;
+  padding: 0.95rem 1.25rem;
+  font-weight: 700;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, var(--brand), #d36b3f);
+  color: white;
+}
+
+.secondary-button {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(76, 51, 29, 0.16);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.post-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.post-card {
+  text-align: left;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 244, 238, 0.96));
+  padding: 1.15rem;
+  box-shadow: 0 18px 48px rgba(38, 26, 17, 0.08);
+}
+
+.post-card h3 {
+  margin: 0.9rem 0 0.5rem;
+}
+
+.post-card__footer {
+  margin-top: 1rem;
+}
+
+.status-badge--draft {
+  color: var(--brand-dark);
+  background: var(--brand-soft);
+}
+
+.status-badge--published {
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+.editor-textarea {
+  min-height: 380px;
+}
+
+.markdown-preview {
+  min-height: 420px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  padding: 1.2rem;
+  overflow: auto;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3 {
+  font-family: "Space Grotesk", "Noto Sans KR", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.markdown-preview pre,
+.markdown-preview code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+.markdown-preview pre {
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 18px;
+  background: #f3eadc;
+}
+
+.source-commit-card {
+  text-decoration: none;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.meta-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.error-message,
+.success-message {
+  margin: 0.9rem 0 0;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+}
+
+.error-message {
+  background: rgba(146, 46, 22, 0.1);
+  color: #8f2d13;
+}
+
+.success-message {
+  background: rgba(32, 96, 71, 0.11);
+  color: var(--green);
+}
+
+.placeholder-text {
+  margin: 0;
+}
+
+@media (max-width: 1080px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell__sidebar {
+    position: static;
+    height: auto;
+  }
+}
+
+@media (max-width: 860px) {
+  .form-grid,
+  .editor-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 1rem;
+  }
+
+  .page-hero,
+  .panel,
+  .app-shell__sidebar {
+    padding: 1.1rem;
+    border-radius: 24px;
+  }
+}
