@@ -7,21 +7,21 @@
 - [x] `app/layout.tsx` — 전역 레이아웃 (Header, Footer, QueryClientProvider)
 
 ### Supabase 프로젝트 설정 (사용자 직접 수행)
-- [ ] Supabase 프로젝트 생성 후 `SUPABASE_URL`, `SUPABASE_ANON_KEY` 확보
-- [ ] Supabase Auth → GitHub OAuth Provider 활성화 및 Client ID/Secret 등록
-- [ ] `posts` 테이블 스키마 생성 (id, user_id, repo, branch, commit_hash, content, created_at)
-- [ ] RLS(Row Level Security) 정책 설정 — 본인 포스트만 읽기·수정 가능
+- [x] Supabase 프로젝트 생성 후 `SUPABASE_URL`, `SUPABASE_ANON_KEY` 확보
+- [x] Supabase Auth → GitHub OAuth Provider 활성화 및 Client ID/Secret 등록
+- [x] `posts` 테이블 스키마 생성 (id, user_id, repo, branch, commit_hash, content, created_at)
+- [x] RLS(Row Level Security) 정책 설정 — 본인 포스트만 읽기·수정 가능
 
 ### Express 서버 초기화
-- [ ] `server/index.ts` — Express 앱 진입점, CORS·JSON 미들웨어 설정 (High)
-- [ ] `server/.env` 및 `.env.example` — `GITHUB_TOKEN`, `LLM_API_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY` 구성, `.gitignore` 등록 확인 (High)
-- [ ] `server/routes/github.ts` — GitHub API 프록시 라우트 기본 틀 (High)
-- [ ] `server/routes/ai.ts` — LLM API 프록시 라우트 기본 틀 (High)
-- [ ] `server/routes/posts.ts` — 포스트 CRUD 라우트 기본 틀 (Supabase DB 연동)
+- [x] `server/index.ts` — Express 앱 진입점, CORS·JSON 미들웨어 설정 (High)
+- [x] `server/.env` 및 `.env.example` — `GITHUB_TOKEN`, `LLM_API_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY` 구성, `.gitignore` 등록 확인 (High)
+- [x] `server/routes/github.ts` — GitHub API 프록시 라우트 기본 틀 (High)
+- [x] `server/routes/ai.ts` — LLM API 프록시 라우트 기본 틀 (High)
+- [x] `server/routes/posts.ts` — 포스트 CRUD 라우트 기본 틀 (Supabase DB 연동)
 
 ### Supabase 클라이언트 & 인증
-- [ ] `lib/supabase.ts` — `createClient()` 싱글턴 생성 (High)
-- [ ] `stores/useAuthStore.ts` — `supabase.auth.getSession()` 구독, user/session 저장 (High)
+- [x] `lib/supabase.ts` — `createClient()` 싱글턴 생성 (High)
+- [x] `stores/useAuthStore.ts` — `supabase.auth.getSession()` 구독, user/session 저장 (High)
 
 ### Zustand 스토어
 - [ ] `stores/useCommitStore.ts` — selectedRepo/Branch/Commit, generatedSummary, isSummaryStreaming (High)
