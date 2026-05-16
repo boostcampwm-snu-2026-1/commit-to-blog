@@ -37,8 +37,8 @@ Workflow rule for Codex:
 
 - For every Codex task, summarize the changes before any commit.
 - If the user asks to commit, run the repo-local `pre-commit-review` skill before committing.
-- Share the pre-commit review report before asking for final commit approval.
-- Ask the user whether to commit after sharing the summary.
-- Commit only after the user explicitly approves it.
-- Once approved, create the commit immediately using the required format in this file.
+- Share the pre-commit review report before committing.
+- If the review passes and the user already asked to commit, commit automatically without asking again.
+- If the review does not pass, report the issues and do not commit until they are resolved.
+- If the user has not asked to commit yet, only summarize the changes and wait.
 - Determine the next feature list number incrementally from previous commit logs when possible, instead of asking the user each time.

@@ -18,7 +18,8 @@ Always run this skill automatically when the user asks to commit.
 5. Report the result before commit.
 6. If the code can be improved immediately, improve it first.
 7. Re-check the updated diff and adjust the score.
-8. Continue to the existing commit approval flow only after the review report is shared.
+8. If the user already asked to commit and the review passes, continue directly to commit after sharing the report.
+9. If the review does not pass, stop and report the blocking issues instead of committing.
 
 ## Review Focus
 
@@ -63,8 +64,9 @@ If no code improvement was needed, say `Improvements made: none`.
 ## Commit Rule
 
 - Do not commit before sharing the review report.
-- After the review report, return to the repository's normal commit workflow in `AGENTS.md`.
-- If the user approves the commit, keep using the required commit title and body format from `AGENTS.md`.
+- If the user already asked to commit and the review passes, commit automatically after reporting the result.
+- If the review does not pass, do not commit.
+- Keep using the required commit title and body format from `AGENTS.md`.
 
 ## Notes
 
