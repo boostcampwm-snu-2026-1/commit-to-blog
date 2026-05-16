@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "biome lint .",
+    "check:types": "tsc",
+    "check:format": "biome check .",
+    "check-all": "pnpm check:types && pnpm check:format"
   },
   "dependencies": {
     "react": "^19.2.6",
@@ -19,7 +21,6 @@
     "@eslint/js": "^10.0.1",
     "@rolldown/plugin-babel": "^0.2.3",
     "@types/babel__core": "^7.20.5",
-    "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
