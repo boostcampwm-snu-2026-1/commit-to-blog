@@ -18,7 +18,8 @@
     "lineEnding": "lf",
     "lineWidth": 80,
     "attributePosition": "auto",
-    "bracketSpacing": true
+    "bracketSpacing": true,
+    "trailingNewline": true
   },
   "assist": {
     "enabled": true,
@@ -64,9 +65,16 @@
       "complexity": {
         "noExtraBooleanCast": "error",
         "noUselessCatch": "error",
-        "noUselessTypeConstraint": "error"
+        "noUselessTypeConstraint": "error",
+        "useArrowFunction": "error"
       },
       "suspicious": {
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["assert", "error", "info", "warn", "debug", "trace", "dir", "table", "group", "groupEnd", "time", "timeEnd", "count", "countReset"]
+          }
+        },
         "noAsyncPromiseExecutor": "error",
         "noCatchAssign": "error",
         "noClassAssign": "off",
@@ -102,7 +110,8 @@
         "useAsConstAssertion": "error",
         "useConst": "error",
         "noParameterAssign": "error",
-        "useBlockStatements": "error"
+        "useBlockStatements": "error",
+        "noDefaultExport": "error"
       },
       "nursery": {
         "useSortedClasses": "error"
