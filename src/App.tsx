@@ -1,3 +1,5 @@
+import { RouteProvider } from './shared/route-provider';
+
 export const App = () => {
-  return <div>Hello World!</div>;
+  return <RouteProvider />;
 };
