@@ -1,0 +1,42 @@
+# Commit Message Rule
+
+Allowed commit types:
+
+- `feat`
+- `fix`
+- `chore`
+- `docs`
+
+Every commit message must include:
+
+- The feature list number in the title
+- A `Confirmed:` line in the body
+- An `Unclear at first:` line in the body
+
+Use the following commit title format:
+
+```text
+feat: #3 뉴스 카드 컴포넌트
+```
+
+Write the commit body in English using this format:
+
+```text
+Confirmed: Checked the component layout and decided to further split components because the structure was complex.
+Unclear at first: Confirmed why `useCallback` was used.
+```
+
+Guidelines:
+
+- Include the feature list number as `#<number>` in every commit title.
+- Start confirmed items with `Confirmed:`.
+- Start things that were unclear at first but later understood with `Unclear at first:`.
+- Keep each line short, direct, and written in natural English.
+
+Workflow rule for Codex:
+
+- For every Codex task, summarize the changes before any commit.
+- Ask the user whether to commit after sharing the summary.
+- Commit only after the user explicitly approves it.
+- Once approved, create the commit immediately using the required format in this file.
+- Determine the next feature list number incrementally from previous commit logs when possible, instead of asking the user each time.
