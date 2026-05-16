@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-surface: #fffefc;
+  --color-border: #cbcbcb;
+  --color-border-light: #d9d9d9;
+  --color-muted: #656565;
+  --color-placeholder: #b79d9d;
+
+  /* GitHub contribution heatmap */
+  --color-contribution-0: #eeece6;
+  --color-contribution-1: #eccfbf;
+  --color-contribution-2: #bf8b75;
+  --color-contribution-3: #a16558;
+  --color-contribution-4: #613e30;
+
+  /* Font families */
+  --font-pretendard: 'Pretendard', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  /* 13px: Tailwind 기본값에 없어서 별도 정의 */
+  --text-2xs: 13px;
+
+  /* Layout */
+  --spacing-page-x: 54px;
+  --spacing-header: 80px;
+}
