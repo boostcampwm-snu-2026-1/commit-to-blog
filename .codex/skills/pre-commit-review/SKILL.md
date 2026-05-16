@@ -66,6 +66,7 @@ If no code improvement was needed, say `Improvements made: none`.
 - Do not commit before sharing the review report.
 - If the user already asked to commit and the review passes, commit automatically after reporting the result.
 - If the review does not pass, do not commit.
+- Stage changes with `git add -A` before the final commit command.
 - Keep using the required commit title and body format from `AGENTS.md`.
 
 ## Notes
