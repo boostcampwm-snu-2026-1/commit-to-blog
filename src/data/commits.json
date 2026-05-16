@@ -1,0 +1,2312 @@
+{
+  "2026-02-26": {
+    "date": "2026-02-26",
+    "totalCount": 2,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-07-07": {
+    "date": "2025-07-07",
+    "totalCount": 2,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-03": {
+    "date": "2025-09-03",
+    "totalCount": 7,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-08-02": {
+    "date": "2025-08-02",
+    "totalCount": 2,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-10-16": {
+    "date": "2025-10-16",
+    "totalCount": 3,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-22": {
+    "date": "2026-04-22",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-13": {
+    "date": "2026-02-13",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-24": {
+    "date": "2026-04-24",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-06-12": {
+    "date": "2025-06-12",
+    "totalCount": 3,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-11-15": {
+    "date": "2025-11-15",
+    "totalCount": 10,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          },
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          },
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-01": {
+    "date": "2026-02-01",
+    "totalCount": 2,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-03": {
+    "date": "2026-02-03",
+    "totalCount": 6,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          },
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          },
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-11-16": {
+    "date": "2025-11-16",
+    "totalCount": 8,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-06-11": {
+    "date": "2025-06-11",
+    "totalCount": 5,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-10": {
+    "date": "2026-04-10",
+    "totalCount": 9,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-12": {
+    "date": "2025-09-12",
+    "totalCount": 3,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-18": {
+    "date": "2025-09-18",
+    "totalCount": 3,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-12-24": {
+    "date": "2025-12-24",
+    "totalCount": 8,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-10-15": {
+    "date": "2025-10-15",
+    "totalCount": 10,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          },
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-02": {
+    "date": "2026-04-02",
+    "totalCount": 6,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-14": {
+    "date": "2026-04-14",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-11-05": {
+    "date": "2025-11-05",
+    "totalCount": 3,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-12": {
+    "date": "2026-04-12",
+    "totalCount": 3,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-06-15": {
+    "date": "2025-06-15",
+    "totalCount": 1,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-17": {
+    "date": "2025-09-17",
+    "totalCount": 5,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-24": {
+    "date": "2025-09-24",
+    "totalCount": 5,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          },
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-10-24": {
+    "date": "2025-10-24",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-09": {
+    "date": "2026-02-09",
+    "totalCount": 10,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          },
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          },
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-25": {
+    "date": "2026-02-25",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-03-24": {
+    "date": "2026-03-24",
+    "totalCount": 6,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-11-17": {
+    "date": "2025-11-17",
+    "totalCount": 5,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-07-08": {
+    "date": "2025-07-08",
+    "totalCount": 1,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-08-01": {
+    "date": "2025-08-01",
+    "totalCount": 2,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-11-06": {
+    "date": "2025-11-06",
+    "totalCount": 2,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-01-26": {
+    "date": "2026-01-26",
+    "totalCount": 2,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-11": {
+    "date": "2025-09-11",
+    "totalCount": 1,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-28": {
+    "date": "2026-02-28",
+    "totalCount": 1,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-01-09": {
+    "date": "2026-01-09",
+    "totalCount": 6,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-21": {
+    "date": "2026-02-21",
+    "totalCount": 6,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-11": {
+    "date": "2026-04-11",
+    "totalCount": 7,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-10-09": {
+    "date": "2025-10-09",
+    "totalCount": 2,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-10-23": {
+    "date": "2025-10-23",
+    "totalCount": 1,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-12-09": {
+    "date": "2025-12-09",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-06": {
+    "date": "2026-04-06",
+    "totalCount": 6,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-01": {
+    "date": "2025-09-01",
+    "totalCount": 6,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-05-20": {
+    "date": "2025-05-20",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-06-05": {
+    "date": "2025-06-05",
+    "totalCount": 5,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          },
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          },
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-01-27": {
+    "date": "2026-01-27",
+    "totalCount": 10,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-11-28": {
+    "date": "2025-11-28",
+    "totalCount": 2,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-05-14": {
+    "date": "2026-05-14",
+    "totalCount": 5,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-02-20": {
+    "date": "2026-02-20",
+    "totalCount": 4,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-08-04": {
+    "date": "2025-08-04",
+    "totalCount": 1,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-01-28": {
+    "date": "2026-01-28",
+    "totalCount": 10,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-12-15": {
+    "date": "2025-12-15",
+    "totalCount": 5,
+    "summary": [
+      "인턴하샤 프로젝트의 필터 UI를 개선하고 모바일 레이아웃 버그를 수정했어요.",
+      "스켈레톤 UI를 전역으로 적용해 로딩 UX를 개선했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-10-29": {
+    "date": "2025-10-29",
+    "totalCount": 5,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          },
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-02": {
+    "date": "2025-09-02",
+    "totalCount": 4,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-06-10": {
+    "date": "2025-06-10",
+    "totalCount": 8,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-05-15": {
+    "date": "2026-05-15",
+    "totalCount": 8,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          },
+          {
+            "message": "feat: 온보딩 자동화 스크립트 초안 작성",
+            "url": "https://github.com/sample/waffle-world/commit/f6g7h8",
+            "sha": "f6g7h8"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "feat: ONNX 동적 shape 설정 수정",
+            "url": "https://github.com/sample/img-compression/commit/m3n4o5",
+            "sha": "m3n4o5"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-09-25": {
+    "date": "2025-09-25",
+    "totalCount": 1,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-08-27": {
+    "date": "2025-08-27",
+    "totalCount": 4,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-12-19": {
+    "date": "2025-12-19",
+    "totalCount": 10,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          },
+          {
+            "message": "chore: Biome lint 설정 추가",
+            "url": "https://github.com/sample/internhasha/commit/e5f6g7",
+            "sha": "e5f6g7"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          },
+          {
+            "message": "feat: Register Token 인코더 중간 레이어 삽입 실험",
+            "url": "https://github.com/sample/img-compression/commit/k1l2m3",
+            "sha": "k1l2m3"
+          },
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "chore: GitHub Actions 워크플로우 권한 수정",
+            "url": "https://github.com/sample/waffle-world/commit/j0k1l2",
+            "sha": "j0k1l2"
+          },
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          },
+          {
+            "message": "feat: Terraform IAM 모듈 추가",
+            "url": "https://github.com/sample/waffle-world/commit/h8i9j0",
+            "sha": "h8i9j0"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-12-04": {
+    "date": "2025-12-04",
+    "totalCount": 8,
+    "summary": [
+      "인턴하샤와 이미지 압축 프로젝트를 병행 작업했어요.",
+      "코드 리팩토링과 실험 로그 정리를 완료했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "fix: OIDC trust policy 조건식 수정",
+            "url": "https://github.com/sample/waffle-world/commit/g7h8i9",
+            "sha": "g7h8i9"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      },
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "fix: 체크포인트 재개 시 optimizer state_dict 누락 수정",
+            "url": "https://github.com/sample/img-compression/commit/l2m3n4",
+            "sha": "l2m3n4"
+          }
+        ]
+      }
+    ]
+  },
+  "2025-07-28": {
+    "date": "2025-07-28",
+    "totalCount": 8,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "image-compression",
+        "commits": [
+          {
+            "message": "exp: Ablation study - random vector baseline 추가",
+            "url": "https://github.com/sample/img-compression/commit/n4o5p6",
+            "sha": "n4o5p6"
+          },
+          {
+            "message": "docs: BD-Rate 실험 결과 정리",
+            "url": "https://github.com/sample/img-compression/commit/o5p6q7",
+            "sha": "o5p6q7"
+          }
+        ]
+      },
+      {
+        "projectId": "waffle-world",
+        "commits": [
+          {
+            "message": "docs: ArgoCD 배포 가이드 업데이트",
+            "url": "https://github.com/sample/waffle-world/commit/i9j0k1",
+            "sha": "i9j0k1"
+          }
+        ]
+      },
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "fix: 모바일 카드 그리드 레이아웃 수정",
+            "url": "https://github.com/sample/internhasha/commit/b2c3d4",
+            "sha": "b2c3d4"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "feat: 슬라이딩 필터 패널 컴포넌트 구현",
+            "url": "https://github.com/sample/internhasha/commit/a1b2c3",
+            "sha": "a1b2c3"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-01-13": {
+    "date": "2026-01-13",
+    "totalCount": 2,
+    "summary": [
+      "이미지 압축 모델의 Register Token 삽입 위치 실험을 진행했어요.",
+      "체크포인트 재개 버그를 수정하고 ONNX 변환 이슈를 해결했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          },
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-04-30": {
+    "date": "2026-04-30",
+    "totalCount": 1,
+    "summary": [
+      "Waffle World 온보딩 자동화 스크립트를 작성하고 OIDC 인증 오류를 수정했어요.",
+      "Terraform IAM 모듈을 추가해 클라우드 리소스 관리를 자동화했어요."
+    ],
+    "projects": [
+      {
+        "projectId": "internhasha",
+        "commits": [
+          {
+            "message": "refactor: 필터 상태 관리 Zustand로 마이그레이션",
+            "url": "https://github.com/sample/internhasha/commit/c3d4e5",
+            "sha": "c3d4e5"
+          },
+          {
+            "message": "feat: 스켈레톤 UI 전역 적용",
+            "url": "https://github.com/sample/internhasha/commit/d4e5f6",
+            "sha": "d4e5f6"
+          }
+        ]
+      }
+    ]
+  }
+}

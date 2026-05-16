@@ -1,0 +1,112 @@
+{
+  "posts": [
+    {
+      "id": "post-001",
+      "title": "React Fiber 아키텍처 톺아보기",
+      "date": "2026.04.20",
+      "description": "React의 렌더링 엔진인 Fiber가 어떻게 동작하는지 내부 구조를 분석했어요.",
+      "thumbnail": "/images/blog/react-fiber.png",
+      "url": "https://velog.io/@Yeonu-Kim/react-fiber",
+      "categories": ["React", "JavaScript"]
+    },
+    {
+      "id": "post-002",
+      "title": "TanStack Query로 서버 상태 관리하기",
+      "date": "2026.03.15",
+      "description": "캐싱, 동기화, 백그라운드 업데이트까지 TanStack Query의 핵심 개념을 정리했어요.",
+      "thumbnail": "/images/blog/tanstack-query.png",
+      "url": "https://velog.io/@Yeonu-Kim/tanstack-query",
+      "categories": ["React", "TypeScript"]
+    },
+    {
+      "id": "post-003",
+      "title": "Tailwind CSS v4 변경사항 정리",
+      "date": "2026.02.28",
+      "description": "v3에서 v4로 마이그레이션하면서 달라진 점과 새로운 기능들을 정리했어요.",
+      "thumbnail": "/images/blog/tailwind-v4.png",
+      "url": "https://velog.io/@Yeonu-Kim/tailwind-v4",
+      "categories": ["CSS"]
+    },
+    {
+      "id": "post-004",
+      "title": "TypeScript 타입 시스템 깊게 이해하기",
+      "date": "2026.02.10",
+      "description": "제네릭, 조건부 타입, infer 키워드를 실전 예제로 풀어봤어요.",
+      "thumbnail": "/images/blog/typescript-type.png",
+      "url": "https://velog.io/@Yeonu-Kim/typescript-deep-dive",
+      "categories": ["TypeScript"]
+    },
+    {
+      "id": "post-005",
+      "title": "layout vs composite: 애니메이션 성능 최적화",
+      "date": "2026.01.22",
+      "description": "브라우저 렌더링 파이프라인 관점에서 애니메이션 성능을 분석하고 개선하는 방법을 다뤘어요.",
+      "thumbnail": "/images/blog/animation-perf.png",
+      "url": "https://velog.io/@Yeonu-Kim/animation-performance",
+      "categories": ["CSS", "JavaScript"]
+    },
+    {
+      "id": "post-006",
+      "title": "다익스트라 알고리즘 완전 정복",
+      "date": "2025.12.30",
+      "description": "최단 경로 알고리즘의 원리부터 우선순위 큐를 활용한 구현까지 정리했어요.",
+      "thumbnail": "/images/blog/dijkstra.png",
+      "url": "https://velog.io/@Yeonu-Kim/dijkstra",
+      "categories": ["알고리즘", "자료구조"]
+    },
+    {
+      "id": "post-007",
+      "title": "HTTP/2와 HTTP/3의 차이",
+      "date": "2025.12.05",
+      "description": "멀티플렉싱, QUIC 프로토콜 등 버전별 핵심 개념과 실질적인 성능 차이를 비교했어요.",
+      "thumbnail": "/images/blog/http.png",
+      "url": "https://velog.io/@Yeonu-Kim/http2-vs-http3",
+      "categories": ["CS", "네트워크"]
+    },
+    {
+      "id": "post-008",
+      "title": "DINOv2 Register Token 논문 리뷰",
+      "date": "2025.11.18",
+      "description": "Vision Transformer의 attention sink 현상을 해결하는 Register Token 방법론을 분석했어요.",
+      "thumbnail": "/images/blog/dinov2.png",
+      "url": "https://velog.io/@Yeonu-Kim/dinov2-register-token",
+      "categories": ["ML/AI", "논문리뷰"]
+    },
+    {
+      "id": "post-009",
+      "title": "Kubernetes 온보딩 자동화 삽질기",
+      "date": "2025.10.20",
+      "description": "ArgoCD, Istio, OIDC 트러스트 정책까지 — 자동화 파이프라인 구축 과정의 시행착오를 기록했어요.",
+      "thumbnail": "/images/blog/kubernetes.png",
+      "url": "https://velog.io/@Yeonu-Kim/kubernetes-onboarding",
+      "categories": ["인프라"]
+    },
+    {
+      "id": "post-010",
+      "title": "ONNX Runtime으로 Android 온디바이스 추론하기",
+      "date": "2025.09.14",
+      "description": "PyTorch 모델을 ONNX로 변환하고 Android에서 실시간 추론하는 과정을 정리했어요.",
+      "thumbnail": "/images/blog/onnx-android.png",
+      "url": "https://velog.io/@Yeonu-Kim/onnx-android",
+      "categories": ["Android", "ML/AI"]
+    },
+    {
+      "id": "post-011",
+      "title": "useLayoutEffect vs useEffect 언제 써야 할까",
+      "date": "2025.08.30",
+      "description": "두 훅의 실행 타이밍 차이를 브라우저 렌더링 흐름과 함께 명확히 정리했어요.",
+      "thumbnail": "/images/blog/use-layout-effect.png",
+      "url": "https://velog.io/@Yeonu-Kim/uselayouteffect-vs-useeffect",
+      "categories": ["React"]
+    },
+    {
+      "id": "post-012",
+      "title": "슬라이딩 윈도우 기법으로 부분 배열 문제 풀기",
+      "date": "2025.08.05",
+      "description": "O(n) 시간복잡도로 연속 부분 배열 문제를 해결하는 슬라이딩 윈도우 패턴을 정리했어요.",
+      "thumbnail": "/images/blog/sliding-window.png",
+      "url": "https://velog.io/@Yeonu-Kim/sliding-window",
+      "categories": ["알고리즘"]
+    }
+  ]
+}
