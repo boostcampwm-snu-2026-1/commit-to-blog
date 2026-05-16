@@ -72,7 +72,22 @@
         "noConsole": {
           "level": "error",
           "options": {
-            "allow": ["assert", "error", "info", "warn", "debug", "trace", "dir", "table", "group", "groupEnd", "time", "timeEnd", "count", "countReset"]
+            "allow": [
+              "assert",
+              "error",
+              "info",
+              "warn",
+              "debug",
+              "trace",
+              "dir",
+              "table",
+              "group",
+              "groupEnd",
+              "time",
+              "timeEnd",
+              "count",
+              "countReset"
+            ]
           }
         },
         "noAsyncPromiseExecutor": "error",
@@ -148,6 +163,18 @@
       "bracketSpacing": true
     }
   },
+  "overrides": [
+    {
+      "includes": ["vite.config.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ],
   "html": {
     "formatter": {
       "enabled": true,
