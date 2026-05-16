@@ -29,6 +29,7 @@ Use this document as the default coding rule for this project.
 
 - Keep components focused on one responsibility.
 - Split components when structure or behavior becomes hard to scan.
+- Separate a file or component when it becomes too long to understand comfortably in one pass.
 - Do not place too much business logic directly inside JSX.
 - Move reusable logic into helpers, feature modules, or dedicated functions.
 
@@ -92,6 +93,7 @@ const PREVIEW_CARD_MIN_HEIGHT = 240
 - Optimize for fast reading.
 - Avoid overly compact code.
 - Keep conditionals and branches easy to follow.
+- If one file grows too much, split it by responsibility instead of keeping everything in one place.
 - Add comments only when intent is not obvious from code.
 
 ## Practical Rule

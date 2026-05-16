@@ -36,6 +36,8 @@ Guidelines:
 Workflow rule for Codex:
 
 - For every Codex task, summarize the changes before any commit.
+- If the user asks to commit, run the repo-local `pre-commit-review` skill before committing.
+- Share the pre-commit review report before asking for final commit approval.
 - Ask the user whether to commit after sharing the summary.
 - Commit only after the user explicitly approves it.
 - Once approved, create the commit immediately using the required format in this file.
