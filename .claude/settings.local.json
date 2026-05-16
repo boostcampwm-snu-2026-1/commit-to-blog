@@ -4,7 +4,11 @@
       "Bash(mkdir -p \"c:\\\\Users\\\\pcy\\\\boostcamp\\\\commit-to-blog\\\\docs\")",
       "Bash(mkdir -p \"C:\\\\Users\\\\pcy\\\\.claude\\\\skills\\\\development-checklist-generator\")",
       "Bash(npm install *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "PowerShell(Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass)",
+      "PowerShell(Invoke-RestMethod -Uri \"http://localhost:4000/api/github/repos?q=commit-to-blog\" -Method GET)",
+      "PowerShell(Invoke-RestMethod -Uri \"http://localhost:4000/api/github/repos/snuzeus/commit-to-blog/branches\" -Method GET)",
+      "PowerShell(Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; Invoke-RestMethod -Uri \"http://localhost:4000/api/github/repos/snuzeus/commit-to-blog/commits?branch=main\" -Method GET | Select-Object -First 2 | Select-Object sha, @{N='message';E={$_.commit.message}} | ConvertTo-Json)"
     ],
     "additionalDirectories": [
       "c:\\Users\\pcy\\boostcamp\\commit-to-blog",

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; $sha = \"de7094f\"; $response = Invoke-RestMethod -Uri \"http://localhost:4000/api/github/repos/snuzeus/commit-to-blog/commits/$sha\" -Method GET; $response | Select-Object sha, @{N='msg';E={$_.commit.message.Substring\\(0, [Math]::Min\\(60, $_.commit.message.Length\\)\\)}}, @{N='has_files';E={$_.files.Count}} | ConvertTo-Json)"
+    ]
+  }
+}

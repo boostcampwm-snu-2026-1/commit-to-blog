@@ -37,11 +37,11 @@
 - [x] `components/Header.tsx` — 네비게이션 탭(My Blog / Saved Posts / Settings) + `bg-gray-950` 헤더
 
 ### API 연동 (Express 서버)
-- [ ] `server/routes/github.ts` — GitHub API 연동: 커밋 목록 (`GET /repos/:owner/:repo/commits`) (High)
-- [ ] `server/routes/github.ts` — GitHub API 연동: 커밋 상세·diff (`GET /repos/:owner/:repo/commits/:sha`) (High)
-- [ ] `server/routes/ai.ts` — LLM API 연동: 커밋 내용 + 프롬프트 → `POST /chat/completions` 스트리밍 요청 (High)
-- [ ] `server/routes/ai.ts` — LLM 스트리밍 응답을 React Client로 청크 단위 전달 (SSE 또는 chunked response)
-- [ ] API 키 노출 방지 검증 — `GITHUB_TOKEN`, `LLM_API_KEY`가 응답 페이로드에 포함되지 않는지 확인
+- [x] `server/routes/github.ts` — GitHub API 연동: 커밋 목록 (`GET /repos/:owner/:repo/commits`) (High)
+- [x] `server/routes/github.ts` — GitHub API 연동: 커밋 상세·diff (`GET /repos/:owner/:repo/commits/:sha`) (High)
+- [x] `server/routes/ai.ts` — LLM API 연동: 커밋 내용 + 프롬프트 → `POST /chat/completions` 스트리밍 요청 (High)
+- [x] `server/routes/ai.ts` — LLM 스트리밍 응답을 React Client로 청크 단위 전달 (SSE 또는 chunked response)
+- [x] API 키 노출 방지 검증 — `GITHUB_TOKEN`, `LLM_API_KEY`가 응답 페이로드에 포함되지 않는지 확인
 
 ### TanStack Query 훅 (React → Express 호출)
 - [ ] `hooks/useRepositories.ts` — queryKey `['repos', searchQuery]`, staleTime 5m, Express `/github/repos` 호출 (High)
