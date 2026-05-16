@@ -153,10 +153,10 @@ RepoSelector → BranchSelector → CommitList → [초안 생성] → MarkdownE
 
 ## 1주차 개발 체크리스트
 
-- [ ] `.gitignore` 작성 (`.env`, `node_modules` 등)
-- [ ] `client/` Vite + React 스캐폴드
-- [ ] `server/` Express 스캐폴드 + `.env.example`
-- [ ] Vite dev 프록시 설정 (`/api` → `localhost:3001`)
+- [x] `.gitignore` 작성 (`.env`, `node_modules` 등)
+- [x] `client/` Vite + React 스캐폴드
+- [x] `server/` Express 스캐폴드 + `.env.example`
+- [x] Vite dev 프록시 설정 (`/api` → `localhost:3001`)
 - [ ] `server/services/github.js` — Octokit 또는 fetch로 GitHub API 호출 + 정규화
 - [ ] `server/routes/github.js` — 4개 라우트 동작 확인 (Postman/curl)
 - [ ] `server/store/posts.js` + `server/routes/posts.js` — CRUD 동작 확인
