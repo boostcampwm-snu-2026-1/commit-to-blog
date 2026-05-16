@@ -29,12 +29,12 @@
 ## Phase 2: 기능 구현
 
 ### 공통 UI 컴포넌트
-- [ ] `components/ui/Button.tsx` — 로딩 상태(`aria-busy`, `Loader2`) 포함 버튼 컴포넌트
-- [ ] `components/ui/Badge.tsx` — 브랜치 뱃지 (main/feature/develop 컬러 분기)
-- [ ] `components/ui/Card.tsx` — 카드 통일값 적용 (`rounded-xl border p-5 shadow-sm`)
-- [ ] `components/ui/Skeleton.tsx` — CommitList(`h-16`×4) / AiSummaryBox(3줄) / PostCard(`h-40`+2줄) 프리셋
-- [ ] `components/ui/Toast.tsx` — 성공·에러 토스트 컴포넌트
-- [ ] `components/Header.tsx` — 네비게이션 탭(My Blog / Saved Posts / Settings) + `bg-gray-950` 헤더
+- [x] `components/ui/Button.tsx` — 로딩 상태(`aria-busy`, `Loader2`) 포함 버튼 컴포넌트
+- [x] `components/ui/Badge.tsx` — 브랜치 뱃지 (main/feature/develop 컬러 분기)
+- [x] `components/ui/Card.tsx` — 카드 통일값 적용 (`rounded-xl border p-5 shadow-sm`)
+- [x] `components/ui/Skeleton.tsx` — CommitList(`h-16`×4) / AiSummaryBox(3줄) / PostCard(`h-40`+2줄) 프리셋
+- [x] `components/ui/Toast.tsx` — 성공·에러 토스트 컴포넌트
+- [x] `components/Header.tsx` — 네비게이션 탭(My Blog / Saved Posts / Settings) + `bg-gray-950` 헤더
 
 ### API 연동 (Express 서버)
 - [ ] `server/routes/github.ts` — GitHub API 연동: 커밋 목록 (`GET /repos/:owner/:repo/commits`) (High)
