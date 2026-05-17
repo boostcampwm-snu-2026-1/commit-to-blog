@@ -6,6 +6,7 @@ import {
   errorHandler,
   notFoundHandler,
 } from "./middleware/error.middleware.js";
+import blogRouter from "./routes/blog.routes.js";
 import githubRouter from "./routes/github.routes.js";
 import postRouter from "./routes/post.routes.js";
 
@@ -23,6 +24,7 @@ export function createApp() {
     res.json({ status: "ok" });
   });
 
+  app.use("/api/blogs", blogRouter);
   app.use("/api/github", githubRouter);
   app.use("/api/posts", postRouter);
   app.use(notFoundHandler);

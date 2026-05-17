@@ -57,7 +57,7 @@ Related feature doc: [06 AI Blog Draft Generation](features/06-ai-blog-draft-gen
 
 - [x] Add a backend Gemini client that uses server-side API key configuration.
 - [x] Build a prompt from the selected repository, branch, and commits.
-- [ ] Generate a draft with title, summary, and content.
+- [x] Generate a draft with title, summary, and content.
 - [ ] Map the generation result to the `GeneratedDraft` response shape.
 - [ ] Return a user-readable error if Gemini generation fails.
 
