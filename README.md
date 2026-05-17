@@ -9,6 +9,7 @@ GitHub 활동 데이터를 바탕으로 개발 블로그 초안을 생성하고,
 - `docs/week-1-plan.md`: 1주차 목표, MVP 범위, 산출물, 검증 기준
 - `docs/week-2-plan.md`: 2주차 목표, 구현 범위, 산출물, 검증 기준
 - `docs/tech-stack.md`: 기술 스택 선택 이유와 보안 기준
+- `docs/service-design.md`: 사용자 흐름, 데이터 모델, React/Express 구조, 상태 흐름, 저장 방식
 - `skills/`: 이 프로젝트에서 반복 사용할 AI 작업 스킬
 
 ## Commit Rule

@@ -16,6 +16,7 @@
 - 주요 데이터 모델 초안 정의
 - 화면 흐름 초안 정의: 저장소 선택 -> 브랜치 선택 -> 커밋 선택 -> 초안 생성 -> 편집/저장
 - 서버 API 경계 초안 정의: GitHub API, LLM API, Posts API
+- 서비스 설계 문서 작성: 사용자 흐름, 상태 흐름, 저장 방식
 - 프로젝트 전용 AI skills 정리
 
 ## Deferred To Week 2
@@ -32,6 +33,7 @@
 - `docs/week-1-plan.md`
 - `docs/week-2-plan.md`
 - `docs/tech-stack.md`
+- `docs/service-design.md`
 - `Mission.md`
 - `checklist.md`
 - `skills/`
