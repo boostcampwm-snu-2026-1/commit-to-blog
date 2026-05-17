@@ -27,6 +27,7 @@ GitHub 커밋 기록을 바탕으로 Gemini AI를 활용해 개발 블로그 포
 
 ### 4.1. 데이터 연동 및 환경 설정
 * **GitHub 연동**: GitHub Personal Access Token을 `.env`에 저장하고, Node.js에서 GitHub REST API를 호출하여 데이터 확보.
+* 동기화 버튼을 통해 DB에 레포지토리, 브랜치, 커밋 로그를 저장, 필요할 때마다 동기화하여 DB 업데이트.
 * **Gemini 연동**: `@google/genai` 등을 활용해 커밋 Diff 데이터와 프롬프트를 전송하고 JSON 형태로 응답 수신.
 
 ### 4.2. 프론트엔드 (React)
