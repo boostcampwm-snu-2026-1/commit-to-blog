@@ -1,0 +1,10 @@
+﻿{
+  "name": "@commit-to-blog/client",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "echo client build pending",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --ext .ts,.tsx"
+  }
+}
