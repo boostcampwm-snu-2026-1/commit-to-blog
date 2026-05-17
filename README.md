@@ -12,13 +12,20 @@ GitHub 활동 데이터를 바탕으로 개발 블로그 초안을 생성하고,
 - `docs/service-design.md`: 사용자 흐름, 데이터 모델, React/Express 구조, 상태 흐름, 저장 방식
 - `docs/github-api.md`: GitHub API 서버 연동 방식, 응답 형태, 오류 정책
 - `docs/llm-draft.md`: LLM 블로그 초안 생성 방식, 프롬프트 정책, 오류 정책
+- `docs/ui-flow.md`: React 블로그 작성 UI 흐름과 상태 관리 기준
 - `skills/`: 이 프로젝트에서 반복 사용할 AI 작업 스킬
 
-## Server Setup
+## Development
 
 ```bash
 npm install
 copy .env.example .env
+npm run dev
+```
+
+다른 터미널에서 API 서버를 실행합니다.
+
+```bash
 npm run dev:server
 ```
 

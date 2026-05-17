@@ -72,13 +72,24 @@
 
 ## 5. 블로그 작성 UI
 
-- [ ] Repository 선택 UI를 만든다.
-- [ ] Branch 선택 UI를 만든다.
-- [ ] Commit 목록과 선택 UI를 만든다.
-- [ ] 선택한 Commit이 없을 때 AI 생성 요청을 막는다.
-- [ ] AI 생성 중 로딩 상태와 중복 요청 방지를 구현한다.
-- [ ] 생성된 초안을 편집할 수 있는 작성 화면을 만든다.
-- [ ] 제목, 요약, 본문을 사용자가 직접 수정할 수 있게 한다.
+- [x] Repository 선택 UI를 만든다.
+- [x] Branch 선택 UI를 만든다.
+- [x] Commit 목록과 선택 UI를 만든다.
+- [x] 선택한 Commit이 없을 때 AI 생성 요청을 막는다.
+- [x] AI 생성 중 로딩 상태와 중복 요청 방지를 구현한다.
+- [x] 생성된 초안을 편집할 수 있는 작성 화면을 만든다.
+- [x] 제목, 요약, 본문을 사용자가 직접 수정할 수 있게 한다.
+
+완료 근거:
+
+- `src/pages/CreateBlogPage.tsx`
+- `src/components/RepositorySelector.tsx`
+- `src/components/BranchSelector.tsx`
+- `src/components/CommitSelector.tsx`
+- `src/components/BlogEditor.tsx`
+- `src/services/githubApi.ts`
+- `src/services/llmApi.ts`
+- `docs/ui-flow.md`
 
 ## 6. 저장된 포스트 관리
 
