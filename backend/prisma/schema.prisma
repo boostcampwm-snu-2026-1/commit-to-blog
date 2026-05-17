@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id           String       @id @default(cuid())
+  githubId     String       @unique
+  username     String       @unique
+  avatarUrl    String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  repositories Repository[]
+  posts        Post[]
+}
+
+model Repository {
+  id            String    @id @default(cuid())
+  userId        String
+  githubRepoId  String
+  owner         String
+  name          String
+  defaultBranch String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commits       Commit[]
+
+  @@unique([userId, githubRepoId])
+}
+
+model Commit {
+  id                String             @id @default(cuid())
+  repositoryId      String
+  sha               String
+  message           String
+  authorName        String
+  authorEmail       String?
+  authoredAt        DateTime
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  repository        Repository         @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  postSourceCommits PostSourceCommit[]
+
+  @@unique([repositoryId, sha])
+}
+
+model Post {
+  id            String             @id @default(cuid())
+  userId        String
+  status        PostStatus         @default(DRAFT)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  publishedAt   DateTime?
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content       PostContent?
+  sourceCommits PostSourceCommit[]
+}
+
+model PostContent {
+  id        String   @id @default(cuid())
+  postId    String   @unique
+  title     String
+  summary   String?
+  body      String
+  tagsJson  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model PostSourceCommit {
+  id               String   @id @default(cuid())
+  postId           String
+  commitId         String
+  sourceBranchName String
+  order            Int
+  createdAt        DateTime @default(now())
+  post             Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  commit           Commit   @relation(fields: [commitId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, commitId, sourceBranchName])
+}
