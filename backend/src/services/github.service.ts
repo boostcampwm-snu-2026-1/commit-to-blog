@@ -47,7 +47,18 @@ async function requestGitHub<T>(path: string, init?: RequestInit) {
       // Keep the generic message if GitHub does not return JSON.
     }
 
-    throw new HttpError(response.status >= 500 ? 502 : response.status, message);
+    if (response.status === 403) {
+      throw new HttpError(403, `GitHub API access denied: ${message}`);
+    }
+
+    if (response.status === 404) {
+      throw new HttpError(404, `GitHub resource not found: ${message}`);
+    }
+
+    throw new HttpError(
+      response.status >= 500 ? 502 : response.status,
+      message,
+    );
   }
 
   return response.json() as Promise<T>;

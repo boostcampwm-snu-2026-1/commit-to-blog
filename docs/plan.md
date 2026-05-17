@@ -49,7 +49,7 @@ Related feature doc: [05 GitHub Repository Data Flow](features/05-github-reposit
 - [x] Implement branch list retrieval for a selected repository.
 - [x] Implement commit list retrieval for a selected branch.
 - [x] Normalize GitHub responses into the frontend-facing data shapes in [docs/data-model.md](data-model.md).
-- [ ] Return clear errors when GitHub API requests fail.
+- [x] Return clear errors when GitHub API requests fail.
 
 ### 6. AI Blog Draft Generation
 
