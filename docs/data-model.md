@@ -41,7 +41,7 @@ type CommitSummary = {
 
 ## Generated Draft
 
-This is the draft returned by OpenAI. Before saving, it can live as frontend editing state.
+This is the draft returned by Gemini. Before saving, it can live as frontend editing state.
 
 ```ts
 type GeneratedDraft = {
@@ -87,4 +87,4 @@ type Post = {
 - Changed files and diff summaries per commit.
 - Tags, categories, and thumbnails.
 - User accounts and author data.
-- OpenAI request and response history.
+- Gemini request and response history.

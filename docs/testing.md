@@ -34,7 +34,7 @@
 
 ## Manual Completion Checklist
 
-- GitHub token and OpenAI API key are not included in the frontend bundle.
+- GitHub token and Gemini API key are not included in the frontend bundle.
 - `.env` files are not included in commits.
 - Saved posts are loaded from MongoDB after server restart.
 - The service provides internal publishing only, with no external blog upload.

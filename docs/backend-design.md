@@ -27,7 +27,7 @@ backend/
       post.controller.ts
     services/
       github.service.ts
-      openai.service.ts
+      gemini.service.ts
       post.service.ts
     models/
       post.model.ts
@@ -46,9 +46,9 @@ backend/
 - `github.service.ts`
   - Encapsulates GitHub API requests.
   - Reads the token only from environment variables.
-- `openai.service.ts`
+- `gemini.service.ts`
   - Converts commit data into a blog draft generation prompt.
-  - Reads the OpenAI API key only from environment variables.
+  - Reads the Gemini API key only from environment variables.
 - `post.service.ts`
   - Handles MongoDB post create, read, update, delete, and status changes.
 

@@ -33,5 +33,5 @@ export const env = {
   clientOrigin: readRequiredEnv("CLIENT_ORIGIN"),
   mongodbUri: readRequiredEnv("MONGODB_URI"),
   githubToken: readRequiredEnv("GITHUB_TOKEN"),
-  openaiApiKey: readRequiredEnv("OPENAI_API_KEY"),
+  geminiApiKey: readRequiredEnv("GEMINI_API_KEY"),
 };

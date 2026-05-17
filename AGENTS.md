@@ -25,8 +25,8 @@ This project is a web application that analyzes GitHub activity, generates a dev
 - The backend uses Express and TypeScript.
 - The backend uses `cors` and `dotenv`.
 - Drafts and saved posts are designed to be stored in MongoDB.
-- GitHub API and OpenAI API calls are made from the Express server, not from the browser.
-- GitHub token, OpenAI API key, and MongoDB URI are managed through `.env` and must not be committed.
+- GitHub API and Gemini API calls are made from the Express server, not from the browser.
+- GitHub token, Gemini API key, and MongoDB URI are managed through `.env` and must not be committed.
 - Publishing means changing a post to `published` status and showing it in this service. It does not mean uploading to an external blog platform.
 - CSS tokens are split into primitive tokens and semantic tokens. App components should use semantic tokens whenever possible.
 
@@ -43,7 +43,7 @@ Ask the user before running these actions:
 ## Security Rules
 
 - Do not commit `.env`, API keys, tokens, or raw MongoDB URIs.
-- Do not put `GITHUB_TOKEN`, `OPENAI_API_KEY`, or similar secrets in frontend code.
+- Do not put `GITHUB_TOKEN`, `GEMINI_API_KEY`, or similar secrets in frontend code.
 - The backend should fail with a clear error when required configuration is missing.
 - Do not log tokens, API keys, or authorization headers.
 

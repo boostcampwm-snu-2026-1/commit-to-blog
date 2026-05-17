@@ -3,7 +3,7 @@
 ## Common Rules
 
 - All API routes use the `/api` prefix.
-- GitHub and OpenAI secrets are used only on the server.
+- GitHub and Gemini secrets are used only on the server.
 - Responses are returned as JSON.
 - Error responses include at least `message`.
 - Shared request and response shapes are defined in [docs/data-model.md](data-model.md).
@@ -151,7 +151,7 @@ Deletes a saved post.
 ## Error Handling
 
 - Missing configuration returns a clear configuration error at startup or request time.
-- GitHub and OpenAI failures are reported as external API failures.
+- GitHub and Gemini failures are reported as external API failures.
 - A missing post id returns `404`.
 - An unknown route returns `404` with a JSON error response.
 - An invalid post `status` filter returns `400`.

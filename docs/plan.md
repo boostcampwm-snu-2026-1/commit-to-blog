@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build an MVP that lets a user select a GitHub repository, branch, and commits, generate a development blog draft with OpenAI, edit it, save it to MongoDB, and publish it inside this service.
+Build an MVP that lets a user select a GitHub repository, branch, and commits, generate a development blog draft with Gemini, edit it, save it to MongoDB, and publish it inside this service.
 
 ## Development Order
 
@@ -55,11 +55,11 @@ Related feature doc: [05 GitHub Repository Data Flow](features/05-github-reposit
 
 Related feature doc: [06 AI Blog Draft Generation](features/06-ai-blog-draft-generation.md)
 
-- [ ] Add a backend OpenAI client that uses server-side API key configuration.
+- [x] Add a backend Gemini client that uses server-side API key configuration.
 - [ ] Build a prompt from the selected repository, branch, and commits.
 - [ ] Generate a draft with title, summary, and content.
 - [ ] Map the generation result to the `GeneratedDraft` response shape.
-- [ ] Return a user-readable error if OpenAI generation fails.
+- [ ] Return a user-readable error if Gemini generation fails.
 
 ### 7. Frontend Selection Workflow
 
@@ -95,7 +95,7 @@ Related feature doc: [09 Saved and Published Post Views](features/09-saved-and-p
 
 ### 10. Verification and Documentation Updates
 
-- [ ] Check that GitHub and OpenAI secrets are never exposed to frontend code.
+- [ ] Check that GitHub and Gemini secrets are never exposed to frontend code.
 - [ ] Check that app components use semantic styling tokens instead of raw primitive tokens where possible.
 - [ ] Check the core API routes manually.
 - [ ] Check the main frontend workflow from repository selection to published post display.
@@ -123,7 +123,7 @@ Excluded:
 ## Completion Criteria
 
 - The user can select repository, branch, and commits in order.
-- The server does not expose GitHub or OpenAI secrets to the frontend.
+- The server does not expose GitHub or Gemini secrets to the frontend.
 - The user can edit and save an AI-generated draft.
 - Saved posts can be reloaded from MongoDB after refresh or server restart.
 - A published post can be viewed as a blog post inside this frontend.
