@@ -12,13 +12,12 @@ Build an MVP that lets a user select a GitHub repository, branch, and commits, g
 - [x] Initialize `backend/` as an Express + TypeScript app.
 - [x] Add baseline scripts for development, build, and type checking.
 - [x] Add `.env.example` files without real secrets.
-- [ ] Make sure `.env` files are ignored by git.
 
 ### 2. Frontend Styling Foundation
 
 Related feature doc: [02 Frontend Styling Foundation](features/02-frontend-styling-foundation.md)
 
-- [ ] Add Tailwind CSS to the frontend build setup.
+- [x] Add Tailwind CSS to the frontend build setup.
 - [ ] Define primitive CSS tokens for raw color, spacing, radius, shadow, and typography values.
 - [ ] Define semantic CSS tokens for app surfaces, text, borders, actions, and status states.
 - [ ] Map semantic CSS tokens into Tailwind utilities.
