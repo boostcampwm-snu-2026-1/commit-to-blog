@@ -38,7 +38,7 @@ export const ProjectSection = () => {
   };
 
   return (
-    <div className="flex h-full h-screen flex-col gap-8">
+    <div className="flex h-[calc(100vh-var(--spacing-header))] flex-col gap-8 border-border-light border-b">
       {/* 제목 */}
       <div className="flex items-center gap-6 px-12 py-8">
         <div className="h-7 w-7 rounded-full bg-orange-500"></div>
