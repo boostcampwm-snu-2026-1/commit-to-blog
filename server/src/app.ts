@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import githubRouter from './routes/github';
+import postsRouter from './routes/posts';
 
 dotenv.config();
 
@@ -15,5 +16,6 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.use('/api/github', githubRouter);
+app.use('/api/posts', postsRouter);
 
 export default app;
