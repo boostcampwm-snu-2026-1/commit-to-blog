@@ -38,13 +38,13 @@ Related feature doc: [04 MongoDB Persistence](features/04-mongodb-persistence.md
 - [x] Configure the MongoDB connection through the database URI environment variable defined in [docs/architecture.md](architecture.md).
 - [x] Create the Post model with `draft` and `published` statuses.
 - [x] Implement post create, list, detail, update, status update, and delete operations.
-- [ ] Verify saved posts persist after server restart.
+- [x] Verify saved posts persist after server restart.
 
 ### 5. GitHub Repository Data Flow
 
 Related feature doc: [05 GitHub Repository Data Flow](features/05-github-repository-data-flow.md)
 
-- [ ] Add a backend GitHub API client that uses server-side token configuration.
+- [x] Add a backend GitHub API client that uses server-side token configuration.
 - [ ] Implement repository list retrieval.
 - [ ] Implement branch list retrieval for a selected repository.
 - [ ] Implement commit list retrieval for a selected branch.
