@@ -160,8 +160,8 @@ RepoSelector → BranchSelector → CommitList → [초안 생성] → MarkdownE
 - [x] `server/src/services/github.js` — fetch로 GitHub API 호출 + 정규화
 - [x] `server/src/routes/github.js` — 4개 라우트 동작 확인 (curl로 에러 경로 검증 완료, happy path는 PAT 설정 후)
 - [x] `server/src/store/posts.js` + `server/src/routes/posts.js` — CRUD 동작 확인 (전체 라이프사이클 + 에러 경로 curl 검증 완료)
-- [ ] 클라이언트 측 `api.js` fetch 래퍼
-- [ ] 최소 페이지 라우팅 (`/` Create, `/posts` Saved)
+- [x] 클라이언트 측 `api.js` fetch 래퍼 (GitHub 4개 + Posts 5개)
+- [x] 최소 페이지 라우팅 (`/` Create, `/posts` Saved) — react-router-dom
 - [ ] `RepoSelector` / `BranchSelector` / `CommitList` 최소 동작 — 데이터가 화면에 보이기까지
 
 ---
