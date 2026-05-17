@@ -30,22 +30,46 @@ type GenerateDraftInput = {
 const GEMINI_API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 const GEMINI_MODEL = "gemini-2.5-flash";
 
-function buildPrompt({ repository, branch, commits }: GenerateDraftInput) {
-  const commitLines = commits
-    .map(
-      (commit, index) =>
-        `${index + 1}. ${commit.sha} | ${commit.message} | ${commit.authorName} | ${commit.authorDate}`,
-    )
-    .join("\n");
+function buildCommitContext(commits: CommitSummary[]) {
+  if (commits.length === 0) {
+    return ["Commits:", "- No commits were selected."].join("\n");
+  }
 
   return [
-    "You are writing a development blog draft.",
-    "Return valid JSON only with title, summary, and content fields.",
-    "Keep the summary concise and the content readable for a technical blog post.",
-    `Repository: ${repository.fullName}`,
-    `Branch: ${branch}`,
     "Commits:",
-    commitLines,
+    ...commits.map((commit, index) => {
+      const lines = [
+        `${index + 1}. sha: ${commit.sha}`,
+        `   message: ${commit.message}`,
+        `   author: ${commit.authorName}`,
+        `   date: ${commit.authorDate}`,
+        `   url: ${commit.htmlUrl}`,
+      ];
+
+      return lines.join("\n");
+    }),
+  ].join("\n");
+}
+
+export function buildPrompt({ repository, branch, commits }: GenerateDraftInput) {
+  return [
+    "You are writing a development blog draft from GitHub repository activity.",
+    "Return valid JSON only with title, summary, and content fields.",
+    "Use only the provided repository, branch, and commit context.",
+    "Write a specific, technical draft that explains what changed and why it matters.",
+    "Keep the summary concise and the content readable for a development blog audience.",
+    "Repository context:",
+    `- owner: ${repository.owner}`,
+    `- name: ${repository.name}`,
+    `- full name: ${repository.fullName}`,
+    `- default branch: ${repository.defaultBranch}`,
+    `- private: ${repository.private}`,
+    "Branch context:",
+    `- name: ${branch}`,
+    buildCommitContext(commits),
+    "Title guidance: concise and specific.",
+    "Summary guidance: one short paragraph.",
+    "Content guidance: explain the feature work, implementation steps, and noteworthy details in a blog-friendly structure.",
   ].join("\n");
 }
 
