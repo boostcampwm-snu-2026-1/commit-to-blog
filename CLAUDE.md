@@ -12,10 +12,15 @@
 
 ## 주요 커맨드
 ```bash
-# 개발 서버
-# 빌드
-# 테스트
-# 배포
+# 전체 실행
+docker-compose up
+
+# 개발 서버 (개별)
+docker-compose up frontend
+docker-compose up backend
+
+# DB 초기화
+docker-compose exec db psql -U postgres -f /init.sql
 ```
 
 ---

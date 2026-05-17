@@ -18,10 +18,13 @@
 
 ## 현재 문서 목록
 
-> 프로젝트 진행에 따라 추가한다
+### 아키텍처
+- [데이터 모델](./architecture/data-model.md)
+- [디렉터리 구조](./architecture/structure.md)
 
-<!-- 예시:
-- [Frontend 컴포넌트 패턴](./frontend/components/ui.md)
-- [API 설계 규칙](./backend/api/conventions.md)
+### 프론트엔드
+- [컴포넌트 구조](./frontend/components.md)
+- [상태 흐름](./frontend/state-flow.md)
+
+### 의사결정
 - [ADR 목록](./adr/README.md)
--->
