@@ -53,13 +53,22 @@
 
 ## 4. LLM 블로그 초안 생성
 
-- [ ] 선택한 커밋 데이터를 LLM 요청에 적합한 형태로 정리한다.
-- [ ] 너무 긴 diff를 그대로 보내지 않도록 요약 또는 제한 전략을 정한다.
-- [ ] 개발 블로그 형식을 유도하는 프롬프트를 작성한다.
-- [ ] LLM API 요청은 Express 서버에서 처리하도록 구성한다.
-- [ ] LLM API key는 `.env`로 관리하고 클라이언트에 노출하지 않는다.
-- [ ] LLM 응답을 제목, 요약, 본문 형태의 편집 가능한 초안으로 변환한다.
-- [ ] LLM 실패, 빈 응답, 형식 오류를 처리한다.
+- [x] 선택한 커밋 데이터를 LLM 요청에 적합한 형태로 정리한다.
+- [x] 너무 긴 diff를 그대로 보내지 않도록 요약 또는 제한 전략을 정한다.
+- [x] 개발 블로그 형식을 유도하는 프롬프트를 작성한다.
+- [x] LLM API 요청은 Express 서버에서 처리하도록 구성한다.
+- [x] LLM API key는 `.env`로 관리하고 클라이언트에 노출하지 않는다.
+- [x] LLM 응답을 제목, 요약, 본문 형태의 편집 가능한 초안으로 변환한다.
+- [x] LLM 실패, 빈 응답, 형식 오류를 처리한다.
+
+완료 근거:
+
+- `server/routes/llmRoutes.ts`
+- `server/services/llmService.ts`
+- `server/types/blog.ts`
+- `server/config/env.ts`
+- `.env.example`
+- `docs/llm-draft.md`
 
 ## 5. 블로그 작성 UI
 

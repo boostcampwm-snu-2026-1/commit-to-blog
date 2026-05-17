@@ -11,6 +11,7 @@ GitHub 활동 데이터를 바탕으로 개발 블로그 초안을 생성하고,
 - `docs/tech-stack.md`: 기술 스택 선택 이유와 보안 기준
 - `docs/service-design.md`: 사용자 흐름, 데이터 모델, React/Express 구조, 상태 흐름, 저장 방식
 - `docs/github-api.md`: GitHub API 서버 연동 방식, 응답 형태, 오류 정책
+- `docs/llm-draft.md`: LLM 블로그 초안 생성 방식, 프롬프트 정책, 오류 정책
 - `skills/`: 이 프로젝트에서 반복 사용할 AI 작업 스킬
 
 ## Server Setup
@@ -22,6 +23,7 @@ npm run dev:server
 ```
 
 `.env`에는 실제 `GITHUB_TOKEN` 값을 넣되, 커밋하지 않습니다.
+LLM 초안 생성을 사용하려면 `OPENAI_API_KEY`와 `OPENAI_MODEL`도 `.env`에 설정합니다.
 
 ## API Routes
 
@@ -30,6 +32,7 @@ npm run dev:server
 - `GET /api/github/repositories/:owner/:repo/branches`
 - `GET /api/github/repositories/:owner/:repo/commits?branch={branch}`
 - `GET /api/github/repositories/:owner/:repo/commits/:sha`
+- `POST /api/llm/drafts`
 
 ## Commit Rule
 

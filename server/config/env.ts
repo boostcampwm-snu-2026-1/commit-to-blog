@@ -11,4 +11,6 @@ export const env = {
   port: parsePort(process.env.PORT),
   clientOrigin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
   githubToken: process.env.GITHUB_TOKEN ?? "",
+  openAiApiKey: process.env.OPENAI_API_KEY ?? "",
+  openAiModel: process.env.OPENAI_MODEL ?? "",
 };

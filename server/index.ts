@@ -3,7 +3,9 @@ import express from "express";
 import type { NextFunction, Request, Response } from "express";
 import { env } from "./config/env";
 import { githubRoutes } from "./routes/githubRoutes";
+import { llmRoutes } from "./routes/llmRoutes";
 import { GitHubServiceError } from "./services/githubService";
+import { LlmServiceError } from "./services/llmService";
 
 const app = express();
 
@@ -15,9 +17,18 @@ app.get("/api/health", (_request, response) => {
 });
 
 app.use("/api/github", githubRoutes);
+app.use("/api/llm", llmRoutes);
 
 app.use((error: unknown, _request: Request, response: Response, _next: NextFunction) => {
   if (error instanceof GitHubServiceError) {
+    response.status(error.statusCode).json({
+      code: error.code,
+      message: error.message,
+    });
+    return;
+  }
+
+  if (error instanceof LlmServiceError) {
     response.status(error.statusCode).json({
       code: error.code,
       message: error.message,
