@@ -1,6 +1,6 @@
 ﻿# 개발 체크리스트 (1주차 / 2주차)
 
-## 1주차: 기획/설계/검증 기준 확정
+## 1주차: 기획/설계 + 기본 뼈대 구현
 
 ### 요구사항/범위
 - [ ] `assignment_requirements.md`와 `requirements.md` 기준으로 필수 기능 범위를 확정한다.
@@ -9,31 +9,39 @@
 
 ### 기술 선택 근거
 - [ ] React + Express + Gemini API(무료 티어) + GitHub API 선택 이유를 문서로 정리한다.
-- [ ] UI 라이브러리(Shadcn 우선, Chakra 대안) 선택 기준을 정한다.
-- [ ] 저장 방식(메모리/JSON, 확장 시 SQLite) 결정 근거를 정리한다.
+- [ ] Tailwind CSS + Shadcn UI 선택 기준을 정한다.
+- [ ] MongoDB + Mongoose 선택 이유와 컬렉션/인덱스 초안을 정리한다.
 
 ### 아키텍처/데이터 설계
 - [ ] 시스템 흐름(`Browser -> Client -> Server -> External APIs`)을 다이어그램 또는 텍스트로 명시한다.
 - [ ] 화면별 필요 데이터(저장소/커밋/diff/인터뷰 턴/포스트)를 정의한다.
 - [ ] 상태 흐름(인터뷰 상태 머신)을 정의한다.
-- [ ] 디렉터리 구조(Client/Server)와 주요 컴포넌트 책임을 정의한다.
+- [ ] 모노레포 디렉터리 구조(`apps/client`, `apps/server`, `packages/shared`, `docs`, `infra`)와 책임을 정의한다.
 
 ### API/프롬프트 설계
 - [ ] 서버 API 계약서(요청/응답/에러 포맷)를 초안 작성한다.
 - [ ] 질문 생성/힌트/해설/초안생성 프롬프트 초안을 작성한다.
 - [ ] LLM 출력 JSON 스키마를 확정한다.
+- [ ] `docs/skill.md`를 작성해 입력/출력/평가기준/금지사항을 확정한다.
 
 ### 보안/테스트 기준
 - [ ] 토큰/시크릿 관리 정책(.env, 서버 전용)을 명시한다.
 - [ ] 예외 시나리오(빈 diff, API 실패, 타임아웃) 처리 기준을 정한다.
 - [ ] 완료 판정용 테스트 체크포인트를 작성한다.
 
+### 1주차 뼈대 구현
+- [ ] Client/Server 프로젝트 초기 구조를 구성한다.
+- [ ] TypeScript, lint/format, 공통 스크립트를 정리한다.
+- [ ] Tailwind CSS 초기 설정과 Shadcn UI 기본 세팅을 완료한다.
+- [ ] 서버 기본 라우트(health check, repos/commits/diff/interview/posts 스텁)를 구성한다.
+- [ ] MongoDB 연결 및 Mongoose 모델(users, interviewSessions, interviewTurns, posts) 스켈레톤을 작성한다.
+- [ ] 커밋 선택 화면과 인터뷰 룸 기본 UI(답변창 + 4개 액션 버튼) 목업을 연결한다.
+- [ ] `.env.example`와 실행 가이드를 작성한다.
+
 ## 2주차: 구현/통합/데모 준비
 
 ### 공통 기반
-- [ ] Client/Server 프로젝트 초기 구조를 구성한다.
-- [ ] TypeScript, lint/format, 공통 스크립트를 정리한다.
-- [ ] `.env.example`와 실행 가이드를 작성한다.
+- [ ] 1주차에 구성한 뼈대를 기준으로 실제 API/상태관리 구조로 정리한다.
 
 ### Step 1 구현 (저장소/커밋 선택)
 - [ ] 저장소 목록 조회 API를 구현한다.
@@ -60,6 +68,7 @@
 - [ ] 입력/출력 스키마 검증(Zod)을 적용한다.
 - [ ] LLM 실패/타임아웃/과대 diff 방어 로직을 반영한다.
 - [ ] 민감정보가 로그/응답에 노출되지 않도록 점검한다.
+- [ ] MongoDB 인덱스(`interviewSessions userId+createdAt`, `posts userId+updatedAt`, `interviewTurns sessionId+turnIndex`)를 적용한다.
 
 ### 테스트/최종 정리
 - [ ] 핵심 3개 사용자 플로우 E2E 점검을 수행한다.

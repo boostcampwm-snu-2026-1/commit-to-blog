@@ -27,7 +27,8 @@
 - 프론트엔드(Client)
   - React
   - TypeScript
-  - UI: Shadcn UI 우선(필요 시 Chakra UI 보조)
+  - 스타일링: Tailwind CSS
+  - UI: Shadcn UI
   - 상태/데이터: TanStack Query + 로컬 상태
   - 에디터: 마크다운 편집기 + 미리보기
 
@@ -43,8 +44,18 @@
   - GitHub API: 저장소/커밋/Diff 조회
 
 - 저장소(데이터)
-  - 기본: 메모리 또는 경량 JSON 저장
-  - 확장: 여유 시 SQLite
+  - 기본: MongoDB
+  - ODM: Mongoose
+  - 컬렉션(초안): users, interviewSessions, interviewTurns, posts
+
+## 프로젝트 구조 원칙
+- 모노레포 기반으로 Client/Server/Shared를 분리한다.
+- 권장 구조:
+  - `apps/client`: React 앱
+  - `apps/server`: Express API 서버
+  - `packages/shared`: 공통 타입/Zod 스키마/유틸
+  - `docs`: 요구사항/체크리스트/skill 문서
+  - `infra`: 로컬 인프라(docker-compose 등)
 
 ## 아키텍처 원칙
 - 필수 요청 흐름: `Browser(UI) -> React Client -> Express Server -> GitHub API / LLM API`
@@ -60,8 +71,18 @@
   - `expectedAnswer`
   - `hint`
   - `conceptTags`
+  - `feedback`
 - 초안 템플릿 분기:
   - 답변 성공: 구현 내용 + 설계 의도 + AI 피드백
   - 모르겠어요: 구현 내용 + 막힌 지점 + 새로 배운 개념(오답노트)
   - 스킵: 커밋 요약/릴리즈노트형 정리
+
+## Skill 문서 규약
+- `docs/skill.md`를 생성하고 AI 인터뷰 품질 기준을 명시한다.
+- 포함 항목:
+  - 목적
+  - 입력(예: diff, repo, commit, userAnswer)
+  - 출력 JSON 스키마
+  - 평가 기준(정확성/난이도/학습가치)
+  - 금지사항(근거 없는 추측, 민감정보 노출)
 
