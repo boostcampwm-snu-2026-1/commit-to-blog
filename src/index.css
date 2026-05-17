@@ -16,8 +16,8 @@
   --color-contribution-4: #613e30;
 
   /* Font families */
-  --font-pretendard: 'Pretendard', sans-serif;
-  --font-inter: 'Inter', sans-serif;
+  --font-pretendard: "Pretendard", sans-serif;
+  --font-inter: "Inter", sans-serif;
 
   /* 13px: Tailwind 기본값에 없어서 별도 정의 */
   --text-2xs: 13px;
@@ -25,4 +25,53 @@
   /* Layout */
   --spacing-page-x: 54px;
   --spacing-header: 80px;
+}
+
+/* WebKit 스크롤바 숨김 (커스텀 스크롤바를 사용하는 영역) */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-48px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(48px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+body {
+  font-family: var(--font-pretendard);
+}
+
+/* overflow 시 스크롤바 스타일링 수정 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }

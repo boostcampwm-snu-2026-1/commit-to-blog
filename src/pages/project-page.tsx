@@ -1,3 +1,9 @@
+import { ProjectSection } from './project-section';
+
 export const ProjectPage = () => {
-  return <div>Project</div>;
+  return (
+    <main className="flex h-screen flex-col overflow-hidden pt-header">
+      <ProjectSection />
+    </main>
+  );
 };
