@@ -138,7 +138,56 @@ const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false })
 응답의 첫 `# ` 줄을 파싱해 포스트 제목으로 자동 채운다.
 
 ### 위저드 상태 관리
+
 `useReducer`를 `/new/page.tsx`에 colocate한다. Context나 외부 상태 라이브러리 불필요.
+
+**WizardState 구조**
+```typescript
+type WizardState = {
+  step: number           // 현재 단계 (1–7)
+  pat: string            // GitHub PAT (sessionStorage에도 미러링)
+  user: GitHubUser | null
+  repo: Repo | null      // { id, name, full_name, private }
+  branch: string
+  selectedShas: string[] // 선택된 커밋 SHA 목록
+  generatedMarkdown: string
+  savedPostId: string
+}
+```
+
+**상태 흐름**
+```
+/new/page.tsx (useReducer)
+    │
+    ├── WizardShell          ← step 값으로 현재 단계 표시
+    │
+    ├── StepPatInput         → PAT 입력 → /api/github/validate 호출
+    │                          성공 시 dispatch SET_PAT → step 1→2
+    │
+    ├── StepRepoSelect       → /api/github/repos 호출 (pat 헤더)
+    │                          선택 시 dispatch SET_REPO → step 2→3
+    │
+    ├── StepBranchSelect     → /api/github/branches 호출
+    │                          선택 시 dispatch SET_BRANCH → step 3→4
+    │
+    ├── StepCommitSelect     → /api/github/commits 호출
+    │                          체크박스로 다중 선택 → dispatch SET_SHAS → step 4→5
+    │
+    ├── StepGenerating       → /api/github/diff + /api/generate 호출
+    │                          완료 시 dispatch SET_MARKDOWN → step 5→6
+    │
+    ├── StepEditor           → 마크다운 편집 → /api/posts POST 호출
+    │                          저장 시 dispatch SET_SAVED → step 6→7
+    │
+    └── StepSaved            → savedPostId로 /posts/[id] 링크 제공
+```
+
+**그 외 화면의 상태 (단순 useState)**
+
+| 화면 | 상태 | 설명 |
+|---|---|---|
+| `/posts` | `posts`, `loading`, `error` | 마운트 시 `/api/posts` fetch |
+| `/posts/[id]` | `post`, `saving` | 마운트 시 `/api/posts/[id]` fetch, StepEditor 재사용 |
 
 ## Data Model
 
