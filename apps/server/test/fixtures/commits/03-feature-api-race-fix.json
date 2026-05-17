@@ -1,0 +1,41 @@
+{
+  "repo": "acme/web",
+  "branch": "feature/api-sync",
+  "style": "default",
+  "commits": [
+    {
+      "sha": "9b1c4d7e2f5a8b3c6d9e0f1a2b3c4d5e6f7a8b9c",
+      "message": "Fix race conditions in profile update",
+      "body": "사용자 프로필 업데이트 시 동시 요청이 들어오면 마지막 요청이 항상 이긴다(LWW)는 가정이 깨지고 중간 상태가 표시되는 문제가 있었다. 클라이언트에서 낙관적 업데이트를 적용하고, 서버는 version 필드로 충돌을 감지해 409를 돌려준다.",
+      "stats": { "additions": 121, "deletions": 33, "total": 154 },
+      "files": [
+        {
+          "filename": "server/src/profile/routes.ts",
+          "status": "modified",
+          "additions": 32,
+          "deletions": 14,
+          "patch": "@@\n-router.patch('/me', async (req, res) => {\n-  const next = await db.profile.update(req.user.id, req.body);\n-  res.json(next);\n-});\n+router.patch('/me', async (req, res, next) => {\n+  try {\n+    const result = await profileService.update(req.user.id, req.body, req.body.version);\n+    res.json(result);\n+  } catch (err) {\n+    if (err instanceof VersionConflictError) {\n+      res.status(409).json({ error: 'version_conflict', current: err.current });\n+      return;\n+    }\n+    next(err);\n+  }\n+});"
+        },
+        {
+          "filename": "server/src/profile/service.ts",
+          "status": "added",
+          "additions": 58,
+          "deletions": 0,
+          "patch": "+export class VersionConflictError extends Error {\n+  constructor(public current: ProfileRow) { super('version_conflict'); }\n+}\n+\n+export async function update(id: string, patch: ProfilePatch, expected: number) {\n+  return db.tx(async (tx) => {\n+    const row = await tx.profile.findById(id);\n+    if (row.version !== expected) throw new VersionConflictError(row);\n+    return tx.profile.update(id, { ...patch, version: row.version + 1 });\n+  });\n+}"
+        },
+        {
+          "filename": "web/src/profile/useUpdateProfile.ts",
+          "status": "added",
+          "additions": 31,
+          "deletions": 0
+        },
+        {
+          "filename": "web/src/profile/ProfileForm.tsx",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 19
+        }
+      ]
+    }
+  ]
+}
