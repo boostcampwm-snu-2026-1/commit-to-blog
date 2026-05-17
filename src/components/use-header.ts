@@ -27,7 +27,9 @@ export const useHeaderVideo = (items: { path: string }[]) => {
       isMounted.current = true;
       return;
     }
-    const index = itemsRef.current.findIndex((item) => item.path === currentPath);
+    const index = itemsRef.current.findIndex(
+      (item) => item.path === currentPath
+    );
     if (index < 0) {
       return;
     }
