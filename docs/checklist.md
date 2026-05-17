@@ -8,9 +8,9 @@
 - [x] 기능 우선순위(P0/P1/P2)를 정리한다.
 
 ### 기술 선택 근거
-- [ ] React + Express + Gemini API(무료 티어) + GitHub API 선택 이유를 문서로 정리한다.
-- [ ] Tailwind CSS + Shadcn UI 선택 기준을 정한다.
-- [ ] MongoDB + Mongoose 선택 이유와 컬렉션/인덱스 초안을 정리한다.
+- [x] React + Express + Gemini API(무료 티어) + GitHub API 선택 이유를 문서로 정리한다.
+- [x] Tailwind CSS + Shadcn UI 선택 기준을 정한다.
+- [x] MongoDB + Mongoose 선택 이유와 컬렉션/인덱스 초안을 정리한다.
 
 ### 아키텍처/데이터 설계
 - [ ] 시스템 흐름(`Browser -> Client -> Server -> External APIs`)을 다이어그램 또는 텍스트로 명시한다.
