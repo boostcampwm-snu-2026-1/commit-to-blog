@@ -10,6 +10,8 @@
 ## Backend Checks
 
 - Missing environment variables produce clear errors.
+- Unknown API routes return `404` with a JSON error response.
+- Invalid JSON request bodies return `400` with a JSON error response.
 - `GET /api/health` returns `{ status: "ok" }`.
 - `GET /api/github/repos` returns repositories.
 - `GET /api/github/repos/:owner/:repo/branches` returns branches.

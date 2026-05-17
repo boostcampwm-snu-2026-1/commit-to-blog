@@ -153,5 +153,7 @@ Deletes a saved post.
 - Missing configuration returns a clear configuration error at startup or request time.
 - GitHub and OpenAI failures are reported as external API failures.
 - A missing post id returns `404`.
+- An unknown route returns `404` with a JSON error response.
 - An invalid post `status` filter returns `400`.
 - Invalid request bodies return `400`.
+- Unexpected server errors return `500` with a generic message.
