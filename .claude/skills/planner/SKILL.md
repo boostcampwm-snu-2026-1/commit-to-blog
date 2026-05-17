@@ -82,7 +82,10 @@ CP4: 최종 확인
 → progress/plan.md 에 저장할까요?
 ```
 
-저장 완료 후 커밋을 진행한다:
+저장 완료 후 아래 progress 파일들을 업데이트한다:
+- `progress/current.md` → 상태: "진행 중 (executor 대기)"
+
+커밋을 진행한다:
 ```
 git add progress/plan.md progress/current.md
 git commit -m "workflow/plan: [task명]"

@@ -82,7 +82,9 @@ CP4: 최종 확인
 → progress/current.md 에 저장할까요?
 ```
 
-저장 후 backlog.md에서 해당 항목을 진행 중으로 표시한다.
+저장 후 아래 progress 파일들을 업데이트한다:
+- `progress/current.md` → 상태: "진행 중 (planner 대기)"
+- `progress/backlog.md` → 선택한 task 앞에 🔄 표시 (진행 중)
 
 저장 완료 후 커밋을 진행한다:
 ```
