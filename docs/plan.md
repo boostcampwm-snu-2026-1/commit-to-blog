@@ -45,10 +45,10 @@ Related feature doc: [04 MongoDB Persistence](features/04-mongodb-persistence.md
 Related feature doc: [05 GitHub Repository Data Flow](features/05-github-repository-data-flow.md)
 
 - [x] Add a backend GitHub API client that uses server-side token configuration.
-- [ ] Implement repository list retrieval.
-- [ ] Implement branch list retrieval for a selected repository.
-- [ ] Implement commit list retrieval for a selected branch.
-- [ ] Normalize GitHub responses into the frontend-facing data shapes in [docs/data-model.md](data-model.md).
+- [x] Implement repository list retrieval.
+- [x] Implement branch list retrieval for a selected repository.
+- [x] Implement commit list retrieval for a selected branch.
+- [x] Normalize GitHub responses into the frontend-facing data shapes in [docs/data-model.md](data-model.md).
 - [ ] Return clear errors when GitHub API requests fail.
 
 ### 6. AI Blog Draft Generation

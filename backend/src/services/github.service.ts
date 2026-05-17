@@ -1,66 +1,18 @@
 import { HttpError } from "../middleware/error.middleware.js";
 import { env } from "../config/env.js";
-
-type GitHubRepository = {
-  id: number;
-  name: string;
-  full_name: string;
-  private: boolean;
-  default_branch: string;
-  html_url: string;
-  owner: {
-    login: string;
-  };
-};
-
-type GitHubBranch = {
-  name: string;
-  commit: {
-    sha: string;
-  };
-};
-
-type GitHubCommit = {
-  sha: string;
-  html_url: string;
-  commit: {
-    message: string;
-    author?: {
-      name?: string;
-      email?: string;
-      date?: string;
-    };
-  };
-  author?: {
-    login?: string;
-  };
-};
-
+import {
+  normalizeBranch,
+  normalizeCommit,
+  normalizeRepository,
+  type BranchSummary,
+  type CommitSummary,
+  type GitHubBranch,
+  type GitHubCommit,
+  type GitHubRepository,
+  type RepositorySummary,
+} from "./github.normalizer.js";
 type GitHubApiError = {
   message?: string;
-};
-
-export type RepositorySummary = {
-  id: number;
-  name: string;
-  fullName: string;
-  owner: string;
-  private: boolean;
-  defaultBranch: string;
-  htmlUrl: string;
-};
-
-export type BranchSummary = {
-  name: string;
-  commitSha: string;
-};
-
-export type CommitSummary = {
-  sha: string;
-  message: string;
-  authorName: string;
-  authorDate: string;
-  htmlUrl: string;
 };
 
 const GITHUB_API_BASE_URL = "https://api.github.com";
@@ -101,39 +53,10 @@ async function requestGitHub<T>(path: string, init?: RequestInit) {
   return response.json() as Promise<T>;
 }
 
-function normalizeRepository(repository: GitHubRepository): RepositorySummary {
-  return {
-    id: repository.id,
-    name: repository.name,
-    fullName: repository.full_name,
-    owner: repository.owner.login,
-    private: repository.private,
-    defaultBranch: repository.default_branch,
-    htmlUrl: repository.html_url,
-  };
-}
-
-function normalizeBranch(branch: GitHubBranch): BranchSummary {
-  return {
-    name: branch.name,
-    commitSha: branch.commit.sha,
-  };
-}
-
-function normalizeCommit(commit: GitHubCommit): CommitSummary {
-  return {
-    sha: commit.sha,
-    message: commit.commit.message,
-    authorName:
-      commit.commit.author?.name ?? commit.author?.login ?? "Unknown author",
-    authorDate:
-      commit.commit.author?.date ?? new Date().toISOString(),
-    htmlUrl: commit.html_url,
-  };
-}
-
 export async function listRepositories() {
-  const repositories = await requestGitHub<GitHubRepository[]>("/user/repos?per_page=100");
+  const repositories = await requestGitHub<GitHubRepository[]>(
+    "/user/repos?per_page=100",
+  );
 
   return {
     repositories: repositories.map(normalizeRepository),
