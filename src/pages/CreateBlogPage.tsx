@@ -3,14 +3,22 @@ import { BlogEditor } from "../components/BlogEditor";
 import { BranchSelector } from "../components/BranchSelector";
 import { CommitSelector } from "../components/CommitSelector";
 import { RepositorySelector } from "../components/RepositorySelector";
+import { SavedPostList } from "../components/SavedPostList";
 import { ApiError } from "../services/apiClient";
 import { fetchBranches, fetchCommits, fetchRepositories } from "../services/githubApi";
 import { createDraft } from "../services/llmApi";
-import type { EditablePost } from "../types/blog";
+import { createPost, fetchPosts, updatePost, updatePostStatus } from "../services/postApi";
+import type { BlogPost, EditablePost, SavePostInput } from "../types/blog";
 import type { Branch, CommitSummary, Repository } from "../types/github";
 
-type RequestKey = "repositories" | "branches" | "commits" | "draft";
+type RequestKey = "repositories" | "branches" | "commits" | "draft" | "posts" | "save" | "publish";
 type RequestStatus = "idle" | "loading" | "success" | "error";
+
+type PostSource = {
+  repositoryFullName: string;
+  branchName: string;
+  commitShas: string[];
+};
 
 const emptyPost: EditablePost = {
   title: "",
@@ -38,11 +46,17 @@ export const CreateBlogPage = () => {
   const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
   const [selectedCommitShas, setSelectedCommitShas] = useState<string[]>([]);
   const [editingPost, setEditingPost] = useState<EditablePost>(emptyPost);
+  const [activePostId, setActivePostId] = useState<string | null>(null);
+  const [activePostSource, setActivePostSource] = useState<PostSource | null>(null);
+  const [savedPosts, setSavedPosts] = useState<BlogPost[]>([]);
   const [statuses, setStatuses] = useState<Record<RequestKey, RequestStatus>>({
     repositories: "idle",
     branches: "idle",
     commits: "idle",
     draft: "idle",
+    posts: "idle",
+    save: "idle",
+    publish: "idle",
   });
   const [errors, setErrors] = useState<Partial<Record<RequestKey, string>>>({});
 
@@ -77,6 +91,21 @@ export const CreateBlogPage = () => {
     }
   };
 
+  const loadSavedPosts = async () => {
+    setStatus("posts", "loading");
+    setError("posts", null);
+
+    try {
+      const posts = await fetchPosts();
+      setSavedPosts(posts);
+      setStatus("posts", "success");
+    } catch (error) {
+      setSavedPosts([]);
+      setStatus("posts", "error");
+      setError("posts", formatError(error));
+    }
+  };
+
   const handleSelectRepository = (repository: Repository) => {
     setSelectedRepository(repository);
     setSelectedBranch(null);
@@ -84,6 +113,8 @@ export const CreateBlogPage = () => {
     setCommits([]);
     setSelectedCommitShas([]);
     setEditingPost(emptyPost);
+    setActivePostId(null);
+    setActivePostSource(null);
   };
 
   const handleSelectBranch = (branch: Branch) => {
@@ -91,6 +122,8 @@ export const CreateBlogPage = () => {
     setCommits([]);
     setSelectedCommitShas([]);
     setEditingPost(emptyPost);
+    setActivePostId(null);
+    setActivePostSource(null);
   };
 
   const toggleCommit = (sha: string) => {
@@ -120,6 +153,12 @@ export const CreateBlogPage = () => {
         summary: draft.summary,
         content: draft.content,
       });
+      setActivePostId(null);
+      setActivePostSource({
+        repositoryFullName: selectedRepository.fullName,
+        branchName: selectedBranch.name,
+        commitShas: draft.sourceCommitShas,
+      });
       setStatus("draft", "success");
     } catch (error) {
       setStatus("draft", "error");
@@ -127,8 +166,111 @@ export const CreateBlogPage = () => {
     }
   };
 
+  const buildSaveInput = (): SavePostInput | null => {
+    const source = activePostSource ?? (
+      selectedRepository && selectedBranch && selectedCommitShas.length > 0
+        ? {
+          repositoryFullName: selectedRepository.fullName,
+          branchName: selectedBranch.name,
+          commitShas: selectedCommitShas,
+        }
+        : null
+    );
+
+    if (!source) {
+      return null;
+    }
+
+    return {
+      ...editingPost,
+      ...source,
+    };
+  };
+
+  const upsertPostInList = (post: BlogPost) => {
+    setSavedPosts((current) => {
+      const withoutPost = current.filter((savedPost) => savedPost.id !== post.id);
+      return [post, ...withoutPost].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    });
+  };
+
+  const handleSavePost = async () => {
+    const input = buildSaveInput();
+
+    if (!input || statuses.save === "loading") {
+      return;
+    }
+
+    setStatus("save", "loading");
+    setError("save", null);
+
+    try {
+      const post = activePostId
+        ? await updatePost(activePostId, input)
+        : await createPost(input);
+
+      setActivePostId(post.id);
+      setActivePostSource({
+        repositoryFullName: post.repositoryFullName,
+        branchName: post.branchName,
+        commitShas: post.commitShas,
+      });
+      setEditingPost({
+        title: post.title,
+        summary: post.summary,
+        content: post.content,
+      });
+      upsertPostInList(post);
+      setStatus("save", "success");
+    } catch (error) {
+      setStatus("save", "error");
+      setError("save", formatError(error));
+    }
+  };
+
+  const handleOpenSavedPost = (post: BlogPost) => {
+    setActivePostId(post.id);
+    setActivePostSource({
+      repositoryFullName: post.repositoryFullName,
+      branchName: post.branchName,
+      commitShas: post.commitShas,
+    });
+    setEditingPost({
+      title: post.title,
+      summary: post.summary,
+      content: post.content,
+    });
+    setError("save", null);
+  };
+
+  const handlePublishPost = async (post: BlogPost) => {
+    if (statuses.publish === "loading") {
+      return;
+    }
+
+    setStatus("publish", "loading");
+    setError("publish", null);
+
+    try {
+      const publishedPost = await updatePostStatus(post.id, "published");
+      upsertPostInList(publishedPost);
+      if (activePostId === publishedPost.id) {
+        setEditingPost({
+          title: publishedPost.title,
+          summary: publishedPost.summary,
+          content: publishedPost.content,
+        });
+      }
+      setStatus("publish", "success");
+    } catch (error) {
+      setStatus("publish", "error");
+      setError("publish", formatError(error));
+    }
+  };
+
   useEffect(() => {
     void loadRepositories();
+    void loadSavedPosts();
   }, []);
 
   useEffect(() => {
@@ -184,6 +326,13 @@ export const CreateBlogPage = () => {
 
   const canGenerate = Boolean(selectedRepository && selectedBranch && selectedCommitShas.length > 0 && statuses.draft !== "loading");
   const isDraftReady = Boolean(editingPost.title || editingPost.summary || editingPost.content);
+  const canSave = Boolean(
+    editingPost.title.trim()
+    && editingPost.summary.trim()
+    && editingPost.content.trim()
+    && buildSaveInput()
+    && statuses.save !== "loading",
+  );
 
   return (
     <main className="app-shell">
@@ -261,7 +410,36 @@ export const CreateBlogPage = () => {
           </section>
 
           <BlogEditor post={editingPost} isDraftReady={isDraftReady} onChange={setEditingPost} />
+
+          <section className="panel save-panel">
+            <div className="section-header">
+              <div>
+                <p className="section-kicker">Step 6</p>
+                <h2>Save</h2>
+              </div>
+              <span className={`tag${activePostId ? " success" : ""}`}>
+                {activePostId ? "editing saved post" : "new draft"}
+              </span>
+            </div>
+
+            {errors.save && <p className="error-text">{errors.save}</p>}
+            {statuses.save === "success" && <p className="state-text">저장되었습니다. 목록에서 다시 열 수 있습니다.</p>}
+
+            <button className="primary-button" type="button" disabled={!canSave} onClick={handleSavePost}>
+              {statuses.save === "loading" ? "저장 중" : activePostId ? "수정 저장" : "포스트 저장"}
+            </button>
+          </section>
         </div>
+
+        <SavedPostList
+          posts={savedPosts}
+          activePostId={activePostId}
+          isLoading={statuses.posts === "loading"}
+          errorMessage={errors.posts ?? errors.publish ?? null}
+          onOpen={handleOpenSavedPost}
+          onPublish={handlePublishPost}
+          onRefresh={loadSavedPosts}
+        />
       </section>
     </main>
   );

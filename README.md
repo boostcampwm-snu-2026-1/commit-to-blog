@@ -13,6 +13,7 @@ GitHub 활동 데이터를 바탕으로 개발 블로그 초안을 생성하고,
 - `docs/github-api.md`: GitHub API 서버 연동 방식, 응답 형태, 오류 정책
 - `docs/llm-draft.md`: LLM 블로그 초안 생성 방식, 프롬프트 정책, 오류 정책
 - `docs/ui-flow.md`: React 블로그 작성 UI 흐름과 상태 관리 기준
+- `docs/saved-posts.md`: 저장된 포스트 API, 카드 UI, 재편집/발행 흐름
 - `skills/`: 이 프로젝트에서 반복 사용할 AI 작업 스킬
 
 ## Development
@@ -40,6 +41,11 @@ LLM 초안 생성을 사용하려면 `OPENAI_API_KEY`와 `OPENAI_MODEL`도 `.env
 - `GET /api/github/repositories/:owner/:repo/commits?branch={branch}`
 - `GET /api/github/repositories/:owner/:repo/commits/:sha`
 - `POST /api/llm/drafts`
+- `GET /api/posts`
+- `POST /api/posts`
+- `GET /api/posts/:id`
+- `PUT /api/posts/:id`
+- `PATCH /api/posts/:id/status`
 
 ## Commit Rule
 

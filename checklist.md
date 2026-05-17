@@ -93,12 +93,22 @@
 
 ## 6. 저장된 포스트 관리
 
-- [ ] 생성 또는 편집한 글을 저장할 수 있게 한다.
-- [ ] 저장된 포스트 목록을 카드 형태로 보여준다.
-- [ ] 카드에 제목, 브랜치 태그, 요약, 날짜를 표시한다.
-- [ ] 저장된 포스트를 다시 열어 수정할 수 있게 한다.
-- [ ] 저장 상태와 저장 실패 상태를 사용자에게 보여준다.
-- [ ] 발행 상태 또는 최종 검토 흐름을 구현한다.
+- [x] 생성 또는 편집한 글을 저장할 수 있게 한다.
+- [x] 저장된 포스트 목록을 카드 형태로 보여준다.
+- [x] 카드에 제목, 브랜치 태그, 요약, 날짜를 표시한다.
+- [x] 저장된 포스트를 다시 열어 수정할 수 있게 한다.
+- [x] 저장 상태와 저장 실패 상태를 사용자에게 보여준다.
+- [x] 발행 상태 또는 최종 검토 흐름을 구현한다.
+
+완료 근거:
+
+- `server/routes/postRoutes.ts`
+- `server/services/postStore.ts`
+- `src/services/postApi.ts`
+- `src/components/SavedPostList.tsx`
+- `src/components/SavedPostCard.tsx`
+- `src/pages/CreateBlogPage.tsx`
+- `docs/saved-posts.md`
 
 ## 7. AI Workflow, Skill, 검증
 

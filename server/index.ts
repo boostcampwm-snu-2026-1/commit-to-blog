@@ -4,8 +4,10 @@ import type { NextFunction, Request, Response } from "express";
 import { env } from "./config/env";
 import { githubRoutes } from "./routes/githubRoutes";
 import { llmRoutes } from "./routes/llmRoutes";
+import { postRoutes } from "./routes/postRoutes";
 import { GitHubServiceError } from "./services/githubService";
 import { LlmServiceError } from "./services/llmService";
+import { PostStoreError } from "./services/postStore";
 
 const app = express();
 
@@ -18,6 +20,7 @@ app.get("/api/health", (_request, response) => {
 
 app.use("/api/github", githubRoutes);
 app.use("/api/llm", llmRoutes);
+app.use("/api/posts", postRoutes);
 
 app.use((error: unknown, _request: Request, response: Response, _next: NextFunction) => {
   if (error instanceof GitHubServiceError) {
@@ -29,6 +32,14 @@ app.use((error: unknown, _request: Request, response: Response, _next: NextFunct
   }
 
   if (error instanceof LlmServiceError) {
+    response.status(error.statusCode).json({
+      code: error.code,
+      message: error.message,
+    });
+    return;
+  }
+
+  if (error instanceof PostStoreError) {
     response.status(error.statusCode).json({
       code: error.code,
       message: error.message,
