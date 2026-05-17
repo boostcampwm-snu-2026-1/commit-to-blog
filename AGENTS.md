@@ -27,6 +27,7 @@
 - 프론트엔드(Client)
   - React
   - TypeScript
+  - Vite
   - 스타일링: Tailwind CSS
   - UI: Shadcn UI
   - 상태/데이터: TanStack Query + 로컬 상태
@@ -85,4 +86,5 @@
   - 출력 JSON 스키마
   - 평가 기준(정확성/난이도/학습가치)
   - 금지사항(근거 없는 추측, 민감정보 노출)
+
 
