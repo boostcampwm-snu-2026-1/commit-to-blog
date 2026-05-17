@@ -1,5 +1,7 @@
-﻿import express from 'express';
+﻿import 'dotenv/config';
+import express from 'express';
 
+import { connectDatabase } from './config/db';
 import { commitsRouter } from './routes/commits';
 import { diffRouter } from './routes/diff';
 import { healthRouter } from './routes/health';
@@ -19,8 +21,23 @@ app.use('/api/interview', interviewRouter);
 app.use('/api/posts', postsRouter);
 
 const port = Number(process.env.PORT ?? 4000);
+const mongoUri = process.env.MONGODB_URI;
 
-app.listen(port, () => {
+async function bootstrap() {
+  if (!mongoUri) {
+    throw new Error('MONGODB_URI is required.');
+  }
+
+  await connectDatabase(mongoUri);
+
+  app.listen(port, () => {
+    // eslint-disable-next-line no-console
+    console.log(`server listening on http://localhost:${port}`);
+  });
+}
+
+bootstrap().catch((error: unknown) => {
   // eslint-disable-next-line no-console
-  console.log(`server listening on http://localhost:${port}`);
+  console.error('failed to start server', error);
+  process.exit(1);
 });
