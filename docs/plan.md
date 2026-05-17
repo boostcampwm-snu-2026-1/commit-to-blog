@@ -8,8 +8,8 @@ Build an MVP that lets a user select a GitHub repository, branch, and commits, g
 
 ### 1. Project Foundation
 
-- [ ] Initialize `frontend/` as a Vite + React + TypeScript app.
-- [ ] Initialize `backend/` as an Express + TypeScript app.
+- [x] Initialize `frontend/` as a Vite + React + TypeScript app.
+- [x] Initialize `backend/` as an Express + TypeScript app.
 - [ ] Add baseline scripts for development, build, and type checking.
 - [ ] Add `.env.example` files without real secrets.
 - [ ] Make sure `.env` files are ignored by git.
