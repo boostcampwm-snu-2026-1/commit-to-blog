@@ -189,6 +189,20 @@ type WizardState = {
 | `/posts` | `posts`, `loading`, `error` | 마운트 시 `/api/posts` fetch |
 | `/posts/[id]` | `post`, `saving` | 마운트 시 `/api/posts/[id]` fetch, StepEditor 재사용 |
 
+## 데이터 보관
+
+| 데이터 | 보관 위치 | 생명주기 |
+|---|---|---|
+| 블로그 포스트 | MongoDB Atlas | 영구 저장 |
+| GitHub PAT | sessionStorage | 탭 닫으면 자동 삭제 |
+| 위저드 진행 상태 | React 메모리 (useReducer) | 페이지 이탈 시 소멸 |
+| Gemini / GitHub API 키 | 서버 환경변수 (`.env.local`) | 서버에만 존재, 브라우저 노출 금지 |
+
+- PAT는 DB에 저장하지 않는다. 서버로 전달할 때는 `x-github-pat` 헤더만 사용.
+- 위저드 상태는 저장하지 않는다. 새로고침 시 Step 1부터 다시 시작.
+- `contentPreview`는 DB에 저장하지 않고 `content` 앞부분을 잘라 카드에 표시.
+- `thumbnailUrl`이 없으면 `branch` 값 기반 CSS 그라디언트로 대체.
+
 ## Data Model
 
 ```typescript
