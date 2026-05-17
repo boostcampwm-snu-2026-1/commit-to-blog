@@ -59,6 +59,18 @@ body {
 }
 
 /* overflow 시 스크롤바 스타일링 수정 */
+.scrollbar-transparent::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-transparent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-transparent::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
@@ -74,4 +86,55 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
+}
+
+@keyframes card-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  80% {
+    transform: translateX(0px);
+  }
+}
+
+.card-shake-hover:hover {
+  animation: card-shake 2s ease;
+}
+
+/* 카드 슬라이딩 애니메이션 */
+@keyframes card-exit {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes card-enter {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.card-exit {
+  animation: card-exit 2s ease forwards;
+}
+
+.card-enter {
+  animation: card-enter 2s ease forwards;
 }

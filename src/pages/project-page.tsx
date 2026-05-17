@@ -1,4 +1,4 @@
-import { ProjectSection } from './project-section';
+import { ProjectSection } from '../feature/project/project-section';
 
 export const ProjectPage = () => {
   return (
