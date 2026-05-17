@@ -18,7 +18,7 @@ Build an MVP that lets a user select a GitHub repository, branch, and commits, g
 Related feature doc: [02 Frontend Styling Foundation](features/02-frontend-styling-foundation.md)
 
 - [x] Add Tailwind CSS to the frontend build setup.
-- [ ] Define primitive CSS tokens for raw color, spacing, radius, shadow, and typography values.
+- [x] Define primitive CSS tokens for raw color, spacing, radius, shadow, and typography values.
 - [ ] Define semantic CSS tokens for app surfaces, text, borders, actions, and status states.
 - [ ] Map semantic CSS tokens into Tailwind utilities.
 - [ ] Add shared base styles that use semantic tokens.
