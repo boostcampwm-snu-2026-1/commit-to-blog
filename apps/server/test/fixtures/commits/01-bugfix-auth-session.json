@@ -1,0 +1,29 @@
+{
+  "repo": "acme/web",
+  "branch": "main",
+  "style": "default",
+  "commits": [
+    {
+      "sha": "c4f3e2a9d1b8f0a2e6c7b9d4e1f3a5c7d9b0e2f4",
+      "message": "Fix user login bug",
+      "body": "세션 만료 시간이 30분으로 짧게 잡혀 로그인이 자주 풀리는 문제를 해결한다. Redis 세션 스토어의 reconnect 로직을 보강했고, 비정상 종료 시 세션 데이터 무결성 체크를 추가했다.",
+      "stats": { "additions": 42, "deletions": 18, "total": 60 },
+      "files": [
+        {
+          "filename": "server/src/session/store.ts",
+          "status": "modified",
+          "additions": 28,
+          "deletions": 12,
+          "patch": "@@ -10,7 +10,9 @@ export class SessionStore {\n   constructor(private redis: Redis) {\n-    this.ttl = 30 * 60;\n+    this.ttl = 2 * 60 * 60;\n+    this.redis.on('error', this.handleRedisError);\n+    this.redis.on('reconnecting', () => log.warn('redis reconnecting'));\n   }\n \n   async get(sid: string): Promise<Session | null> {\n@@ -22,6 +24,9 @@ export class SessionStore {\n     const raw = await this.redis.get(`sess:${sid}`);\n+    if (!raw) return null;\n+    const parsed = safeParse(raw);\n+    if (!parsed.ok) { log.warn('corrupt session', sid); return null; }\n     return JSON.parse(raw);\n   }\n }"
+        },
+        {
+          "filename": "server/src/session/safeParse.ts",
+          "status": "added",
+          "additions": 14,
+          "deletions": 0,
+          "patch": "+export function safeParse(raw: string) {\n+  try {\n+    return { ok: true as const, value: JSON.parse(raw) };\n+  } catch (err) {\n+    return { ok: false as const, err };\n+  }\n+}"
+        }
+      ]
+    }
+  ]
+}

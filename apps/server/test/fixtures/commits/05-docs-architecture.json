@@ -1,0 +1,28 @@
+{
+  "repo": "acme/web",
+  "branch": "develop",
+  "style": "short",
+  "commits": [
+    {
+      "sha": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b",
+      "message": "Update architecture docs",
+      "body": "마이크로서비스 통신 다이어그램을 최신화하고, 새로 추가된 notification-service에 대한 contract를 문서에 반영한다.",
+      "stats": { "additions": 84, "deletions": 12, "total": 96 },
+      "files": [
+        {
+          "filename": "docs/architecture.md",
+          "status": "modified",
+          "additions": 64,
+          "deletions": 12,
+          "patch": "@@\n-## Services\n-- auth-service\n-- profile-service\n+## Services\n+- auth-service\n+- profile-service\n+- notification-service (new)\n+\n+## notification-service contract\n+- HTTP: POST /notify (sync)\n+- Events: `user.registered`, `profile.updated` (subscribe)\n+- Retries: 5x exponential backoff via outbox table"
+        },
+        {
+          "filename": "docs/diagrams/services.mmd",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 0
+        }
+      ]
+    }
+  ]
+}

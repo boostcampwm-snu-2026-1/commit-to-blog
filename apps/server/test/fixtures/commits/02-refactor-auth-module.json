@@ -1,0 +1,48 @@
+{
+  "repo": "acme/web",
+  "branch": "main",
+  "style": "technical",
+  "commits": [
+    {
+      "sha": "a7e2bd34c19f8c0e2a4b6d8e0f2a4c6e8b0d2f4a",
+      "message": "Refactor authentication module",
+      "body": "기존 auth 미들웨어에 흩어져 있던 인증 로직을 AuthService와 AuthMiddleware로 분리. 토큰 검증/회전 로직은 서비스 레이어에서만 책임지도록 정리해 단위 테스트 가능성을 높였다.",
+      "stats": { "additions": 188, "deletions": 142, "total": 330 },
+      "files": [
+        {
+          "filename": "server/src/auth/AuthService.ts",
+          "status": "added",
+          "additions": 96,
+          "deletions": 0,
+          "patch": "+export class AuthService {\n+  constructor(private deps: { tokens: TokenStore; users: UserRepo }) {}\n+\n+  async verify(token: string): Promise<AuthContext> {\n+    const claims = this.deps.tokens.verify(token);\n+    const user = await this.deps.users.findById(claims.sub);\n+    if (!user) throw new AuthError('user_not_found');\n+    return { user, claims };\n+  }\n+\n+  async rotate(refreshToken: string): Promise<{ access: string; refresh: string }> {\n+    const next = this.deps.tokens.rotate(refreshToken);\n+    return next;\n+  }\n+}"
+        },
+        {
+          "filename": "server/src/auth/AuthMiddleware.ts",
+          "status": "added",
+          "additions": 38,
+          "deletions": 0,
+          "patch": "+export const authMiddleware = (service: AuthService): RequestHandler =>\n+  async (req, res, next) => {\n+    const token = extractBearer(req);\n+    if (!token) return next(new AuthError('missing_token'));\n+    try {\n+      req.auth = await service.verify(token);\n+      next();\n+    } catch (err) {\n+      next(err);\n+    }\n+  };"
+        },
+        {
+          "filename": "server/src/auth/index.ts",
+          "status": "modified",
+          "additions": 12,
+          "deletions": 38,
+          "patch": "@@\n-// monolithic auth.ts (deleted)\n-export async function authenticate(req, res, next) {\n-  // ...142 lines of mixed concerns\n-}\n+export { AuthService } from './AuthService';\n+export { authMiddleware } from './AuthMiddleware';\n+export { AuthError } from './errors';"
+        },
+        {
+          "filename": "server/test/auth/AuthService.test.ts",
+          "status": "added",
+          "additions": 42,
+          "deletions": 0
+        },
+        {
+          "filename": "server/src/auth.ts",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 104
+        }
+      ]
+    }
+  ]
+}

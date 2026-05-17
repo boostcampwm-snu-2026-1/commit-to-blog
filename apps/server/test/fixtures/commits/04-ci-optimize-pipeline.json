@@ -1,0 +1,22 @@
+{
+  "repo": "acme/web",
+  "branch": "main",
+  "style": "casual",
+  "commits": [
+    {
+      "sha": "e8c2d1a3b5f7c9e0a2b4d6e8f0a2c4e6b8d0f2a4",
+      "message": "Optimize CI pipeline",
+      "body": "GitHub Actions의 e2e job이 매번 14분씩 걸려서 머지 큐가 밀리는 문제가 있었다. setup-node 캐시를 활성화하고 통합 테스트와 단위 테스트를 별도 job으로 분리해 병렬 실행, 그리고 pnpm store 캐싱을 추가했다.",
+      "stats": { "additions": 36, "deletions": 21, "total": 57 },
+      "files": [
+        {
+          "filename": ".github/workflows/ci.yml",
+          "status": "modified",
+          "additions": 36,
+          "deletions": 21,
+          "patch": "@@\n-      - uses: actions/setup-node@v4\n-        with: { node-version: 20 }\n-      - run: npm ci\n-      - run: npm test\n+      - uses: pnpm/action-setup@v4\n+      - uses: actions/setup-node@v4\n+        with:\n+          node-version: 20\n+          cache: pnpm\n+      - run: pnpm install --frozen-lockfile\n+      - run: pnpm -r typecheck\n+      - run: pnpm -r test\n+\n+  e2e:\n+    needs: unit\n+    runs-on: ubuntu-latest\n+    steps:\n+      - uses: actions/checkout@v4\n+      - uses: pnpm/action-setup@v4\n+      - run: pnpm install --frozen-lockfile\n+      - run: pnpm e2e"
+        }
+      ]
+    }
+  ]
+}
