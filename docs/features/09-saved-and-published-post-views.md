@@ -1,23 +1,24 @@
-# 05 Internal Publishing
+# 09 Saved and Published Post Views
 
 ## Goal
 
-Publish posts inside this service by changing post status to `published` and displaying published posts in the frontend.
+Show saved posts, support post management actions, and display internally published posts.
 
 ## Implementation Context
 
+- Saved posts appear as cards with title, summary, repository, branch, status, and date.
+- Users can open details, edit, delete, and change status.
+- Delete requires confirmation.
 - Publishing is an internal state change, not an external blog upload.
 - Published posts are fetched through the server-side status filter defined in [docs/api-design.md](../api-design.md#post-api).
-- The frontend should not fetch all posts and filter published posts client-side.
-- Changing a post to `published` records `publishedAt`.
 
 ## References
 
 - Publishing scope: [docs/plan.md](../plan.md#mvp-scope)
 - Post status model: [docs/data-model.md](../data-model.md#status-meaning)
 - API contract: [docs/api-design.md](../api-design.md#post-api)
-- Frontend screen: [docs/frontend-design.md](../frontend-design.md#published-post-view)
-- Task order: [Saved and Published Post Views](../plan.md#9-saved-and-published-post-views)
+- Frontend screens: [Saved Post List](../frontend-design.md#saved-post-list), [Published Post View](../frontend-design.md#published-post-view)
+- Task order: [docs/plan.md](../plan.md#9-saved-and-published-post-views)
 - Verification: [Backend Checks](../testing.md#backend-checks), [Frontend Checks](../testing.md#frontend-checks)
 
 ## Acceptance Notes

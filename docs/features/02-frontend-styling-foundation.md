@@ -1,12 +1,12 @@
-# 01 Frontend Styling Foundation
+# 02 Frontend Styling Foundation
 
 ## Goal
 
-Set up Tailwind CSS and the project token system before building UI screens, so later components use semantic styling utilities consistently.
+Set up Tailwind CSS and the project token system before building product screens, so later UI work uses semantic styling utilities consistently.
 
 ## Implementation Context
 
-- Add Tailwind CSS during frontend setup.
+- Add Tailwind CSS to the frontend build setup.
 - Define primitive tokens for raw design values only.
 - Define semantic tokens for application meaning.
 - Expose semantic tokens through Tailwind utilities.

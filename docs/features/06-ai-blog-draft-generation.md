@@ -1,4 +1,4 @@
-# 03 AI Draft Generation
+# 06 AI Blog Draft Generation
 
 ## Goal
 
@@ -17,8 +17,7 @@ Generate a development blog draft from selected GitHub commits using OpenAI from
 - API route: [docs/api-design.md](../api-design.md#blog-draft-api)
 - Data shapes: [Generated Draft](../data-model.md#generated-draft), [Commit](../data-model.md#commit)
 - Backend service role: [docs/backend-design.md](../backend-design.md#service-responsibilities)
-- Frontend editor flow: [docs/frontend-design.md](../frontend-design.md#editor)
-- Task order: [AI Blog Draft Generation](../plan.md#6-ai-blog-draft-generation)
+- Task order: [docs/plan.md](../plan.md#6-ai-blog-draft-generation)
 - Verification: [Backend Checks](../testing.md#backend-checks), [Frontend Checks](../testing.md#frontend-checks)
 
 ## Acceptance Notes

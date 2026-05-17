@@ -16,7 +16,7 @@ Build an MVP that lets a user select a GitHub repository, branch, and commits, g
 
 ### 2. Frontend Styling Foundation
 
-Related feature doc: [01 Frontend Styling Foundation](features/01-frontend-styling-foundation.md)
+Related feature doc: [02 Frontend Styling Foundation](features/02-frontend-styling-foundation.md)
 
 - [ ] Add Tailwind CSS to the frontend build setup.
 - [ ] Define primitive CSS tokens for raw color, spacing, radius, shadow, and typography values.
@@ -34,7 +34,7 @@ Related feature doc: [01 Frontend Styling Foundation](features/01-frontend-styli
 
 ### 4. MongoDB Persistence
 
-Related feature doc: [04 Post Management](features/04-post-management.md)
+Related feature doc: [04 MongoDB Persistence](features/04-mongodb-persistence.md)
 
 - [ ] Configure the MongoDB connection through the database URI environment variable defined in [docs/architecture.md](architecture.md).
 - [ ] Create the Post model with `draft` and `published` statuses.
@@ -43,7 +43,7 @@ Related feature doc: [04 Post Management](features/04-post-management.md)
 
 ### 5. GitHub Repository Data Flow
 
-Related feature doc: [02 GitHub Repository Flow](features/02-github-repository-flow.md)
+Related feature doc: [05 GitHub Repository Data Flow](features/05-github-repository-data-flow.md)
 
 - [ ] Add a backend GitHub API client that uses server-side token configuration.
 - [ ] Implement repository list retrieval.
@@ -54,7 +54,7 @@ Related feature doc: [02 GitHub Repository Flow](features/02-github-repository-f
 
 ### 6. AI Blog Draft Generation
 
-Related feature doc: [03 AI Draft Generation](features/03-ai-draft-generation.md)
+Related feature doc: [06 AI Blog Draft Generation](features/06-ai-blog-draft-generation.md)
 
 - [ ] Add a backend OpenAI client that uses server-side API key configuration.
 - [ ] Build a prompt from the selected repository, branch, and commits.
@@ -64,7 +64,7 @@ Related feature doc: [03 AI Draft Generation](features/03-ai-draft-generation.md
 
 ### 7. Frontend Selection Workflow
 
-Related feature doc: [02 GitHub Repository Flow](features/02-github-repository-flow.md)
+Related feature doc: [07 Frontend Selection Workflow](features/07-frontend-selection-workflow.md)
 
 - [ ] Build repository selection UI.
 - [ ] Build branch selection UI that depends on the selected repository.
@@ -75,7 +75,7 @@ Related feature doc: [02 GitHub Repository Flow](features/02-github-repository-f
 
 ### 8. Draft Editing and Saving
 
-Related feature doc: [04 Post Management](features/04-post-management.md)
+Related feature doc: [08 Draft Editing and Saving](features/08-draft-editing-and-saving.md)
 
 - [ ] Display the generated draft in an editable form.
 - [ ] Allow editing title, summary, and content.
@@ -85,7 +85,7 @@ Related feature doc: [04 Post Management](features/04-post-management.md)
 
 ### 9. Saved and Published Post Views
 
-Related feature docs: [04 Post Management](features/04-post-management.md), [05 Internal Publishing](features/05-internal-publishing.md)
+Related feature doc: [09 Saved and Published Post Views](features/09-saved-and-published-post-views.md)
 
 - [ ] Show saved posts as cards with title, summary, repository, branch, status, and date.
 - [ ] Add post detail view.
