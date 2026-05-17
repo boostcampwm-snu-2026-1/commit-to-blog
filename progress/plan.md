@@ -20,11 +20,11 @@ frontend는 Vite 스캐폴딩 후 구조 정리.
 backend, db는 수동 생성.
 
 ## 실행 단계
-- [ ] 1. docker-compose.yml 작성
-- [ ] 2. frontend/ 생성 (Vite 스캐폴딩 + 구조 정리 + Dockerfile)
-- [ ] 3. backend/ 생성 (FastAPI 기본 구조 + requirements.txt + Dockerfile)
-- [ ] 4. db/init.sql 작성 (data-model.md 기반 테이블 생성)
-- [ ] 5. docker-compose up 실행 확인
+- [x] 1. docker-compose.yml 작성
+- [x] 2. frontend/ 생성 (Vite 스캐폴딩 + 구조 정리 + Dockerfile)
+- [x] 3. backend/ 생성 (FastAPI 기본 구조 + requirements.txt + Dockerfile)
+- [x] 4. db/init.sql 작성 (data-model.md 기반 테이블 생성)
+- [x] 5. docker-compose up 실행 확인
 
 ## 예상 변경 파일
 - docker-compose.yml (신규)
