@@ -38,6 +38,18 @@ export interface CommitSummary {
   date: string;
 }
 
+export interface CommitDetailFile {
+  filename: string;
+  status: string;
+  patch?: string;
+}
+
+export interface CommitDetail {
+  sha: string;
+  message: string;
+  files: CommitDetailFile[];
+}
+
 export async function listRepos(): Promise<RepoSummary[]> {
   const octokit = getOctokit();
   const { data } = await octokit.repos.listForAuthenticatedUser({ per_page: 30 });
@@ -77,4 +89,23 @@ export async function listCommits(
     author: entry.commit.author?.name ?? '',
     date: entry.commit.author?.date ?? '',
   }));
+}
+
+export async function getCommitDetail(
+  owner: string,
+  repo: string,
+  sha: string,
+): Promise<CommitDetail> {
+  const octokit = getOctokit();
+  const { data } = await octokit.repos.getCommit({ owner, repo, ref: sha });
+  const files = (data.files ?? []).map((file) => ({
+    filename: file.filename,
+    status: file.status,
+    patch: file.patch,
+  }));
+  return {
+    sha: data.sha,
+    message: data.commit.message,
+    files,
+  };
 }
