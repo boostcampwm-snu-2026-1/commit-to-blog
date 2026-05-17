@@ -21,6 +21,7 @@
   --border-strong: var(--base-color-neutral-300);
   --border-focus: var(--base-color-blue-600);
   --focus-ring: var(--base-shadow-focus);
+  --elevation-raised: var(--base-shadow-md);
 
   /* Actions */
   --action-primary: var(--base-color-blue-600);
@@ -71,6 +72,7 @@
     --border-muted: var(--base-color-neutral-800);
     --border-strong: var(--base-color-neutral-600);
     --border-focus: var(--base-color-blue-100);
+    --elevation-raised: var(--base-shadow-md);
 
     --action-primary: var(--base-color-blue-600);
     --action-primary-hover: var(--base-color-blue-700);

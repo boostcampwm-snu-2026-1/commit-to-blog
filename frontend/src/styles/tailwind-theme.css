@@ -33,6 +33,7 @@
 
   /* Effect utilities */
   --shadow-focus: var(--focus-ring);
+  --shadow-elevated: var(--elevation-raised);
 }
 
 @utility text-primary {

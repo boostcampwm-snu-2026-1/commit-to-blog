@@ -21,7 +21,7 @@ Related feature doc: [02 Frontend Styling Foundation](features/02-frontend-styli
 - [x] Define primitive CSS tokens for raw color, spacing, radius, shadow, and typography values.
 - [x] Define semantic CSS tokens for app surfaces, text, borders, actions, and status states.
 - [x] Map semantic CSS tokens into Tailwind utilities.
-- [ ] Add shared base styles that use semantic tokens.
+- [x] Add shared base styles that use semantic tokens.
 
 ### 3. Backend Configuration and Server Setup
 
