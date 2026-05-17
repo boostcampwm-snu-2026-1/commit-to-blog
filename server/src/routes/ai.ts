@@ -1,7 +1,7 @@
 import { Router, type Request, type Response } from 'express';
 import { z } from 'zod';
 import { MissingGithubTokenError, getCommitDetail } from '../github.js';
-import { MissingAnthropicKeyError, generateDraft } from '../services/ai.js';
+import { MissingGeminiKeyError, generateDraft } from '../services/ai.js';
 
 const router = Router();
 
@@ -23,8 +23,8 @@ function handleDraftError(err: unknown, res: Response): void {
     res.status(500).json({ error: 'GITHUB_TOKEN not set' });
     return;
   }
-  if (err instanceof MissingAnthropicKeyError) {
-    res.status(500).json({ error: 'ANTHROPIC_API_KEY not set' });
+  if (err instanceof MissingGeminiKeyError) {
+    res.status(500).json({ error: 'GEMINI_API_KEY not set' });
     return;
   }
 

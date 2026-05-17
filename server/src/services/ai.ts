@@ -1,26 +1,26 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenAI } from '@google/genai';
 import type { CommitDetail } from '../github.js';
 
-export class MissingAnthropicKeyError extends Error {
+export class MissingGeminiKeyError extends Error {
   constructor() {
-    super('ANTHROPIC_API_KEY not set');
-    this.name = 'MissingAnthropicKeyError';
+    super('GEMINI_API_KEY not set');
+    this.name = 'MissingGeminiKeyError';
   }
 }
 
 /**
- * Build an Anthropic client using the current ANTHROPIC_API_KEY env var.
+ * Build a Gemini client using the current GEMINI_API_KEY env var.
  * Read on every call so tests can swap the env var per-case.
  */
-export function getAnthropic(): Anthropic {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+export function getGemini(): GoogleGenAI {
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new MissingAnthropicKeyError();
+    throw new MissingGeminiKeyError();
   }
-  return new Anthropic({ apiKey });
+  return new GoogleGenAI({ apiKey });
 }
 
-const MODEL = 'claude-sonnet-4-6';
+const MODEL = 'gemini-2.5-flash';
 const MAX_TOKENS = 4096;
 
 const SYSTEM_PROMPT =
@@ -64,23 +64,22 @@ export function buildPrompt(commits: CommitDetail[]): string {
 }
 
 export async function generateDraft(commits: CommitDetail[]): Promise<string> {
-  const client = getAnthropic();
+  const client = getGemini();
   const userPrompt = buildPrompt(commits);
 
-  const response = await client.messages.create({
+  const response = await client.models.generateContent({
     model: MODEL,
-    max_tokens: MAX_TOKENS,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: userPrompt }],
+    contents: userPrompt,
+    config: {
+      systemInstruction: SYSTEM_PROMPT,
+      maxOutputTokens: MAX_TOKENS,
+    },
   });
 
-  const firstBlock = response.content[0];
-  if (!firstBlock || firstBlock.type !== 'text') {
-    throw new Error('Anthropic response missing text content');
-  }
-  const text = firstBlock.text;
-  if (text.length === 0) {
-    throw new Error('Anthropic response returned empty text');
+  const text =
+    response.text ?? response.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text || text.length === 0) {
+    throw new Error('Gemini response missing text content');
   }
   return text;
 }

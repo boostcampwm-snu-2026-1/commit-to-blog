@@ -3,7 +3,7 @@ import request from 'supertest';
 
 // Mutable mock state — each test sets behavior on these.
 const mockGetCommit = vi.fn();
-const mockAnthropicCreate = vi.fn();
+const mockGenerateContent = vi.fn();
 
 vi.mock('@octokit/rest', () => {
   class Octokit {
@@ -19,31 +19,27 @@ vi.mock('@octokit/rest', () => {
   return { Octokit };
 });
 
-vi.mock('@anthropic-ai/sdk', () => {
-  class Anthropic {
-    messages: {
-      create: typeof mockAnthropicCreate;
-    };
+vi.mock('@google/genai', () => {
+  class GoogleGenAI {
+    models: { generateContent: typeof mockGenerateContent };
     constructor(_opts?: unknown) {
-      this.messages = {
-        create: mockAnthropicCreate,
-      };
+      this.models = { generateContent: mockGenerateContent };
     }
   }
-  return { default: Anthropic };
+  return { GoogleGenAI };
 });
 
 // Import app AFTER the mocks so the route module receives the mocked clients.
 const { default: app } = await import('../app.js');
 
 const originalGithubToken = process.env.GITHUB_TOKEN;
-const originalAnthropicKey = process.env.ANTHROPIC_API_KEY;
+const originalGeminiKey = process.env.GEMINI_API_KEY;
 
 beforeEach(() => {
   mockGetCommit.mockReset();
-  mockAnthropicCreate.mockReset();
+  mockGenerateContent.mockReset();
   process.env.GITHUB_TOKEN = 'test-github-token';
-  process.env.ANTHROPIC_API_KEY = 'test-anthropic-key';
+  process.env.GEMINI_API_KEY = 'test-gemini-key';
 });
 
 afterEach(() => {
@@ -52,10 +48,10 @@ afterEach(() => {
   } else {
     process.env.GITHUB_TOKEN = originalGithubToken;
   }
-  if (originalAnthropicKey === undefined) {
-    delete process.env.ANTHROPIC_API_KEY;
+  if (originalGeminiKey === undefined) {
+    delete process.env.GEMINI_API_KEY;
   } else {
-    process.env.ANTHROPIC_API_KEY = originalAnthropicKey;
+    process.env.GEMINI_API_KEY = originalGeminiKey;
   }
 });
 
@@ -66,7 +62,7 @@ describe('POST /api/ai/draft', () => {
     expect(res.status).toBe(400);
     expect(res.body.error).toBeDefined();
     expect(mockGetCommit).not.toHaveBeenCalled();
-    expect(mockAnthropicCreate).not.toHaveBeenCalled();
+    expect(mockGenerateContent).not.toHaveBeenCalled();
   });
 
   it('returns 400 when commits array is empty', async () => {
@@ -80,7 +76,7 @@ describe('POST /api/ai/draft', () => {
     expect(res.status).toBe(400);
     expect(res.body.error).toBeDefined();
     expect(mockGetCommit).not.toHaveBeenCalled();
-    expect(mockAnthropicCreate).not.toHaveBeenCalled();
+    expect(mockGenerateContent).not.toHaveBeenCalled();
   });
 
   it('returns 500 when GITHUB_TOKEN is not set', async () => {
@@ -96,11 +92,11 @@ describe('POST /api/ai/draft', () => {
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: 'GITHUB_TOKEN not set' });
     expect(mockGetCommit).not.toHaveBeenCalled();
-    expect(mockAnthropicCreate).not.toHaveBeenCalled();
+    expect(mockGenerateContent).not.toHaveBeenCalled();
   });
 
-  it('returns 500 when ANTHROPIC_API_KEY is not set', async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it('returns 500 when GEMINI_API_KEY is not set', async () => {
+    delete process.env.GEMINI_API_KEY;
     mockGetCommit.mockResolvedValue({
       data: {
         sha: 'abc123',
@@ -117,8 +113,8 @@ describe('POST /api/ai/draft', () => {
     });
 
     expect(res.status).toBe(500);
-    expect(res.body).toEqual({ error: 'ANTHROPIC_API_KEY not set' });
-    expect(mockAnthropicCreate).not.toHaveBeenCalled();
+    expect(res.body).toEqual({ error: 'GEMINI_API_KEY not set' });
+    expect(mockGenerateContent).not.toHaveBeenCalled();
   });
 
   it('returns 200 with markdown on happy path', async () => {
@@ -135,8 +131,8 @@ describe('POST /api/ai/draft', () => {
         ],
       },
     });
-    mockAnthropicCreate.mockResolvedValue({
-      content: [{ type: 'text', text: '# Hello' }],
+    mockGenerateContent.mockResolvedValue({
+      text: '# Hello',
     });
 
     const res = await request(app).post('/api/ai/draft').send({
@@ -153,13 +149,12 @@ describe('POST /api/ai/draft', () => {
       repo: 'repo-one',
       ref: 'abc1234567890',
     });
-    expect(mockAnthropicCreate).toHaveBeenCalledTimes(1);
-    const callArg = mockAnthropicCreate.mock.calls[0]?.[0];
-    expect(callArg.model).toBe('claude-sonnet-4-6');
-    expect(callArg.max_tokens).toBe(4096);
-    expect(Array.isArray(callArg.messages)).toBe(true);
-    expect(callArg.messages[0].role).toBe('user');
-    expect(typeof callArg.messages[0].content).toBe('string');
+    expect(mockGenerateContent).toHaveBeenCalledTimes(1);
+    const callArg = mockGenerateContent.mock.calls[0]?.[0];
+    expect(callArg.model).toBe('gemini-2.5-flash');
+    expect(callArg.config.maxOutputTokens).toBe(4096);
+    expect(typeof callArg.config.systemInstruction).toBe('string');
+    expect(typeof callArg.contents).toBe('string');
   });
 
   it('returns 429 on GitHub rate limit', async () => {
@@ -178,10 +173,10 @@ describe('POST /api/ai/draft', () => {
 
     expect(res.status).toBe(429);
     expect(res.body).toEqual({ error: 'GitHub API rate limit exceeded' });
-    expect(mockAnthropicCreate).not.toHaveBeenCalled();
+    expect(mockGenerateContent).not.toHaveBeenCalled();
   });
 
-  it('returns 502 when Anthropic response has no text block', async () => {
+  it('returns 502 when Gemini response has no text', async () => {
     mockGetCommit.mockResolvedValue({
       data: {
         sha: 'abc123',
@@ -189,8 +184,9 @@ describe('POST /api/ai/draft', () => {
         files: [],
       },
     });
-    mockAnthropicCreate.mockResolvedValue({
-      content: [{ type: 'tool_use', id: 'x', name: 'y', input: {} }],
+    mockGenerateContent.mockResolvedValue({
+      text: undefined,
+      candidates: [],
     });
 
     const res = await request(app).post('/api/ai/draft').send({
