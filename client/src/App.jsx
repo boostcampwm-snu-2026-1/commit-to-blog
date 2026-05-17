@@ -1,6 +1,17 @@
+import { useEffect, useState } from 'react';
+import { api } from './api/client.js';
 import './App.css';
 
 function App() {
+  const [health, setHealth] = useState({ state: 'loading' });
+
+  useEffect(() => {
+    api
+      .getHealth()
+      .then((data) => setHealth({ state: 'ok', data }))
+      .catch((err) => setHealth({ state: 'error', message: err.message }));
+  }, []);
+
   return (
     <main className="app">
       <header className="app-header">
@@ -10,7 +21,16 @@ function App() {
         </p>
       </header>
       <section className="app-body">
-        <p>1주차 스캐폴딩 단계입니다.</p>
+        <h2>서버 연결 상태</h2>
+        {health.state === 'loading' && <p>확인 중...</p>}
+        {health.state === 'ok' && (
+          <pre className="health-ok">{JSON.stringify(health.data, null, 2)}</pre>
+        )}
+        {health.state === 'error' && (
+          <p className="health-error">
+            서버에 연결할 수 없습니다: {health.message}
+          </p>
+        )}
       </section>
     </main>
   );
