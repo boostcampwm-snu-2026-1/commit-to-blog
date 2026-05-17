@@ -1,0 +1,96 @@
+@import "./primitive-tokens.css";
+
+:root {
+  /* App surfaces */
+  --background: var(--base-color-neutral-50);
+  --surface: var(--base-color-white);
+  --surface-muted: var(--base-color-neutral-100);
+  --surface-elevated: var(--base-color-white);
+  --surface-inverse: var(--base-color-neutral-950);
+
+  /* Text */
+  --text-primary: var(--base-color-neutral-950);
+  --text-secondary: var(--base-color-neutral-700);
+  --text-muted: var(--base-color-neutral-500);
+  --text-inverse: var(--base-color-white);
+  --text-link: var(--base-color-blue-700);
+
+  /* Borders and focus */
+  --border-default: var(--base-color-neutral-200);
+  --border-muted: var(--base-color-neutral-100);
+  --border-strong: var(--base-color-neutral-300);
+  --border-focus: var(--base-color-blue-600);
+  --focus-ring: var(--base-shadow-focus);
+
+  /* Actions */
+  --action-primary: var(--base-color-blue-600);
+  --action-primary-hover: var(--base-color-blue-700);
+  --action-primary-text: var(--base-color-white);
+
+  --action-secondary: var(--base-color-neutral-100);
+  --action-secondary-hover: var(--base-color-neutral-200);
+  --action-secondary-text: var(--base-color-neutral-900);
+
+  --action-danger: var(--base-color-red-600);
+  --action-danger-hover: var(--base-color-red-700);
+  --action-danger-text: var(--base-color-white);
+
+  /* Status states */
+  --status-info: var(--base-color-blue-600);
+  --status-info-subtle: var(--base-color-blue-50);
+  --status-info-text: var(--base-color-blue-700);
+
+  --status-success: var(--base-color-green-600);
+  --status-success-subtle: var(--base-color-green-50);
+  --status-success-text: var(--base-color-green-700);
+
+  --status-warning: var(--base-color-amber-500);
+  --status-warning-subtle: var(--base-color-amber-50);
+  --status-warning-text: var(--base-color-amber-700);
+
+  --status-danger: var(--base-color-red-600);
+  --status-danger-subtle: var(--base-color-red-50);
+  --status-danger-text: var(--base-color-red-700);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--base-color-neutral-950);
+    --surface: var(--base-color-neutral-900);
+    --surface-muted: var(--base-color-neutral-800);
+    --surface-elevated: var(--base-color-neutral-800);
+    --surface-inverse: var(--base-color-white);
+
+    --text-primary: var(--base-color-neutral-50);
+    --text-secondary: var(--base-color-neutral-300);
+    --text-muted: var(--base-color-neutral-400);
+    --text-inverse: var(--base-color-neutral-950);
+    --text-link: var(--base-color-blue-100);
+
+    --border-default: var(--base-color-neutral-700);
+    --border-muted: var(--base-color-neutral-800);
+    --border-strong: var(--base-color-neutral-600);
+    --border-focus: var(--base-color-blue-100);
+
+    --action-primary: var(--base-color-blue-600);
+    --action-primary-hover: var(--base-color-blue-700);
+    --action-primary-text: var(--base-color-white);
+
+    --action-secondary: var(--base-color-neutral-800);
+    --action-secondary-hover: var(--base-color-neutral-700);
+    --action-secondary-text: var(--base-color-neutral-50);
+
+    --action-danger: var(--base-color-red-600);
+    --action-danger-hover: var(--base-color-red-700);
+    --action-danger-text: var(--base-color-white);
+
+    --status-info-subtle: var(--base-color-neutral-800);
+    --status-info-text: var(--base-color-blue-100);
+    --status-success-subtle: var(--base-color-neutral-800);
+    --status-success-text: var(--base-color-green-50);
+    --status-warning-subtle: var(--base-color-neutral-800);
+    --status-warning-text: var(--base-color-amber-50);
+    --status-danger-subtle: var(--base-color-neutral-800);
+    --status-danger-text: var(--base-color-red-50);
+  }
+}
