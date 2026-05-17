@@ -59,7 +59,7 @@ Related feature doc: [06 AI Blog Draft Generation](features/06-ai-blog-draft-gen
 - [x] Build a prompt from the selected repository, branch, and commits.
 - [x] Generate a draft with title, summary, and content.
 - [x] Map the generation result to the `GeneratedDraft` response shape.
-- [ ] Return a user-readable error if Gemini generation fails.
+- [x] Return a user-readable error if Gemini generation fails.
 
 ### 7. Frontend Selection Workflow
 

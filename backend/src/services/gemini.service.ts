@@ -181,54 +181,61 @@ function parseDraft(text: string): GeneratedDraft {
 }
 
 export async function generateBlogDraft(input: GenerateDraftInput) {
-  const response = await fetch(
-    `${GEMINI_API_BASE_URL}/models/${GEMINI_MODEL}:generateContent`,
-    {
-      method: "POST",
-      headers: {
-        "x-goog-api-key": env.geminiApiKey,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [
-              {
-                text: buildPrompt(input),
-              },
-            ],
-          },
-        ],
-        generationConfig: {
-          responseFormat: {
-            text: {
-              mimeType: "application/json",
-              schema: {
-                type: "object",
-                additionalProperties: false,
-                properties: {
-                  title: {
-                    type: "string",
-                    description: "The title of the development blog draft.",
-                  },
-                  summary: {
-                    type: "string",
-                    description: "A concise summary of the development blog draft.",
-                  },
-                  content: {
-                    type: "string",
-                    description: "The body content of the development blog draft.",
-                  },
+  let response: Response;
+
+  try {
+    response = await fetch(
+      `${GEMINI_API_BASE_URL}/models/${GEMINI_MODEL}:generateContent`,
+      {
+        method: "POST",
+        headers: {
+          "x-goog-api-key": env.geminiApiKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [
+                {
+                  text: buildPrompt(input),
                 },
-                required: ["title", "summary", "content"],
+              ],
+            },
+          ],
+          generationConfig: {
+            responseFormat: {
+              text: {
+                mimeType: "application/json",
+                schema: {
+                  type: "object",
+                  additionalProperties: false,
+                  properties: {
+                    title: {
+                      type: "string",
+                      description: "The title of the development blog draft.",
+                    },
+                    summary: {
+                      type: "string",
+                      description:
+                        "A concise summary of the development blog draft.",
+                    },
+                    content: {
+                      type: "string",
+                      description: "The body content of the development blog draft.",
+                    },
+                  },
+                  required: ["title", "summary", "content"],
+                },
               },
             },
           },
-        },
-      }),
-    },
-  );
+        }),
+      },
+    );
+  } catch {
+    throw new HttpError(502, "Gemini request failed");
+  }
 
   if (!response.ok) {
     let message = "Gemini request failed";
@@ -250,7 +257,14 @@ export async function generateBlogDraft(input: GenerateDraftInput) {
     );
   }
 
-  const body = (await response.json()) as GeminiResponse;
+  let body: GeminiResponse;
+
+  try {
+    body = (await response.json()) as GeminiResponse;
+  } catch {
+    throw new HttpError(502, "Gemini returned an invalid draft response");
+  }
+
   const draftText = extractDraftText(body);
 
   if (!draftText) {
