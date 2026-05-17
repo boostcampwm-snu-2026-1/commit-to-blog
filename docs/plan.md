@@ -29,7 +29,7 @@ Related feature doc: [02 Frontend Styling Foundation](features/02-frontend-styli
 - [x] Configure `cors` using the client origin environment variable defined in [docs/architecture.md](architecture.md).
 - [x] Add a health check endpoint for basic server verification.
 - [x] Add centralized error handling middleware.
-- [ ] Validate required environment variables before using external services.
+- [x] Validate required environment variables before using external services.
 
 ### 4. MongoDB Persistence
 

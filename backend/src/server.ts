@@ -1,9 +1,6 @@
-import "./config/env.js";
+import { env } from "./config/env.js";
 import { app } from "./app.js";
 
-const DEFAULT_PORT = 3000;
-const port = Number(process.env.PORT ?? DEFAULT_PORT);
-
-app.listen(port, () => {
-  console.log(`Backend server listening on port ${port}`);
+app.listen(env.port, () => {
+  console.log(`Backend server listening on port ${env.port}`);
 });
