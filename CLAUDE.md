@@ -249,6 +249,39 @@ type WizardState = {
 - 배포 시 환경 변수 `MONGODB_URI`를 Vercel 프로젝트 설정에 추가
 
 
+## 테스트 전략
+
+| 목적 | 도구 |
+|---|---|
+| 단위 테스트 | Vitest + React Testing Library |
+| E2E 테스트 | Playwright |
+
+**단위 테스트 대상**
+- `src/hooks/useWizardState.ts` — reducer 상태 전이
+- `src/lib/gemini.ts` — AI 응답에서 제목 파싱 로직
+- `src/lib/github.ts` — diff truncation 로직
+
+**E2E 테스트 대상**
+- 위저드 전체 흐름 (PAT 입력 → 저장 완료)
+- 포스트 발행 / 초안 토글
+
+통합 테스트는 작성하지 않는다. API는 E2E가 간접적으로 커버한다.
+
+## 매 커밋 전 검증 (pre-commit hook)
+
+husky를 사용해 커밋 시 자동 실행한다. 실패 시 커밋이 막힌다.
+
+```bash
+# 실행 명령
+tsc --noEmit   # TypeScript 타입 체크
+eslint .        # ESLint
+```
+
+```bash
+# 설치
+npm install husky lint-staged
+```
+
 ## 커밋 컨벤션
 
 모든 커밋은 아래 형식을 따른다.
