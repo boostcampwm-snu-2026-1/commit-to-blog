@@ -48,39 +48,63 @@ GEMINI_API_KEY=AIza...
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root layout — NavBar, Toaster 포함
-│   ├── page.tsx                # / → /posts 리다이렉트
-│   ├── new/page.tsx            # 블로그 생성 위저드 (7단계)
+│   ├── layout.tsx                        # Root layout — NavBar, Toaster 포함
+│   ├── page.tsx                          # / → /posts 리다이렉트
+│   ├── globals.css
+│   ├── new/
+│   │   └── page.tsx                      # 블로그 생성 위저드 (7단계)
 │   ├── posts/
-│   │   ├── page.tsx            # 저장된 포스트 카드 그리드
-│   │   └── [id]/page.tsx       # 포스트 편집/발행
+│   │   ├── page.tsx                      # 저장된 포스트 카드 그리드
+│   │   └── [id]/
+│   │       └── page.tsx                  # 포스트 편집/발행
 │   └── api/
 │       ├── github/
-│       │   ├── validate/       # PAT 검증 + 유저 정보
-│       │   ├── repos/          # 저장소 목록
-│       │   ├── branches/       # 브랜치 목록
-│       │   ├── commits/        # 커밋 목록 (최근 30개)
-│       │   └── diff/           # 커밋 diff (6000자/커밋 truncate)
-│       ├── generate/           # Gemini 블로그 초안 생성
-│       └── posts/              # 포스트 CRUD
+│       │   ├── validate/
+│       │   │   └── route.ts              # GET — PAT 검증, 유저 정보 반환
+│       │   ├── repos/
+│       │   │   └── route.ts              # GET — 저장소 목록
+│       │   ├── branches/
+│       │   │   └── route.ts              # GET — 브랜치 목록
+│       │   ├── commits/
+│       │   │   └── route.ts              # GET — 커밋 목록 (최근 30개)
+│       │   └── diff/
+│       │       └── route.ts              # GET — 커밋 diff (6000자/커밋 truncate)
+│       ├── generate/
+│       │   └── route.ts                  # POST — Gemini 블로그 초안 생성
+│       └── posts/
+│           ├── route.ts                  # GET 목록 조회 / POST 포스트 생성
 │           └── [id]/
+│               └── route.ts             # GET / PUT / DELETE 개별 포스트 조작
 ├── components/
-│   ├── ui/                     # shadcn 자동 생성 — 직접 수정 금지
-│   ├── wizard/                 # 생성 위저드 단계별 컴포넌트
-│   ├── posts/                  # PostCard, PostGrid, PostCardSkeleton
-│   └── shared/                 # MarkdownEditor, NavBar
+│   ├── ui/                               # shadcn 자동 생성 — 직접 수정 금지
+│   ├── wizard/
+│   │   ├── WizardShell.tsx               # 단계 인디케이터 + 레이아웃 wrapper
+│   │   ├── StepPatInput.tsx              # Step 1 — PAT 입력 및 검증
+│   │   ├── StepRepoSelect.tsx            # Step 2 — 저장소 목록 및 선택
+│   │   ├── StepBranchSelect.tsx          # Step 3 — 브랜치 목록 및 선택
+│   │   ├── StepCommitSelect.tsx          # Step 4 — 커밋 다중 선택
+│   │   ├── StepGenerating.tsx            # Step 5 — AI 생성 중 로딩 화면
+│   │   ├── StepEditor.tsx                # Step 6 — 마크다운 편집기
+│   │   └── StepSaved.tsx                 # Step 7 — 저장 완료 화면
+│   ├── posts/
+│   │   ├── PostGrid.tsx                  # 포스트 카드 그리드 레이아웃
+│   │   ├── PostCard.tsx                  # 포스트 카드 (썸네일, 제목, 태그, 날짜)
+│   │   └── PostCardSkeleton.tsx          # 로딩 중 스켈레톤 카드
+│   └── shared/
+│       ├── MarkdownEditor.tsx            # @uiw/react-md-editor dynamic import 래퍼
+│       └── NavBar.tsx                    # 상단 네비게이션 (로고, 새 글 작성 버튼)
 ├── lib/
-│   ├── mongodb.ts              # 커넥션 싱글톤 (global 캐싱)
-│   ├── github.ts               # GitHub REST API 헬퍼
-│   ├── gemini.ts               # Gemini 클라이언트 + 프롬프트 템플릿
-│   └── utils.ts                # cn() helper
+│   ├── mongodb.ts                        # MongoDB 커넥션 싱글톤 (global 캐싱)
+│   ├── github.ts                         # GitHub REST API fetch 헬퍼
+│   ├── gemini.ts                         # Gemini 클라이언트 + 프롬프트 템플릿
+│   └── utils.ts                          # cn() helper (Tailwind 클래스 병합)
 ├── models/
-│   └── Post.ts                 # Mongoose 스키마
+│   └── Post.ts                           # Mongoose Post 스키마 및 모델
 ├── hooks/
-│   ├── useWizardState.ts       # useReducer — 위저드 전역 상태
-│   └── usePat.ts               # sessionStorage PAT read/write
+│   ├── useWizardState.ts                 # useReducer — 위저드 전역 상태 관리
+│   └── usePat.ts                         # sessionStorage PAT read/write
 └── types/
-    └── index.ts                # 공유 TypeScript 인터페이스
+    └── index.ts                          # 공유 TypeScript 인터페이스 (Repo, Commit 등)
 ```
 
 ## Key Patterns
@@ -126,11 +150,14 @@ const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false })
   repoFullName: string    // "owner/repo"
   branch: string
   selectedShas: string[]  // 생성에 사용된 커밋 SHA 목록
+  thumbnailUrl?: string   // 선택 사항 — 없으면 branch 기반 CSS 그라디언트로 대체
   published: boolean      // default: false
   createdAt: Date         // timestamps: true
   updatedAt: Date
 }
 ```
+
+본문 미리보기(`contentPreview`)는 별도 저장하지 않고 `content` 앞부분을 잘라 카드에 표시한다.
 
 ## API Routes
 
