@@ -37,7 +37,7 @@ Related feature doc: [04 MongoDB Persistence](features/04-mongodb-persistence.md
 
 - [x] Configure the MongoDB connection through the database URI environment variable defined in [docs/architecture.md](architecture.md).
 - [x] Create the Post model with `draft` and `published` statuses.
-- [ ] Implement post create, list, detail, update, status update, and delete operations.
+- [x] Implement post create, list, detail, update, status update, and delete operations.
 - [ ] Verify saved posts persist after server restart.
 
 ### 5. GitHub Repository Data Flow

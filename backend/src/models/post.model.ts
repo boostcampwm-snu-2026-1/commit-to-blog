@@ -1,4 +1,4 @@
-import { Schema, model, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, model, type InferSchemaType } from "mongoose";
 
 const commitSummarySchema = new Schema(
   {
@@ -88,4 +88,5 @@ const postSchema = new Schema(
 export type PostStatus = "draft" | "published";
 export type PostDocument = InferSchemaType<typeof postSchema>;
 
-export const PostModel = model("Post", postSchema);
+export const PostModel =
+  mongoose.models.Post ?? model("Post", postSchema);

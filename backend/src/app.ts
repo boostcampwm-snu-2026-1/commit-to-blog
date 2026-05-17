@@ -6,6 +6,7 @@ import {
   errorHandler,
   notFoundHandler,
 } from "./middleware/error.middleware.js";
+import postRouter from "./routes/post.routes.js";
 
 export function createApp() {
   const app = express();
@@ -21,6 +22,7 @@ export function createApp() {
     res.json({ status: "ok" });
   });
 
+  app.use("/api/posts", postRouter);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
