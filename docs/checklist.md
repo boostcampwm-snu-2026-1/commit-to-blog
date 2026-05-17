@@ -3,9 +3,9 @@
 ## 1주차: 기획/설계 + 기본 뼈대 구현
 
 ### 요구사항/범위
-- [ ] `assignment_requirements.md`와 `requirements.md` 기준으로 필수 기능 범위를 확정한다.
-- [ ] MVP 범위와 제외 범위를 문서화한다.
-- [ ] 기능 우선순위(P0/P1/P2)를 정리한다.
+- [x] `assignment_requirements.md`와 `requirements.md` 기준으로 필수 기능 범위를 확정한다.
+- [x] MVP 범위와 제외 범위를 문서화한다.
+- [x] 기능 우선순위(P0/P1/P2)를 정리한다.
 
 ### 기술 선택 근거
 - [ ] React + Express + Gemini API(무료 티어) + GitHub API 선택 이유를 문서로 정리한다.
