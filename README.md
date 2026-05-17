@@ -1,1 +1,27 @@
-# initial-repo
+# Commit to Blog
+
+GitHub 활동 데이터를 바탕으로 개발 블로그 초안을 생성하고, 사용자가 편집/저장/발행할 수 있게 만드는 AI-Blog 미션 프로젝트입니다.
+
+## Mission Docs
+
+- `Mission.md`: 11주차 미션 원문 요구사항을 상세 체크리스트로 정리한 기준 문서
+- `checklist.md`: 실제 진행 상황을 7개 작업 단위로 관리하는 실행 체크리스트
+- `docs/week-1-plan.md`: 1주차 목표, MVP 범위, 산출물, 검증 기준
+- `docs/week-2-plan.md`: 2주차 목표, 구현 범위, 산출물, 검증 기준
+- `docs/tech-stack.md`: 기술 스택 선택 이유와 보안 기준
+- `skills/`: 이 프로젝트에서 반복 사용할 AI 작업 스킬
+
+## Commit Rule
+
+커밋 메시지는 `checklist.md`의 수행 항목 번호를 앞에 붙입니다.
+
+```txt
+No.{번호}: {concise English message}
+```
+
+예시:
+
+```txt
+No.1: add planning docs
+No.7: add project skills
+```
