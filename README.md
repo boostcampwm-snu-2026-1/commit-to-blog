@@ -14,6 +14,8 @@ GitHub 활동 데이터를 바탕으로 개발 블로그 초안을 생성하고,
 - `docs/llm-draft.md`: LLM 블로그 초안 생성 방식, 프롬프트 정책, 오류 정책
 - `docs/ui-flow.md`: React 블로그 작성 UI 흐름과 상태 관리 기준
 - `docs/saved-posts.md`: 저장된 포스트 API, 카드 UI, 재편집/발행 흐름
+- `docs/ai-workflow.md`: 체크리스트 기반 AI 작업 루프와 커밋 규칙
+- `docs/verification-report.md`: 검증 결과, smoke test, 남은 제약사항
 - `skills/`: 이 프로젝트에서 반복 사용할 AI 작업 스킬
 
 ## Development

@@ -112,9 +112,23 @@
 
 ## 7. AI Workflow, Skill, 검증
 
-- [ ] 개발 중 반복되는 좋은 process를 AI workflow로 정리한다.
-- [ ] 프로젝트용 Skill을 최소 1개 만들거나 기존 Skill을 미션에 맞게 개선한다.
-- [ ] 구현한 기능이 `Mission.md` 요구사항과 맞는지 점검한다.
-- [ ] Repository 선택부터 초안 생성, 편집, 저장까지 수동 검증한다.
-- [ ] API token, key, `.env` 값이 코드와 문서에 노출되지 않았는지 확인한다.
-- [ ] 테스트 또는 수동 검증 결과를 문서나 최종 보고에 남긴다.
+- [x] 개발 중 반복되는 좋은 process를 AI workflow로 정리한다.
+- [x] 프로젝트용 Skill을 최소 1개 만들거나 기존 Skill을 미션에 맞게 개선한다.
+- [x] 구현한 기능이 `Mission.md` 요구사항과 맞는지 점검한다.
+- [x] Repository 선택부터 초안 생성, 편집, 저장까지 수동 검증한다.
+- [x] API token, key, `.env` 값이 코드와 문서에 노출되지 않았는지 확인한다.
+- [x] 테스트 또는 수동 검증 결과를 문서나 최종 보고에 남긴다.
+
+완료 근거:
+
+- `docs/ai-workflow.md`
+- `docs/verification-report.md`
+- `skills/mission-verifier.md`
+- `npm.cmd run typecheck`
+- `npm.cmd run build`
+- API smoke test: health, posts create/list/publish, invalid draft request
+- Browser smoke test: Vite page 200
+
+제약:
+
+- 실제 GitHub Repository 선택과 LLM 초안 생성 live 검증은 `.env`에 `GITHUB_TOKEN`, `OPENAI_API_KEY`, `OPENAI_MODEL`을 설정한 뒤 수행해야 한다.

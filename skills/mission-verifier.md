@@ -37,6 +37,16 @@ Without this skill, implementation or skill-writing work can look complete while
 - Planning and verification are documented when the mission asks for them.
 - Claims in the final answer match what was actually implemented or checked.
 
+## Default Checks
+
+- Run `npm.cmd run typecheck` when TypeScript files changed.
+- Run `npm.cmd run build` when React, Vite, CSS, or shared types changed.
+- Smoke-check `GET /api/health` when Express routes changed.
+- Smoke-check changed API endpoints with minimal valid and invalid requests.
+- Search for leaked GitHub/OpenAI token prefixes.
+- Search source files for accidental env assignments while excluding docs, skills, and `.env.example`.
+- Record live GitHub/LLM gaps when `.env` credentials are not available instead of claiming full end-to-end verification.
+
 ## Output
 
 Lead with findings or confirmation. Name files checked, fixes made during validation, commands run, and any tests or manual scenarios that still remain.
