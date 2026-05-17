@@ -34,13 +34,22 @@
 
 ## 3. GitHub 연동
 
-- [ ] GitHub API 요청은 Express 서버에서 처리하도록 구성한다.
-- [ ] GitHub token은 `.env`로 관리하고 클라이언트에 노출하지 않는다.
-- [ ] Repository 목록 조회 기능을 구현한다.
-- [ ] 선택한 Repository의 Branch 목록 조회 기능을 구현한다.
-- [ ] 선택한 Branch의 Commit 목록 조회 기능을 구현한다.
-- [ ] 선택한 Commit의 상세 정보 또는 변경 파일 정보를 수집한다.
-- [ ] 인증 실패, 빈 목록, API 오류 상태를 처리한다.
+- [x] GitHub API 요청은 Express 서버에서 처리하도록 구성한다.
+- [x] GitHub token은 `.env`로 관리하고 클라이언트에 노출하지 않는다.
+- [x] Repository 목록 조회 기능을 구현한다.
+- [x] 선택한 Repository의 Branch 목록 조회 기능을 구현한다.
+- [x] 선택한 Branch의 Commit 목록 조회 기능을 구현한다.
+- [x] 선택한 Commit의 상세 정보 또는 변경 파일 정보를 수집한다.
+- [x] 인증 실패, 빈 목록, API 오류 상태를 처리한다.
+
+완료 근거:
+
+- `server/index.ts`
+- `server/routes/githubRoutes.ts`
+- `server/services/githubService.ts`
+- `server/config/env.ts`
+- `.env.example`
+- `docs/github-api.md`
 
 ## 4. LLM 블로그 초안 생성
 

@@ -10,7 +10,26 @@ GitHub 활동 데이터를 바탕으로 개발 블로그 초안을 생성하고,
 - `docs/week-2-plan.md`: 2주차 목표, 구현 범위, 산출물, 검증 기준
 - `docs/tech-stack.md`: 기술 스택 선택 이유와 보안 기준
 - `docs/service-design.md`: 사용자 흐름, 데이터 모델, React/Express 구조, 상태 흐름, 저장 방식
+- `docs/github-api.md`: GitHub API 서버 연동 방식, 응답 형태, 오류 정책
 - `skills/`: 이 프로젝트에서 반복 사용할 AI 작업 스킬
+
+## Server Setup
+
+```bash
+npm install
+copy .env.example .env
+npm run dev:server
+```
+
+`.env`에는 실제 `GITHUB_TOKEN` 값을 넣되, 커밋하지 않습니다.
+
+## API Routes
+
+- `GET /api/health`
+- `GET /api/github/repositories`
+- `GET /api/github/repositories/:owner/:repo/branches`
+- `GET /api/github/repositories/:owner/:repo/commits?branch={branch}`
+- `GET /api/github/repositories/:owner/:repo/commits/:sha`
 
 ## Commit Rule
 
