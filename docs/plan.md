@@ -11,7 +11,7 @@ Build an MVP that lets a user select a GitHub repository, branch, and commits, g
 - [x] Initialize `frontend/` as a Vite + React + TypeScript app.
 - [x] Initialize `backend/` as an Express + TypeScript app.
 - [x] Add baseline scripts for development, build, and type checking.
-- [ ] Add `.env.example` files without real secrets.
+- [x] Add `.env.example` files without real secrets.
 - [ ] Make sure `.env` files are ignored by git.
 
 ### 2. Frontend Styling Foundation
