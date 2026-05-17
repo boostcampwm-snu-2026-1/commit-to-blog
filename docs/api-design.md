@@ -1,0 +1,145 @@
+# API Design
+
+## Common Rules
+
+- All API routes use the `/api` prefix.
+- GitHub and OpenAI secrets are used only on the server.
+- Responses are returned as JSON.
+- Error responses include at least `message`.
+- Shared request and response shapes are defined in [docs/data-model.md](data-model.md).
+
+```ts
+type ApiError = {
+  message: string;
+  details?: unknown;
+};
+```
+
+## GitHub API Proxy
+
+### `GET /api/github/repos`
+
+Returns repositories accessible with the configured GitHub token.
+
+```ts
+type ReposResponse = {
+  repositories: RepositorySummary[];
+};
+```
+
+### `GET /api/github/repos/:owner/:repo/branches`
+
+Returns branches for the selected repository.
+
+```ts
+type BranchesResponse = {
+  branches: BranchSummary[];
+};
+```
+
+### `GET /api/github/repos/:owner/:repo/commits?branch=main`
+
+Returns commits for the selected branch.
+
+```ts
+type CommitsResponse = {
+  commits: CommitSummary[];
+};
+```
+
+## Blog Draft API
+
+### `POST /api/blogs/generate`
+
+Generates a blog draft from the selected repository, branch, and commits.
+
+```ts
+type GenerateBlogRequest = {
+  repository: {
+    owner: string;
+    name: string;
+    fullName: string;
+  };
+  branch: string;
+  commits: CommitSummary[];
+};
+
+type GenerateBlogResponse = {
+  draft: GeneratedDraft;
+};
+```
+
+## Post API
+
+### `GET /api/posts`
+
+Returns saved posts. The endpoint supports server-side `status=draft` or `status=published` query filtering.
+
+The published post view should call `GET /api/posts?status=published` instead of fetching all posts and filtering on the client.
+
+```ts
+type PostStatusFilter = "draft" | "published";
+
+type PostsResponse = {
+  posts: Post[];
+};
+```
+
+### `GET /api/posts/:id`
+
+Returns one post.
+
+```ts
+type PostResponse = {
+  post: Post;
+};
+```
+
+### `POST /api/posts`
+
+Saves an edited draft. The default status is `draft`.
+
+```ts
+type CreatePostRequest = {
+  title: string;
+  summary: string;
+  content: string;
+  repository: Post["repository"];
+  branch: string;
+  commits: CommitSummary[];
+};
+```
+
+### `PATCH /api/posts/:id`
+
+Updates the title, summary, or content of a saved post.
+
+```ts
+type UpdatePostRequest = {
+  title?: string;
+  summary?: string;
+  content?: string;
+};
+```
+
+### `PATCH /api/posts/:id/status`
+
+Changes a post status to `draft` or `published`. When changing to `published`, the server records `publishedAt`.
+
+```ts
+type UpdatePostStatusRequest = {
+  status: "draft" | "published";
+};
+```
+
+### `DELETE /api/posts/:id`
+
+Deletes a saved post.
+
+## Error Handling
+
+- Missing configuration returns a clear configuration error at startup or request time.
+- GitHub and OpenAI failures are reported as external API failures.
+- A missing post id returns `404`.
+- An invalid post `status` filter returns `400`.
+- Invalid request bodies return `400`.

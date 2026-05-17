@@ -1,0 +1,130 @@
+# Project Plan
+
+## Goal
+
+Build an MVP that lets a user select a GitHub repository, branch, and commits, generate a development blog draft with OpenAI, edit it, save it to MongoDB, and publish it inside this service.
+
+## Development Order
+
+### 1. Project Foundation
+
+- [ ] Initialize `frontend/` as a Vite + React + TypeScript app.
+- [ ] Initialize `backend/` as an Express + TypeScript app.
+- [ ] Add baseline scripts for development, build, and type checking.
+- [ ] Add `.env.example` files without real secrets.
+- [ ] Make sure `.env` files are ignored by git.
+
+### 2. Frontend Styling Foundation
+
+Related feature doc: [01 Frontend Styling Foundation](features/01-frontend-styling-foundation.md)
+
+- [ ] Add Tailwind CSS to the frontend build setup.
+- [ ] Define primitive CSS tokens for raw color, spacing, radius, shadow, and typography values.
+- [ ] Define semantic CSS tokens for app surfaces, text, borders, actions, and status states.
+- [ ] Map semantic CSS tokens into Tailwind utilities.
+- [ ] Add shared base styles that use semantic tokens.
+
+### 3. Backend Configuration and Server Setup
+
+- [ ] Load environment variables with `dotenv`.
+- [ ] Configure `cors` using the client origin environment variable defined in [docs/architecture.md](architecture.md).
+- [ ] Add a health check endpoint for basic server verification.
+- [ ] Add centralized error handling middleware.
+- [ ] Validate required environment variables before using external services.
+
+### 4. MongoDB Persistence
+
+Related feature doc: [04 Post Management](features/04-post-management.md)
+
+- [ ] Configure the MongoDB connection through the database URI environment variable defined in [docs/architecture.md](architecture.md).
+- [ ] Create the Post model with `draft` and `published` statuses.
+- [ ] Implement post create, list, detail, update, status update, and delete operations.
+- [ ] Verify saved posts persist after server restart.
+
+### 5. GitHub Repository Data Flow
+
+Related feature doc: [02 GitHub Repository Flow](features/02-github-repository-flow.md)
+
+- [ ] Add a backend GitHub API client that uses server-side token configuration.
+- [ ] Implement repository list retrieval.
+- [ ] Implement branch list retrieval for a selected repository.
+- [ ] Implement commit list retrieval for a selected branch.
+- [ ] Normalize GitHub responses into the frontend-facing data shapes in [docs/data-model.md](data-model.md).
+- [ ] Return clear errors when GitHub API requests fail.
+
+### 6. AI Blog Draft Generation
+
+Related feature doc: [03 AI Draft Generation](features/03-ai-draft-generation.md)
+
+- [ ] Add a backend OpenAI client that uses server-side API key configuration.
+- [ ] Build a prompt from the selected repository, branch, and commits.
+- [ ] Generate a draft with title, summary, and content.
+- [ ] Map the generation result to the `GeneratedDraft` response shape.
+- [ ] Return a user-readable error if OpenAI generation fails.
+
+### 7. Frontend Selection Workflow
+
+Related feature doc: [02 GitHub Repository Flow](features/02-github-repository-flow.md)
+
+- [ ] Build repository selection UI.
+- [ ] Build branch selection UI that depends on the selected repository.
+- [ ] Build commit selection UI that depends on the selected branch.
+- [ ] Clear downstream selections when repository or branch changes.
+- [ ] Disable unavailable controls until their required previous selection exists.
+- [ ] Show loading and error states for each API request.
+
+### 8. Draft Editing and Saving
+
+Related feature doc: [04 Post Management](features/04-post-management.md)
+
+- [ ] Display the generated draft in an editable form.
+- [ ] Allow editing title, summary, and content.
+- [ ] Save edited content as a `draft` post.
+- [ ] Support updating an existing saved post.
+- [ ] Prevent duplicate save or generate requests while a request is in progress.
+
+### 9. Saved and Published Post Views
+
+Related feature docs: [04 Post Management](features/04-post-management.md), [05 Internal Publishing](features/05-internal-publishing.md)
+
+- [ ] Show saved posts as cards with title, summary, repository, branch, status, and date.
+- [ ] Add post detail view.
+- [ ] Add edit flow for saved posts.
+- [ ] Add delete flow with confirmation.
+- [ ] Add status change from `draft` to `published`.
+- [ ] Show `published` posts in the service as readable blog posts.
+
+### 10. Verification and Documentation Updates
+
+- [ ] Check that GitHub and OpenAI secrets are never exposed to frontend code.
+- [ ] Check that app components use semantic styling tokens instead of raw primitive tokens where possible.
+- [ ] Check the core API routes manually.
+- [ ] Check the main frontend workflow from repository selection to published post display.
+- [ ] Add PR or submission notes that summarize the AI workflow used during development.
+
+## MVP Scope
+
+Included:
+
+- GitHub repository list retrieval.
+- Branch list retrieval for a repository.
+- Commit list retrieval for a branch.
+- Blog draft generation from selected commits.
+- Draft editing and MongoDB persistence.
+- Saved post list, detail, edit, delete, and status change.
+- Displaying `published` posts inside this frontend.
+
+Excluded:
+
+- GitHub OAuth login.
+- External blog platform publishing.
+- Multi-user accounts or permissions.
+- Real-time collaborative editing.
+
+## Completion Criteria
+
+- The user can select repository, branch, and commits in order.
+- The server does not expose GitHub or OpenAI secrets to the frontend.
+- The user can edit and save an AI-generated draft.
+- Saved posts can be reloaded from MongoDB after refresh or server restart.
+- A published post can be viewed as a blog post inside this frontend.

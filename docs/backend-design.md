@@ -1,0 +1,66 @@
+# Backend Design
+
+## Technical Baseline
+
+- Express + TypeScript.
+- Load environment variables with `dotenv`.
+- Allow the frontend origin with `cors`.
+- Store posts in MongoDB.
+
+## Directory Structure
+
+```text
+backend/
+  src/
+    app.ts
+    server.ts
+    config/
+      env.ts
+      database.ts
+    routes/
+      github.routes.ts
+      blog.routes.ts
+      post.routes.ts
+    controllers/
+      github.controller.ts
+      blog.controller.ts
+      post.controller.ts
+    services/
+      github.service.ts
+      openai.service.ts
+      post.service.ts
+    models/
+      post.model.ts
+    middleware/
+      error.middleware.ts
+```
+
+## Route Responsibilities
+
+- `github.routes.ts`: repository, branch, and commit lookup endpoints.
+- `blog.routes.ts`: AI blog draft generation endpoint.
+- `post.routes.ts`: post CRUD and publish status endpoints.
+
+## Service Responsibilities
+
+- `github.service.ts`
+  - Encapsulates GitHub API requests.
+  - Reads the token only from environment variables.
+- `openai.service.ts`
+  - Converts commit data into a blog draft generation prompt.
+  - Reads the OpenAI API key only from environment variables.
+- `post.service.ts`
+  - Handles MongoDB post create, read, update, delete, and status changes.
+
+## Environment Validation
+
+Validate the environment variables defined in `docs/architecture.md` before using the related feature. Add new environment variables to `docs/architecture.md` first so the architecture document stays the source of truth.
+
+If a mock service becomes necessary during development, ask the user first and update the docs.
+
+## Error Handling
+
+- Controllers return expected failures as HTTP status codes with JSON messages.
+- Unknown errors are handled by shared error middleware.
+- External API failures are distinguishable from internal server failures.
+- Responses and logs do not include secrets.
