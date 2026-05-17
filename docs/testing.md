@@ -10,6 +10,7 @@
 ## Backend Checks
 
 - Missing environment variables produce clear errors.
+- `GET /api/health` returns `{ status: "ok" }`.
 - `GET /api/github/repos` returns repositories.
 - `GET /api/github/repos/:owner/:repo/branches` returns branches.
 - `GET /api/github/repos/:owner/:repo/commits?branch=...` returns commits.

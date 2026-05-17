@@ -27,7 +27,7 @@ Related feature doc: [02 Frontend Styling Foundation](features/02-frontend-styli
 
 - [x] Load environment variables with `dotenv`.
 - [x] Configure `cors` using the client origin environment variable defined in [docs/architecture.md](architecture.md).
-- [ ] Add a health check endpoint for basic server verification.
+- [x] Add a health check endpoint for basic server verification.
 - [ ] Add centralized error handling middleware.
 - [ ] Validate required environment variables before using external services.
 

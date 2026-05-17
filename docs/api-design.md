@@ -15,6 +15,18 @@ type ApiError = {
 };
 ```
 
+## Health API
+
+### `GET /api/health`
+
+Returns basic server availability.
+
+```ts
+type HealthResponse = {
+  status: "ok";
+};
+```
+
 ## GitHub API Proxy
 
 ### `GET /api/github/repos`

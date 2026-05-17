@@ -13,6 +13,10 @@ export function createApp() {
   );
   app.use(express.json());
 
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
   return app;
 }
 
