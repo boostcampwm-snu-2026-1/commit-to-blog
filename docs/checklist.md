@@ -32,7 +32,7 @@
 ### 1주차 뼈대 구현
 - [x] Client/Server 프로젝트 초기 구조를 구성한다.
 - [x] TypeScript, lint/format, 공통 스크립트를 정리한다.
-- [ ] Tailwind CSS 초기 설정과 Shadcn UI 기본 세팅을 완료한다.
+- [x] Tailwind CSS 초기 설정과 Shadcn UI 기본 세팅을 완료한다.
 - [ ] 서버 기본 라우트(health check, repos/commits/diff/interview/posts 스텁)를 구성한다.
 - [ ] MongoDB 연결 및 Mongoose 모델(users, interviewSessions, interviewTurns, posts) 스켈레톤을 작성한다.
 - [ ] 커밋 선택 화면과 인터뷰 룸 기본 UI(답변창 + 4개 액션 버튼) 목업을 연결한다.
@@ -75,5 +75,6 @@
 - [ ] 예외 케이스(커밋 없음, 빈 diff, LLM 오류, 스킵) 테스트를 수행한다.
 - [ ] 데모 시나리오(실사용 레포 1개 + 백업 샘플 1개)를 준비한다.
 - [ ] 최종 README(실행법/환경변수/기능설명)를 업데이트한다.
+
 
 

@@ -1,1 +1,3 @@
-﻿export {};
+﻿import './styles/globals.css';
+
+export {};
