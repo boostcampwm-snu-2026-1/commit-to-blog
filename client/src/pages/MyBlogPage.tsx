@@ -19,12 +19,14 @@ function MyBlogPage() {
   const commitsQuery = useCommits(repo, branch);
   const generate = useGenerateDraft();
 
-  // Auto-select first branch when branches load for a newly chosen repo
   useEffect(() => {
     if (branchesQuery.data?.length && !branch) {
       setBranch(branchesQuery.data[0] ?? '');
     }
   }, [branchesQuery.data, branch]);
+
+  const selectedCommit =
+    commitsQuery.data?.find((c) => c.sha === selectedSha) ?? null;
 
   const handleGenerate = (sha: string) => {
     if (!repo || !branch) return;
@@ -32,12 +34,20 @@ function MyBlogPage() {
     generate.mutate({ repo, branch, sha });
   };
 
+  const handleCancel = () => {
+    generate.reset();
+    setSelectedSha(null);
+  };
+
   return (
     <main className="mx-auto max-w-7xl px-8 py-10">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-[360px_1fr]">
+        {/* Left: pickers + commit list */}
         <aside className="space-y-6">
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">저장소 검색</label>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              저장소 검색
+            </label>
             <RepoSearchInput value={repoQuery} onChange={setRepoQuery} />
             {reposQuery.data && reposQuery.data.length > 0 && (
               <ul className="mt-2 max-h-48 space-y-1 overflow-y-auto">
@@ -49,6 +59,7 @@ function MyBlogPage() {
                         setRepo(r.name);
                         setBranch('');
                         setSelectedSha(null);
+                        generate.reset();
                       }}
                       className={[
                         'w-full rounded px-3 py-1.5 text-left text-sm hover:bg-gray-100',
@@ -64,13 +75,16 @@ function MyBlogPage() {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">브랜치 선택</label>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              브랜치 선택
+            </label>
             <BranchSelect
               branches={branchesQuery.data ?? []}
               value={branch}
               onChange={(v) => {
                 setBranch(v);
                 setSelectedSha(null);
+                generate.reset();
               }}
               disabled={!repo}
             />
@@ -89,22 +103,109 @@ function MyBlogPage() {
                 onGenerateSummary={(c) => handleGenerate(c.sha)}
               />
             )}
+            {!repo && (
+              <p className="text-sm text-gray-500">먼저 저장소를 선택하세요.</p>
+            )}
           </div>
         </aside>
 
-        <section className="rounded-md border border-gray-200 bg-white p-6">
-          {generate.isIdle && (
-            <p className="text-sm text-gray-500">
+        {/* Right: selected commit + AI 요약 */}
+        <section>
+          {!selectedCommit && (
+            <div className="grid h-80 place-items-center rounded-lg border border-dashed border-gray-300 text-sm text-gray-500">
               왼쪽에서 커밋을 선택해 "요약 생성"을 누르세요.
-            </p>
+            </div>
           )}
-          {generate.isPending && (
-            <p className="text-sm text-gray-500">요약 생성 중...</p>
+
+          {selectedCommit && (
+            <article className="rounded-lg border border-gray-200 bg-gray-50 p-6">
+              <header>
+                <div className="flex items-start justify-between">
+                  <span className="text-sm font-semibold text-gray-700">
+                    선택된 커밋
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-mono font-semibold text-blue-700">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M3 12h6m6 0h6" />
+                    </svg>
+                    {selectedCommit.sha.slice(0, 7)}
+                  </span>
+                </div>
+                <h2 className="mt-3 text-xl font-bold text-gray-900">
+                  {selectedCommit.message}
+                </h2>
+                <p className="mt-1 text-sm text-gray-500">
+                  Authored by{' '}
+                  <strong className="font-semibold text-gray-700">
+                    {selectedCommit.author}
+                  </strong>{' '}
+                  on {selectedCommit.date.slice(0, 10)}
+                </p>
+              </header>
+
+              <div className="mt-6">
+                {generate.isIdle && (
+                  <p className="text-sm text-gray-500">
+                    이 커밋의 "요약 생성" 버튼을 눌러 AI 요약을 만드세요.
+                  </p>
+                )}
+                {generate.isPending && (
+                  <p className="text-sm text-gray-500">요약 생성 중...</p>
+                )}
+                {generate.isError && (
+                  <p className="text-sm text-red-600">{generate.error.message}</p>
+                )}
+                {generate.data && <AISummaryPanel draft={generate.data} />}
+              </div>
+
+              {generate.data && (
+                <footer className="mt-6 flex items-center justify-end gap-3 border-t border-gray-200 pt-4">
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  >
+                    취소
+                  </button>
+                  <button
+                    type="button"
+                    disabled
+                    title="2주차 발행 단계에서 활성화됩니다"
+                    className="inline-flex items-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white opacity-70"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 19V5" />
+                      <path d="m5 12 7-7 7 7" />
+                    </svg>
+                    블로그 포스트로 저장 및 게시
+                  </button>
+                </footer>
+              )}
+            </article>
           )}
-          {generate.isError && (
-            <p className="text-sm text-red-600">{generate.error.message}</p>
-          )}
-          {generate.data && <AISummaryPanel draft={generate.data} />}
         </section>
       </div>
     </main>
