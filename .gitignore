@@ -1,0 +1,29 @@
+# dependencies
+node_modules/
+
+# env (never commit)
+.env
+.env.local
+.env.*.local
+
+# build output
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# logs
+*.log
+npm-debug.log*
+
+# coverage
+coverage/
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# local claude code settings (per-machine)
+.claude/
