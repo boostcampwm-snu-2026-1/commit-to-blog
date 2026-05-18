@@ -9,7 +9,7 @@ dotenv.config({ path: envPath, quiet: true });
 
 const envSchema = z.object({
   GITHUB_TOKEN: z.string().min(1, 'GITHUB_TOKEN is required'),
-  ANTHROPIC_API_KEY: z.string().min(1, 'ANTHROPIC_API_KEY is required'),
+  GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
   BLOG_REPO: z
     .string()
     .regex(/^[^/]+\/[^/]+$/, 'BLOG_REPO must be "owner/repo"')

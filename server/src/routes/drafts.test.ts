@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import request from 'supertest';
 
-const { getCommit, messagesCreate } = vi.hoisted(() => ({
+const { getCommit, generateContent } = vi.hoisted(() => ({
   getCommit: vi.fn(),
-  messagesCreate: vi.fn(),
+  generateContent: vi.fn(),
 }));
 
 vi.mock('@octokit/rest', () => ({
@@ -17,16 +17,16 @@ vi.mock('@octokit/rest', () => ({
   },
 }));
 
-vi.mock('@anthropic-ai/sdk', () => ({
-  default: class MockAnthropic {
-    messages = { create: messagesCreate };
+vi.mock('@google/genai', () => ({
+  GoogleGenAI: class MockGoogleGenAI {
+    models = { generateContent };
   },
 }));
 
 vi.mock('../env.js', () => ({
   env: {
     GITHUB_TOKEN: 'test_token',
-    ANTHROPIC_API_KEY: 'test_anthropic',
+    GEMINI_API_KEY: 'test_gemini',
     PORT: 3001,
   },
 }));
@@ -51,7 +51,7 @@ const stubGetCommit = (overrides = {}) => {
 };
 
 const stubLLMText = (text: string) => {
-  messagesCreate.mockResolvedValue({ content: [{ type: 'text', text }] });
+  generateContent.mockResolvedValue({ text });
 };
 
 const validBody = { repo: 'owner/repo', branch: 'main', sha: 'abc1234' };
@@ -146,8 +146,8 @@ describe('POST /api/drafts/generate', () => {
 
     await request(app).post('/api/drafts/generate').send(validBody);
 
-    expect(messagesCreate).toHaveBeenCalledTimes(1);
-    const prompt = messagesCreate.mock.calls[0]?.[0].messages[0].content;
+    expect(generateContent).toHaveBeenCalledTimes(1);
+    const prompt = generateContent.mock.calls[0]?.[0].contents;
     expect(prompt).toContain('owner/repo');
     expect(prompt).toContain('main');
     expect(prompt).toContain('feat: add login');

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { githubClient } from '../services/githubClient.js';
-import { claudeClient } from '../services/claudeClient.js';
+import { geminiClient } from '../services/geminiClient.js';
 import { draftStore } from '../services/draftStore.js';
 import { buildBlogDraftPrompt } from '../prompts/blogDraftPrompt.js';
 
@@ -76,7 +76,7 @@ router.post('/generate', async (req, res) => {
 
   const commit = await githubClient.getCommit(repo, sha);
   const prompt = buildBlogDraftPrompt({ repo, branch, commit });
-  const raw = await claudeClient.complete(prompt);
+  const raw = await geminiClient.complete(prompt);
 
   const parsed = parseDraftJson(raw);
   if (!parsed) {
