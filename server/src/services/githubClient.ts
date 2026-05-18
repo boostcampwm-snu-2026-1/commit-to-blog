@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest';
-import type { CommitSummary, RepoSummary } from 'shared';
+import type { CommitDetail, CommitSummary, RepoSummary } from 'shared';
 import { env } from '../env.js';
 
 const octokit = new Octokit({ auth: env.GITHUB_TOKEN });
@@ -44,5 +44,37 @@ export const githubClient = {
       author: c.author?.login ?? c.commit.author?.name ?? 'unknown',
       date: c.commit.author?.date ?? new Date(0).toISOString(),
     }));
+  },
+
+  async getCommit(repo: string, sha: string): Promise<CommitDetail> {
+    const [owner, name] = repo.split('/');
+    const { data } = await octokit.repos.getCommit({
+      owner: owner!,
+      repo: name!,
+      ref: sha,
+    });
+
+    const fullMessage = data.commit.message;
+    const newlineIdx = fullMessage.indexOf('\n');
+    const message = newlineIdx === -1 ? fullMessage : fullMessage.slice(0, newlineIdx);
+    const body = newlineIdx === -1 ? '' : fullMessage.slice(newlineIdx + 1).trim();
+
+    const files = data.files ?? [];
+    const diffSummary =
+      files.length === 0
+        ? 'no files changed'
+        : files
+            .slice(0, 20)
+            .map((f) => `${f.filename} (+${f.additions ?? 0}/-${f.deletions ?? 0})`)
+            .join(', ');
+
+    return {
+      sha: data.sha,
+      message,
+      body,
+      author: data.author?.login ?? data.commit.author?.name ?? 'unknown',
+      date: data.commit.author?.date ?? new Date(0).toISOString(),
+      diffSummary,
+    };
   },
 };
