@@ -14,6 +14,7 @@ import { BranchSelector } from "./components/BranchSelector";
 import { RepositorySelector } from "./components/RepositorySelector";
 import { getErrorMessage } from "./lib/api";
 import { generateBlogDraft, type GeneratedDraft } from "./lib/blog";
+import { createDraftPost, type Post } from "./lib/posts";
 import {
   fetchBranches,
   fetchCommits,
@@ -61,27 +62,39 @@ function App() {
   const [generatedDraft, setGeneratedDraft] = useState<GeneratedDraft | null>(
     null,
   );
+  const [savedDraft, setSavedDraft] = useState<Post | null>(null);
+  const [hasUnsavedDraftChanges, setHasUnsavedDraftChanges] = useState(false);
   const [loading, setLoading] = useState(true);
   const [branchLoading, setBranchLoading] = useState(false);
   const [commitLoading, setCommitLoading] = useState(false);
   const [draftLoading, setDraftLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [branchError, setBranchError] = useState<string | null>(null);
   const [commitError, setCommitError] = useState<string | null>(null);
   const [draftError, setDraftError] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const draftControllerRef = useRef<AbortController | null>(null);
+  const saveControllerRef = useRef<AbortController | null>(null);
 
   const clearDraftState = useCallback(() => {
     draftControllerRef.current?.abort();
+    saveControllerRef.current?.abort();
     draftControllerRef.current = null;
+    saveControllerRef.current = null;
     setGeneratedDraft(null);
+    setSavedDraft(null);
+    setHasUnsavedDraftChanges(false);
     setDraftError(null);
+    setSaveError(null);
     setDraftLoading(false);
+    setSaveLoading(false);
   }, []);
 
   useEffect(() => {
     return () => {
       draftControllerRef.current?.abort();
+      saveControllerRef.current?.abort();
     };
   }, []);
 
@@ -185,6 +198,8 @@ function App() {
             [field]: value,
           },
     );
+    setHasUnsavedDraftChanges(true);
+    setSaveError(null);
   }
 
   useEffect(() => {
@@ -317,23 +332,36 @@ function App() {
     setDraftLoading(true);
     setDraftError(null);
     setGeneratedDraft(null);
+    setSavedDraft(null);
+    setHasUnsavedDraftChanges(false);
+    setSaveError(null);
+
+    saveControllerRef.current?.abort();
+    saveControllerRef.current = null;
+    setSaveLoading(false);
 
     draftControllerRef.current?.abort();
     const controller = new AbortController();
     draftControllerRef.current = controller;
 
-    void generateBlogDraft({
-      repository: {
-        owner: selectedRepository.owner,
-        name: selectedRepository.name,
-        fullName: selectedRepository.fullName,
+    void generateBlogDraft(
+      {
+        repository: {
+          owner: selectedRepository.owner,
+          name: selectedRepository.name,
+          fullName: selectedRepository.fullName,
+        },
+        branch: selectedBranchName,
+        commits: selectedCommits,
       },
-      branch: selectedBranchName,
-      commits: selectedCommits,
-    }, controller.signal)
+      controller.signal,
+    )
       .then((draft) => {
         if (!controller.signal.aborted) {
           setGeneratedDraft(draft);
+          setSavedDraft(null);
+          setHasUnsavedDraftChanges(true);
+          setSaveError(null);
         }
       })
       .catch((requestError: unknown) => {
@@ -347,6 +375,64 @@ function App() {
         if (!controller.signal.aborted) {
           setDraftLoading(false);
           draftControllerRef.current = null;
+        }
+      });
+  }
+
+  function handleSaveDraft() {
+    if (
+      selectedRepository === null ||
+      selectedBranchName === null ||
+      selectedCommits.length === 0 ||
+      generatedDraft === null ||
+      saveLoading
+    ) {
+      return;
+    }
+
+    setSaveLoading(true);
+    setSaveError(null);
+    setSavedDraft(null);
+
+    saveControllerRef.current?.abort();
+    const controller = new AbortController();
+    saveControllerRef.current = controller;
+
+    void createDraftPost(
+      {
+        title: generatedDraft.title,
+        summary: generatedDraft.summary,
+        content: generatedDraft.content,
+        repository: {
+          owner: selectedRepository.owner,
+          name: selectedRepository.name,
+          fullName: selectedRepository.fullName,
+        },
+        branch: selectedBranchName,
+        commits: selectedCommits,
+      },
+      controller.signal,
+    )
+      .then((post) => {
+        if (!controller.signal.aborted) {
+          setSavedDraft(post);
+          setGeneratedDraft({
+            title: post.title,
+            summary: post.summary,
+            content: post.content,
+          });
+          setHasUnsavedDraftChanges(false);
+        }
+      })
+      .catch((requestError: unknown) => {
+        if (!controller.signal.aborted) {
+          setSaveError(getErrorMessage(requestError, "Failed to save draft."));
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setSaveLoading(false);
+          saveControllerRef.current = null;
         }
       });
   }
@@ -589,8 +675,13 @@ function App() {
           selectedCommits={selectedCommits}
           loading={draftLoading}
           error={draftError}
+          savedDraft={savedDraft}
+          hasUnsavedChanges={hasUnsavedDraftChanges}
+          saving={saveLoading}
+          saveError={saveError}
           onGenerate={handleGenerateDraft}
           onDraftChange={updateDraftField}
+          onSave={handleSaveDraft}
         />
       </div>
     </main>

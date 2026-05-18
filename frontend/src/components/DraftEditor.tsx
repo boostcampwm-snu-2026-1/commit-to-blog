@@ -1,5 +1,6 @@
 import type { GeneratedDraft } from "../lib/blog";
 import type { CommitSummary, RepositorySummary } from "../lib/github";
+import type { Post } from "../lib/posts";
 
 type DraftEditorProps = {
   draft: GeneratedDraft | null;
@@ -8,8 +9,13 @@ type DraftEditorProps = {
   selectedCommits: CommitSummary[];
   loading: boolean;
   error: string | null;
+  savedDraft: Post | null;
+  hasUnsavedChanges: boolean;
+  saving: boolean;
+  saveError: string | null;
   onGenerate: () => void;
   onDraftChange: (field: keyof GeneratedDraft, value: string) => void;
+  onSave: () => void;
 };
 
 function FieldLabel({
@@ -33,11 +39,21 @@ export function DraftEditor({
   selectedCommits,
   loading,
   error,
+  savedDraft,
+  hasUnsavedChanges,
+  saving,
+  saveError,
   onGenerate,
   onDraftChange,
+  onSave,
 }: DraftEditorProps) {
   const canGenerate =
     repository !== null && branchName !== null && selectedCommits.length > 0;
+  const canSave =
+    draft !== null &&
+    draft.title.trim() !== "" &&
+    draft.summary.trim() !== "" &&
+    draft.content.trim() !== "";
 
   return (
     <section className="rounded-lg border border-default bg-surface shadow-elevated">
@@ -135,6 +151,47 @@ export function DraftEditor({
                 rows={14}
                 className="min-h-80 resize-y rounded-md border border-default bg-surface px-3 py-2 font-mono text-sm text-primary shadow-none outline-none transition placeholder:text-muted focus:border-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               />
+            </div>
+
+            <div className="flex flex-col gap-3 rounded-lg border border-border-muted bg-surface-muted px-4 py-3 md:flex-row md:items-center md:justify-between">
+              <div className="text-sm">
+                {saveError ? (
+                  <p role="alert" className="text-status-danger-text">
+                    {saveError}
+                  </p>
+                ) : saving ? (
+                  <p
+                    role="status"
+                    aria-live="polite"
+                    className="text-secondary"
+                  >
+                    Saving draft...
+                  </p>
+                ) : savedDraft && !hasUnsavedChanges ? (
+                  <p
+                    role="status"
+                    aria-live="polite"
+                    className="text-status-success-text"
+                  >
+                    Draft saved.
+                  </p>
+                ) : savedDraft && hasUnsavedChanges ? (
+                  <p className="text-status-warning-text">
+                    Draft has unsaved changes.
+                  </p>
+                ) : (
+                  <p className="text-secondary">Draft is not saved yet.</p>
+                )}
+              </div>
+
+              <button
+                type="button"
+                disabled={!canSave || saving}
+                onClick={onSave}
+                className="inline-flex shrink-0 items-center justify-center rounded-md bg-action-primary px-4 py-2 text-sm font-medium text-action-primary-text hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+              >
+                {saving ? "Saving..." : "Save draft"}
+              </button>
             </div>
           </form>
         ) : (
