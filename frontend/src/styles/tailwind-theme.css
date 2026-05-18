@@ -1,0 +1,77 @@
+@theme inline {
+  /* Surface and background utilities */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-inverse: var(--surface-inverse);
+
+  /* Action utilities */
+  --color-action-primary: var(--action-primary);
+  --color-action-primary-hover: var(--action-primary-hover);
+  --color-action-primary-text: var(--action-primary-text);
+  --color-action-secondary: var(--action-secondary);
+  --color-action-secondary-hover: var(--action-secondary-hover);
+  --color-action-secondary-text: var(--action-secondary-text);
+  --color-action-danger: var(--action-danger);
+  --color-action-danger-hover: var(--action-danger-hover);
+  --color-action-danger-text: var(--action-danger-text);
+
+  /* Status utilities */
+  --color-status-info: var(--status-info);
+  --color-status-info-subtle: var(--status-info-subtle);
+  --color-status-info-text: var(--status-info-text);
+  --color-status-success: var(--status-success);
+  --color-status-success-subtle: var(--status-success-subtle);
+  --color-status-success-text: var(--status-success-text);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-subtle: var(--status-warning-subtle);
+  --color-status-warning-text: var(--status-warning-text);
+  --color-status-danger: var(--status-danger);
+  --color-status-danger-subtle: var(--status-danger-subtle);
+  --color-status-danger-text: var(--status-danger-text);
+
+  /* Effect utilities */
+  --shadow-focus: var(--focus-ring);
+  --shadow-elevated: var(--elevation-raised);
+}
+
+@utility text-primary {
+  color: var(--text-primary);
+}
+
+@utility text-secondary {
+  color: var(--text-secondary);
+}
+
+@utility text-muted {
+  color: var(--text-muted);
+}
+
+@utility text-inverse {
+  color: var(--text-inverse);
+}
+
+@utility text-link {
+  color: var(--text-link);
+}
+
+@utility border-default {
+  border-color: var(--border-default);
+}
+
+@utility border-muted {
+  border-color: var(--border-muted);
+}
+
+@utility border-strong {
+  border-color: var(--border-strong);
+}
+
+@utility border-focus {
+  border-color: var(--border-focus);
+}
+
+@utility outline-focus {
+  outline-color: var(--border-focus);
+}

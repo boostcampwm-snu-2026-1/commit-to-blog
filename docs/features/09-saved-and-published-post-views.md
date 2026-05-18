@@ -1,0 +1,28 @@
+# 09 Saved and Published Post Views
+
+## Goal
+
+Show saved posts, support post management actions, and display internally published posts.
+
+## Implementation Context
+
+- Saved posts appear as cards with title, summary, repository, branch, status, and date.
+- Users can open details, edit, delete, and change status.
+- Delete requires confirmation.
+- Publishing is an internal state change, not an external blog upload.
+- Published posts are fetched through the server-side status filter defined in [docs/api-design.md](../api-design.md#post-api).
+
+## References
+
+- Publishing scope: [docs/plan.md](../plan.md#mvp-scope)
+- Post status model: [docs/data-model.md](../data-model.md#status-meaning)
+- API contract: [docs/api-design.md](../api-design.md#post-api)
+- Frontend screens: [Saved Post List](../frontend-design.md#saved-post-list), [Published Post View](../frontend-design.md#published-post-view)
+- Task order: [docs/plan.md](../plan.md#9-saved-and-published-post-views)
+- Verification: [Backend Checks](../testing.md#backend-checks), [Frontend Checks](../testing.md#frontend-checks)
+
+## Acceptance Notes
+
+- Draft posts do not appear in the published post view.
+- Invalid post status filters return `400`.
+- External blog platform publishing stays out of MVP scope.
