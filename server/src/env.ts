@@ -12,8 +12,12 @@ const envSchema = z.object({
   GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
   BLOG_REPO: z
     .string()
-    .regex(/^[^/]+\/[^/]+$/, 'BLOG_REPO must be "owner/repo"')
-    .optional(),
+    .optional()
+    .transform((v) => (v?.trim() ? v.trim() : undefined))
+    .refine(
+      (v) => v === undefined || /^[^/]+\/[^/]+$/.test(v),
+      { message: 'BLOG_REPO must be "owner/repo"' },
+    ),
   PORT: z.coerce.number().int().positive().default(3001),
 });
 
