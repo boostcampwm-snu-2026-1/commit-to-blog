@@ -1,12 +1,12 @@
 import express from 'express';
+import { env } from './env.js';
 import healthRouter from './routes/health.js';
 
 const app = express();
-const port = Number(process.env.PORT ?? 3001);
 
 app.use(express.json());
 app.use('/api', healthRouter);
 
-app.listen(port, () => {
-  console.log(`server listening on :${port}`);
+app.listen(env.PORT, () => {
+  console.log(`server listening on :${env.PORT}`);
 });
