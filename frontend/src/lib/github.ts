@@ -33,13 +33,41 @@ type CommitsResponse = {
   commits: CommitSummary[];
 };
 
+type ApiErrorResponse = {
+  message?: unknown;
+};
+
+async function readApiError(response: Response, fallbackMessage: string) {
+  try {
+    const body = (await response.json()) as ApiErrorResponse;
+
+    if (typeof body.message === "string" && body.message.trim() !== "") {
+      return body.message;
+    }
+  } catch {
+    // Keep the fallback when the response body is empty or not JSON.
+  }
+
+  return fallbackMessage;
+}
+
+export function getErrorMessage(error: unknown, fallbackMessage: string) {
+  if (error instanceof Error && error.message.trim() !== "") {
+    return error.message;
+  }
+
+  return fallbackMessage;
+}
+
 export async function fetchRepositories(signal?: AbortSignal) {
   const response = await fetch("/api/github/repos", {
     signal,
   });
 
   if (!response.ok) {
-    throw new Error("Failed to load repositories.");
+    throw new Error(
+      await readApiError(response, "Failed to load repositories."),
+    );
   }
 
   const body = (await response.json()) as RepositoriesResponse;
@@ -57,7 +85,7 @@ export async function fetchBranches(
   });
 
   if (!response.ok) {
-    throw new Error("Failed to load branches.");
+    throw new Error(await readApiError(response, "Failed to load branches."));
   }
 
   const body = (await response.json()) as BranchesResponse;
@@ -79,7 +107,7 @@ export async function fetchCommits(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to load commits.");
+    throw new Error(await readApiError(response, "Failed to load commits."));
   }
 
   const body = (await response.json()) as CommitsResponse;

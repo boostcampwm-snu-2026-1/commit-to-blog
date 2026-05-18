@@ -83,9 +83,18 @@ export function BranchSelector({
             Select a repository first to load branches.
           </button>
         ) : loading ? (
-          <p className="text-sm text-secondary">Loading branches...</p>
+          <p
+            role="status"
+            aria-live="polite"
+            className="text-sm text-secondary"
+          >
+            Loading branches...
+          </p>
         ) : error ? (
-          <div className="flex items-start justify-between gap-4 rounded-lg border border-status-danger-subtle bg-status-danger-subtle px-4 py-3">
+          <div
+            role="alert"
+            className="flex items-start justify-between gap-4 rounded-lg border border-status-danger-subtle bg-status-danger-subtle px-4 py-3"
+          >
             <p className="text-sm text-status-danger-text">{error}</p>
             <button
               type="button"

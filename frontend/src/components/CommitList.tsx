@@ -99,9 +99,18 @@ export function CommitList({
             Select a branch first to load commits.
           </button>
         ) : loading ? (
-          <p className="text-sm text-secondary">Loading commits...</p>
+          <p
+            role="status"
+            aria-live="polite"
+            className="text-sm text-secondary"
+          >
+            Loading commits...
+          </p>
         ) : error ? (
-          <div className="flex items-start justify-between gap-4 rounded-lg border border-status-danger-subtle bg-status-danger-subtle px-4 py-3">
+          <div
+            role="alert"
+            className="flex items-start justify-between gap-4 rounded-lg border border-status-danger-subtle bg-status-danger-subtle px-4 py-3"
+          >
             <p className="text-sm text-status-danger-text">{error}</p>
             <button
               type="button"

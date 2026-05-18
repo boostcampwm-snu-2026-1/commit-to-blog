@@ -7,6 +7,7 @@ import {
   fetchBranches,
   fetchCommits,
   fetchRepositories,
+  getErrorMessage,
   type BranchSummary,
   type CommitSummary,
   type RepositorySummary,
@@ -84,9 +85,11 @@ function App() {
           setBranchLoading(true);
         }
       })
-      .catch(() => {
+      .catch((requestError: unknown) => {
         if (!controller.signal.aborted) {
-          setError("Failed to load repositories.");
+          setError(
+            getErrorMessage(requestError, "Failed to load repositories."),
+          );
           setRepositories([]);
           setSelectedRepositoryId(null);
           clearBranchState(
@@ -178,9 +181,11 @@ function App() {
         );
         setCommitLoading(items.length > 0);
       })
-      .catch(() => {
+      .catch((requestError: unknown) => {
         if (!controller.signal.aborted) {
-          setBranchError("Failed to load branches.");
+          setBranchError(
+            getErrorMessage(requestError, "Failed to load branches."),
+          );
           setBranches([]);
           setSelectedBranchName(null);
           clearCommitState(
@@ -227,9 +232,11 @@ function App() {
         setCommits(items);
         setCommitError(null);
       })
-      .catch(() => {
+      .catch((requestError: unknown) => {
         if (!controller.signal.aborted) {
-          setCommitError("Failed to load commits.");
+          setCommitError(
+            getErrorMessage(requestError, "Failed to load commits."),
+          );
           setCommits([]);
           setSelectedCommitShas([]);
         }
@@ -317,8 +324,13 @@ function App() {
                     );
                   }
                 })
-                .catch(() => {
-                  setError("Failed to load repositories.");
+                .catch((requestError: unknown) => {
+                  setError(
+                    getErrorMessage(
+                      requestError,
+                      "Failed to load repositories.",
+                    ),
+                  );
                   setRepositories([]);
                   setSelectedRepositoryId(null);
                   clearBranchState(
