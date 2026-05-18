@@ -1,13 +1,23 @@
-import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 
 import { CommitList } from "./components/CommitList";
+import { DraftEditor } from "./components/DraftEditor";
 import { BranchSelector } from "./components/BranchSelector";
 import { RepositorySelector } from "./components/RepositorySelector";
+import { getErrorMessage } from "./lib/api";
+import { generateBlogDraft, type GeneratedDraft } from "./lib/blog";
 import {
   fetchBranches,
   fetchCommits,
   fetchRepositories,
-  getErrorMessage,
   type BranchSummary,
   type CommitSummary,
   type RepositorySummary,
@@ -48,12 +58,32 @@ function App() {
   );
   const [commits, setCommits] = useState<CommitSummary[]>([]);
   const [selectedCommitShas, setSelectedCommitShas] = useState<string[]>([]);
+  const [generatedDraft, setGeneratedDraft] = useState<GeneratedDraft | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
   const [branchLoading, setBranchLoading] = useState(false);
   const [commitLoading, setCommitLoading] = useState(false);
+  const [draftLoading, setDraftLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [branchError, setBranchError] = useState<string | null>(null);
   const [commitError, setCommitError] = useState<string | null>(null);
+  const [draftError, setDraftError] = useState<string | null>(null);
+  const draftControllerRef = useRef<AbortController | null>(null);
+
+  const clearDraftState = useCallback(() => {
+    draftControllerRef.current?.abort();
+    draftControllerRef.current = null;
+    setGeneratedDraft(null);
+    setDraftError(null);
+    setDraftLoading(false);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      draftControllerRef.current?.abort();
+    };
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -74,6 +104,7 @@ function App() {
           setCommitError,
           setCommitLoading,
         );
+        clearDraftState();
 
         if (nextRepository !== null) {
           clearBranchState(
@@ -104,6 +135,7 @@ function App() {
             setCommitError,
             setCommitLoading,
           );
+          clearDraftState();
         }
       })
       .finally(() => {
@@ -115,7 +147,7 @@ function App() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [clearDraftState]);
 
   const selectedRepository = useMemo(
     () =>
@@ -130,7 +162,13 @@ function App() {
     [branches, selectedBranchName],
   );
 
+  const selectedCommits = useMemo(
+    () => commits.filter((commit) => selectedCommitShas.includes(commit.sha)),
+    [commits, selectedCommitShas],
+  );
+
   function toggleCommit(commit: CommitSummary) {
+    clearDraftState();
     setSelectedCommitShas((currentSelection) =>
       currentSelection.includes(commit.sha)
         ? currentSelection.filter((sha) => sha !== commit.sha)
@@ -179,6 +217,7 @@ function App() {
           setCommitError,
           setCommitLoading,
         );
+        clearDraftState();
         setCommitLoading(items.length > 0);
       })
       .catch((requestError: unknown) => {
@@ -194,6 +233,7 @@ function App() {
             setCommitError,
             setCommitLoading,
           );
+          clearDraftState();
         }
       })
       .finally(() => {
@@ -205,7 +245,7 @@ function App() {
     return () => {
       controller.abort();
     };
-  }, [branchLoading, selectedRepository]);
+  }, [branchLoading, clearDraftState, selectedRepository]);
 
   useEffect(() => {
     if (
@@ -239,6 +279,7 @@ function App() {
           );
           setCommits([]);
           setSelectedCommitShas([]);
+          clearDraftState();
         }
       })
       .finally(() => {
@@ -250,7 +291,54 @@ function App() {
     return () => {
       controller.abort();
     };
-  }, [commitLoading, selectedBranchName, selectedRepository]);
+  }, [clearDraftState, commitLoading, selectedBranchName, selectedRepository]);
+
+  function handleGenerateDraft() {
+    if (
+      selectedRepository === null ||
+      selectedBranchName === null ||
+      selectedCommits.length === 0 ||
+      draftLoading
+    ) {
+      return;
+    }
+
+    setDraftLoading(true);
+    setDraftError(null);
+    setGeneratedDraft(null);
+
+    draftControllerRef.current?.abort();
+    const controller = new AbortController();
+    draftControllerRef.current = controller;
+
+    void generateBlogDraft({
+      repository: {
+        owner: selectedRepository.owner,
+        name: selectedRepository.name,
+        fullName: selectedRepository.fullName,
+      },
+      branch: selectedBranchName,
+      commits: selectedCommits,
+    }, controller.signal)
+      .then((draft) => {
+        if (!controller.signal.aborted) {
+          setGeneratedDraft(draft);
+        }
+      })
+      .catch((requestError: unknown) => {
+        if (!controller.signal.aborted) {
+          setDraftError(
+            getErrorMessage(requestError, "Failed to generate draft."),
+          );
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setDraftLoading(false);
+          draftControllerRef.current = null;
+        }
+      });
+  }
 
   return (
     <main className="min-h-screen bg-background text-primary">
@@ -288,11 +376,13 @@ function App() {
                 setCommitError,
                 setCommitLoading,
               );
+              clearDraftState();
               setBranchLoading(true);
             }}
             onRetry={() => {
               setLoading(true);
               setError(null);
+              clearDraftState();
 
               void fetchRepositories()
                 .then((items) => {
@@ -306,6 +396,7 @@ function App() {
                     setCommitError,
                     setCommitLoading,
                   );
+                  clearDraftState();
 
                   if (nextRepository !== null) {
                     clearBranchState(
@@ -345,6 +436,7 @@ function App() {
                     setCommitError,
                     setCommitLoading,
                   );
+                  clearDraftState();
                 })
                 .finally(() => {
                   setLoading(false);
@@ -437,6 +529,7 @@ function App() {
                   setCommitError,
                   setCommitLoading,
                 );
+                clearDraftState();
                 setCommitLoading(true);
               }}
               onRetry={() => {
@@ -452,6 +545,7 @@ function App() {
                   setCommitError,
                   setCommitLoading,
                 );
+                clearDraftState();
               }}
             />
 
@@ -471,10 +565,21 @@ function App() {
 
                 setCommitLoading(true);
                 setCommitError(null);
+                clearDraftState();
               }}
             />
           </div>
         </div>
+
+        <DraftEditor
+          draft={generatedDraft}
+          repository={selectedRepository}
+          branchName={selectedBranchName}
+          selectedCommits={selectedCommits}
+          loading={draftLoading}
+          error={draftError}
+          onGenerate={handleGenerateDraft}
+        />
       </div>
     </main>
   );
