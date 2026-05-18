@@ -1,0 +1,182 @@
+[
+  {
+    "id": "internhasha",
+    "title": "인턴하샤",
+    "thumbnail": "/images/projects/internhasha.png",
+    "period": {
+      "start": "2024.03.01",
+      "end": "2024.08.31"
+    },
+    "description": "서울대학교 학생과 스타트업을 연결하는 인턴 매칭 서비스",
+    "problems": [
+      {
+        "id": "p1",
+        "problem": "지원자 필터링 UI가 복잡해 사용자 이탈률이 높았음",
+        "solve": "슬라이딩 패널 방식의 단계별 필터로 UX를 개선, 이탈률 30% 감소",
+        "prs": [
+          {
+            "label": "#12 필터 패널 구현",
+            "url": "https://github.com/sample/internhasha/pull/12"
+          },
+          {
+            "label": "#15 필터 애니메이션",
+            "url": "https://github.com/sample/internhasha/pull/15"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#8 필터 이탈률 개선",
+            "url": "https://github.com/sample/internhasha/issues/8"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "problem": "모바일 환경에서 카드 레이아웃이 깨지는 문제 발생",
+        "solve": "Tailwind CSS의 반응형 유틸리티를 활용해 그리드 시스템 재설계",
+        "prs": [
+          {
+            "label": "#23 모바일 그리드 수정",
+            "url": "https://github.com/sample/internhasha/pull/23"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#19 모바일 레이아웃 버그",
+            "url": "https://github.com/sample/internhasha/issues/19"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "problem": "API 응답 지연으로 인한 빈 화면 노출",
+        "solve": "스켈레톤 UI 및 Suspense 경계 도입으로 로딩 상태 처리 표준화",
+        "prs": [
+          {
+            "label": "#31 스켈레톤 UI 적용",
+            "url": "https://github.com/sample/internhasha/pull/31"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#27 로딩 UX 개선",
+            "url": "https://github.com/sample/internhasha/issues/27"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "waffle-world",
+    "title": "Waffle World 인프라 자동화",
+    "thumbnail": "/images/projects/waffle-world.png",
+    "period": {
+      "start": "2024.09.01",
+      "end": "2025.02.28"
+    },
+    "description": "OCI + ArgoCD + Istio 기반 쿠버네티스 클러스터 온보딩 자동화 툴링",
+    "problems": [
+      {
+        "id": "p1",
+        "problem": "신규 팀 온보딩 시 Kubernetes 매니페스트·IAM 정책을 수작업으로 작성해야 했음",
+        "solve": "GitHub Actions 워크플로우와 Python 스크립트로 매니페스트 자동 생성 파이프라인 구축",
+        "prs": [
+          {
+            "label": "#7 온보딩 자동화 스크립트",
+            "url": "https://github.com/sample/waffle-world/pull/7"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#3 온보딩 자동화 요구사항",
+            "url": "https://github.com/sample/waffle-world/issues/3"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "problem": "OIDC 트러스트 정책 오류로 GitHub Actions에서 OCI 인증 실패",
+        "solve": "Terraform 모듈 내 OIDC 조건식 수정 및 IAM 역할 신뢰 정책 재설계",
+        "prs": [
+          {
+            "label": "#14 OIDC 정책 수정",
+            "url": "https://github.com/sample/waffle-world/pull/14"
+          },
+          {
+            "label": "#16 Terraform IAM 모듈",
+            "url": "https://github.com/sample/waffle-world/pull/16"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#11 OIDC 인증 실패",
+            "url": "https://github.com/sample/waffle-world/issues/11"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "image-compression",
+    "title": "Register Token 기반 이미지 압축",
+    "thumbnail": "/images/projects/image-compression.png",
+    "period": {
+      "start": "2025.03.01",
+      "end": "2025.12.31"
+    },
+    "description": "DINOv2 Register Token을 활용한 학습 기반 이미지 압축 모델 연구 및 구현",
+    "problems": [
+      {
+        "id": "p1",
+        "problem": "Register Token 삽입 위치에 따라 압축 성능 편차가 크게 발생",
+        "solve": "Ablation study를 통해 인코더 중간 레이어 삽입이 최적임을 확인, BD-Rate 4.2% 개선",
+        "prs": [
+          {
+            "label": "#9 Register Token 위치 실험",
+            "url": "https://github.com/sample/img-compression/pull/9"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#5 Ablation 실험 설계",
+            "url": "https://github.com/sample/img-compression/issues/5"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "problem": "SLURM 멀티 GPU 환경에서 체크포인트 재개 시 loss가 발산하는 문제",
+        "solve": "옵티마이저 state_dict 저장 누락 확인 후 체크포인트 저장 로직 수정",
+        "prs": [
+          {
+            "label": "#17 체크포인트 재개 수정",
+            "url": "https://github.com/sample/img-compression/pull/17"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#13 체크포인트 loss 발산",
+            "url": "https://github.com/sample/img-compression/issues/13"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "problem": "ONNX 변환 후 Android 추론 결과가 PyTorch 결과와 불일치",
+        "solve": "동적 shape 설정 오류 수정 및 ONNX Runtime 세션 옵션 최적화",
+        "prs": [
+          {
+            "label": "#25 ONNX Android 수정",
+            "url": "https://github.com/sample/img-compression/pull/25"
+          }
+        ],
+        "issues": [
+          {
+            "label": "#21 ONNX 추론 불일치",
+            "url": "https://github.com/sample/img-compression/issues/21"
+          }
+        ]
+      }
+    ]
+  }
+]

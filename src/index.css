@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-surface: #fffefc;
+  --color-border: #cbcbcb;
+  --color-border-light: #d9d9d9;
+  --color-muted: #656565;
+  --color-placeholder: #b79d9d;
+
+  /* GitHub contribution heatmap */
+  --color-contribution-0: #eeece6;
+  --color-contribution-1: #eccfbf;
+  --color-contribution-2: #bf8b75;
+  --color-contribution-3: #a16558;
+  --color-contribution-4: #613e30;
+
+  /* Font families */
+  --font-pretendard: "Pretendard", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  /* 13px: Tailwind 기본값에 없어서 별도 정의 */
+  --text-2xs: 13px;
+
+  /* Layout */
+  --spacing-page-x: 54px;
+  --spacing-header: 80px;
+}
+
+/* WebKit 스크롤바 숨김 (커스텀 스크롤바를 사용하는 영역) */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-48px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(48px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+body {
+  font-family: var(--font-pretendard);
+}
+
+/* overflow 시 스크롤바 스타일링 수정 */
+.scrollbar-transparent::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-transparent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-transparent::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+@keyframes card-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  80% {
+    transform: translateX(0px);
+  }
+}
+
+.card-shake-hover:hover {
+  animation: card-shake 2s ease;
+}
+
+/* 카드 슬라이딩 애니메이션 */
+@keyframes card-exit {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes card-enter {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.card-exit {
+  animation: card-exit 2s ease forwards;
+}
+
+.card-enter {
+  animation: card-enter 2s ease forwards;
+}
