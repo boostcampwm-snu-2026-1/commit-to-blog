@@ -416,6 +416,7 @@ function App() {
               selectedBranchName={selectedBranchName}
               loading={branchLoading}
               error={branchError}
+              disabled={selectedRepository === null}
               onSelect={(branch) => {
                 setSelectedBranchName(branch.name);
                 clearCommitState(
@@ -449,6 +450,7 @@ function App() {
               selectedCommitShas={selectedCommitShas}
               loading={commitLoading}
               error={commitError}
+              disabled={selectedRepository === null || selectedBranchName === null}
               onToggle={toggleCommit}
               onRetry={() => {
                 if (selectedRepository === null || selectedBranchName === null) {

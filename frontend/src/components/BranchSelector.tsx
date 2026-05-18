@@ -6,6 +6,7 @@ type BranchSelectorProps = {
   selectedBranchName: string | null;
   loading: boolean;
   error: string | null;
+  disabled: boolean;
   onSelect: (branch: BranchSummary) => void;
   onRetry: () => void;
 };
@@ -13,16 +14,19 @@ type BranchSelectorProps = {
 function BranchCard({
   branch,
   selected,
+  disabled,
   onSelect,
 }: {
   branch: BranchSummary;
   selected: boolean;
+  disabled: boolean;
   onSelect: (branch: BranchSummary) => void;
 }) {
   return (
     <button
       type="button"
       aria-pressed={selected}
+      disabled={disabled}
       onClick={() => onSelect(branch)}
       className={[
         "flex w-full flex-col gap-2 rounded-lg border p-4 text-left transition",
@@ -30,6 +34,7 @@ function BranchCard({
         selected
           ? "border-action-primary shadow-elevated"
           : "hover:bg-surface-muted hover:border-border-strong",
+        "disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-surface",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
       ].join(" ")}
     >
@@ -49,11 +54,15 @@ export function BranchSelector({
   selectedBranchName,
   loading,
   error,
+  disabled,
   onSelect,
   onRetry,
 }: BranchSelectorProps) {
   return (
-    <section className="rounded-lg border border-default bg-surface shadow-elevated">
+    <section
+      aria-disabled={disabled}
+      className="rounded-lg border border-default bg-surface shadow-elevated"
+    >
       <div className="border-b border-default px-6 py-5 text-left">
         <p className="text-sm font-medium uppercase tracking-wide text-muted">
           Step 2
@@ -66,9 +75,13 @@ export function BranchSelector({
 
       <div className="p-6 text-left">
         {repository === null ? (
-          <p className="text-sm text-secondary">
-            Select a repository first to load its branches.
-          </p>
+          <button
+            type="button"
+            disabled
+            className="flex w-full cursor-not-allowed rounded-lg border border-default bg-surface-muted p-4 text-left text-sm text-muted opacity-70"
+          >
+            Select a repository first to load branches.
+          </button>
         ) : loading ? (
           <p className="text-sm text-secondary">Loading branches...</p>
         ) : error ? (
@@ -76,8 +89,9 @@ export function BranchSelector({
             <p className="text-sm text-status-danger-text">{error}</p>
             <button
               type="button"
+              disabled={disabled}
               onClick={onRetry}
-              className="rounded-md bg-action-secondary px-3 py-2 text-sm font-medium text-action-secondary-text hover:bg-action-secondary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+              className="rounded-md bg-action-secondary px-3 py-2 text-sm font-medium text-action-secondary-text hover:bg-action-secondary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             >
               Retry
             </button>
@@ -93,6 +107,7 @@ export function BranchSelector({
                 key={branch.name}
                 branch={branch}
                 selected={selectedBranchName === branch.name}
+                disabled={disabled}
                 onSelect={onSelect}
               />
             ))}
