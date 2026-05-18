@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/limon/project/commit-to-blog/docs/superpowers/specs)"
+    ],
+    "additionalDirectories": [
+      "/Users/limon/project/commit-to-blog/docs/superpowers"
+    ]
+  }
+}
