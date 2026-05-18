@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from "react";
 
 import { CommitList } from "./components/CommitList";
 import { BranchSelector } from "./components/BranchSelector";
@@ -11,6 +11,30 @@ import {
   type CommitSummary,
   type RepositorySummary,
 } from "./lib/github";
+
+function clearBranchState(
+  setBranches: Dispatch<SetStateAction<BranchSummary[]>>,
+  setSelectedBranchName: Dispatch<SetStateAction<string | null>>,
+  setBranchError: Dispatch<SetStateAction<string | null>>,
+  setBranchLoading: Dispatch<SetStateAction<boolean>>,
+) {
+  setBranches([]);
+  setSelectedBranchName(null);
+  setBranchError(null);
+  setBranchLoading(false);
+}
+
+function clearCommitState(
+  setCommits: Dispatch<SetStateAction<CommitSummary[]>>,
+  setSelectedCommitShas: Dispatch<SetStateAction<string[]>>,
+  setCommitError: Dispatch<SetStateAction<string | null>>,
+  setCommitLoading: Dispatch<SetStateAction<boolean>>,
+) {
+  setCommits([]);
+  setSelectedCommitShas([]);
+  setCommitError(null);
+  setCommitLoading(false);
+}
 
 function App() {
   const [repositories, setRepositories] = useState<RepositorySummary[]>([]);
@@ -43,15 +67,20 @@ function App() {
         const nextRepository = items[0] ?? null;
 
         setSelectedRepositoryId(nextRepository?.id ?? null);
-        setCommits([]);
-        setSelectedCommitShas([]);
-        setCommitError(null);
-        setCommitLoading(false);
+        clearCommitState(
+          setCommits,
+          setSelectedCommitShas,
+          setCommitError,
+          setCommitLoading,
+        );
 
         if (nextRepository !== null) {
-          setBranches([]);
-          setSelectedBranchName(null);
-          setBranchError(null);
+          clearBranchState(
+            setBranches,
+            setSelectedBranchName,
+            setBranchError,
+            setBranchLoading,
+          );
           setBranchLoading(true);
         }
       })
@@ -60,14 +89,18 @@ function App() {
           setError("Failed to load repositories.");
           setRepositories([]);
           setSelectedRepositoryId(null);
-          setBranches([]);
-          setSelectedBranchName(null);
-          setBranchError(null);
-          setBranchLoading(false);
-          setCommits([]);
-          setSelectedCommitShas([]);
-          setCommitError(null);
-          setCommitLoading(false);
+          clearBranchState(
+            setBranches,
+            setSelectedBranchName,
+            setBranchError,
+            setBranchLoading,
+          );
+          clearCommitState(
+            setCommits,
+            setSelectedCommitShas,
+            setCommitError,
+            setCommitLoading,
+          );
         }
       })
       .finally(() => {
@@ -137,9 +170,12 @@ function App() {
 
           return nextBranchName;
         });
-        setCommits([]);
-        setSelectedCommitShas([]);
-        setCommitError(null);
+        clearCommitState(
+          setCommits,
+          setSelectedCommitShas,
+          setCommitError,
+          setCommitLoading,
+        );
         setCommitLoading(items.length > 0);
       })
       .catch(() => {
@@ -147,10 +183,12 @@ function App() {
           setBranchError("Failed to load branches.");
           setBranches([]);
           setSelectedBranchName(null);
-          setCommits([]);
-          setSelectedCommitShas([]);
-          setCommitError(null);
-          setCommitLoading(false);
+          clearCommitState(
+            setCommits,
+            setSelectedCommitShas,
+            setCommitError,
+            setCommitLoading,
+          );
         }
       })
       .finally(() => {
@@ -231,14 +269,19 @@ function App() {
             error={error}
             onSelect={(repository) => {
               setSelectedRepositoryId(repository.id);
-              setBranches([]);
-              setSelectedBranchName(null);
-              setBranchError(null);
+              clearBranchState(
+                setBranches,
+                setSelectedBranchName,
+                setBranchError,
+                setBranchLoading,
+              );
+              clearCommitState(
+                setCommits,
+                setSelectedCommitShas,
+                setCommitError,
+                setCommitLoading,
+              );
               setBranchLoading(true);
-              setCommits([]);
-              setSelectedCommitShas([]);
-              setCommitError(null);
-              setCommitLoading(false);
             }}
             onRetry={() => {
               setLoading(true);
@@ -250,35 +293,46 @@ function App() {
                   const nextRepository = items[0] ?? null;
 
                   setSelectedRepositoryId(nextRepository?.id ?? null);
-                  setCommits([]);
-                  setSelectedCommitShas([]);
-                  setCommitError(null);
-                  setCommitLoading(false);
+                  clearCommitState(
+                    setCommits,
+                    setSelectedCommitShas,
+                    setCommitError,
+                    setCommitLoading,
+                  );
 
                   if (nextRepository !== null) {
-                    setBranches([]);
-                    setSelectedBranchName(null);
-                    setBranchError(null);
+                    clearBranchState(
+                      setBranches,
+                      setSelectedBranchName,
+                      setBranchError,
+                      setBranchLoading,
+                    );
                     setBranchLoading(true);
                   } else {
-                    setBranches([]);
-                    setSelectedBranchName(null);
-                    setBranchError(null);
-                    setBranchLoading(false);
+                    clearBranchState(
+                      setBranches,
+                      setSelectedBranchName,
+                      setBranchError,
+                      setBranchLoading,
+                    );
                   }
                 })
                 .catch(() => {
                   setError("Failed to load repositories.");
                   setRepositories([]);
                   setSelectedRepositoryId(null);
-                  setBranches([]);
-                  setSelectedBranchName(null);
-                  setBranchError(null);
-                  setBranchLoading(false);
-                  setCommits([]);
-                  setSelectedCommitShas([]);
-                  setCommitError(null);
-                  setCommitLoading(false);
+                  clearBranchState(
+                    setBranches,
+                    setSelectedBranchName,
+                    setBranchError,
+                    setBranchLoading,
+                  );
+                  clearCommitState(
+                    setCommits,
+                    setSelectedCommitShas,
+                    setCommitError,
+                    setCommitLoading,
+                  );
                 })
                 .finally(() => {
                   setLoading(false);
@@ -364,9 +418,12 @@ function App() {
               error={branchError}
               onSelect={(branch) => {
                 setSelectedBranchName(branch.name);
-                setCommits([]);
-                setSelectedCommitShas([]);
-                setCommitError(null);
+                clearCommitState(
+                  setCommits,
+                  setSelectedCommitShas,
+                  setCommitError,
+                  setCommitLoading,
+                );
                 setCommitLoading(true);
               }}
               onRetry={() => {
@@ -376,10 +433,12 @@ function App() {
 
                 setBranchLoading(true);
                 setBranchError(null);
-                setCommits([]);
-                setSelectedCommitShas([]);
-                setCommitError(null);
-                setCommitLoading(false);
+                clearCommitState(
+                  setCommits,
+                  setSelectedCommitShas,
+                  setCommitError,
+                  setCommitLoading,
+                );
               }}
             />
 

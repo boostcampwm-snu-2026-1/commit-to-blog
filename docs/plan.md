@@ -68,7 +68,7 @@ Related feature doc: [07 Frontend Selection Workflow](features/07-frontend-selec
 - [x] Build repository selection UI.
 - [x] Build branch selection UI that depends on the selected repository.
 - [x] Build commit selection UI that depends on the selected branch.
-- [ ] Clear downstream selections when repository or branch changes.
+- [x] Clear downstream selections when repository or branch changes.
 - [ ] Disable unavailable controls until their required previous selection exists.
 - [ ] Show loading and error states for each API request.
 
