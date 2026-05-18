@@ -1,122 +1,175 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useMemo, useState } from "react";
+
+import { RepositorySelector } from "./components/RepositorySelector";
+import {
+  fetchRepositories,
+  type RepositorySummary,
+} from "./lib/github";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [repositories, setRepositories] = useState<RepositorySummary[]>([]);
+  const [selectedRepositoryId, setSelectedRepositoryId] = useState<number | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    void fetchRepositories(controller.signal)
+      .then((items) => {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setRepositories(items);
+        setSelectedRepositoryId((currentSelection) => {
+          if (
+            currentSelection !== null &&
+            items.some((item) => item.id === currentSelection)
+          ) {
+            return currentSelection;
+          }
+
+          return items[0]?.id ?? null;
+        });
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setError("Failed to load repositories.");
+          setRepositories([]);
+          setSelectedRepositoryId(null);
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  const selectedRepository = useMemo(
+    () =>
+      repositories.find((repository) => repository.id === selectedRepositoryId) ??
+      null,
+    [repositories, selectedRepositoryId],
+  );
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+    <main className="min-h-screen bg-background text-primary">
+      <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 py-6 md:px-6 md:py-8">
+        <header className="rounded-lg border border-default bg-surface px-6 py-5 text-left shadow-elevated">
+          <p className="text-sm font-medium uppercase tracking-wide text-muted">
+            Commit to Blog
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+          <h1 className="mt-2 text-2xl font-semibold">
+            Select a repository to start a blog draft
+          </h1>
+          <p className="mt-3 max-w-3xl text-sm text-secondary">
+            Choose the GitHub repository that contains the work you want to turn
+            into a development blog post. Branch and commit selection comes next.
+          </p>
+        </header>
 
-      <div className="ticks"></div>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.8fr)]">
+          <RepositorySelector
+            repositories={repositories}
+            selectedRepositoryId={selectedRepositoryId}
+            loading={loading}
+            error={error}
+            onSelect={(repository) => setSelectedRepositoryId(repository.id)}
+            onRetry={() => {
+              setLoading(true);
+              setError(null);
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+              void fetchRepositories()
+                .then((items) => {
+                  setRepositories(items);
+                  setSelectedRepositoryId((currentSelection) => {
+                    if (
+                      currentSelection !== null &&
+                      items.some((item) => item.id === currentSelection)
+                    ) {
+                      return currentSelection;
+                    }
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+                    return items[0]?.id ?? null;
+                  });
+                })
+                .catch(() => {
+                  setError("Failed to load repositories.");
+                  setRepositories([]);
+                  setSelectedRepositoryId(null);
+                })
+                .finally(() => {
+                  setLoading(false);
+                });
+            }}
+          />
+
+          <aside className="rounded-lg border border-default bg-surface p-6 text-left shadow-elevated">
+            <p className="text-sm font-medium uppercase tracking-wide text-muted">
+              Current selection
+            </p>
+
+            {selectedRepository ? (
+              <div className="mt-4 space-y-4">
+                <div>
+                  <h2 className="text-xl font-semibold">
+                    {selectedRepository.name}
+                  </h2>
+                  <p className="mt-1 text-sm text-secondary">
+                    {selectedRepository.fullName}
+                  </p>
+                </div>
+
+                <dl className="grid gap-3 text-sm">
+                  <div className="rounded-lg bg-surface-muted px-4 py-3">
+                    <dt className="text-muted">Owner</dt>
+                    <dd className="mt-1 text-primary">{selectedRepository.owner}</dd>
+                  </div>
+                  <div className="rounded-lg bg-surface-muted px-4 py-3">
+                    <dt className="text-muted">Default branch</dt>
+                    <dd className="mt-1 text-primary">
+                      {selectedRepository.defaultBranch}
+                    </dd>
+                  </div>
+                  <div className="rounded-lg bg-surface-muted px-4 py-3">
+                    <dt className="text-muted">Visibility</dt>
+                    <dd className="mt-1 text-primary">
+                      {selectedRepository.private ? "Private" : "Public"}
+                    </dd>
+                  </div>
+                </dl>
+
+                <a
+                  href={selectedRepository.htmlUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex rounded-md bg-action-secondary px-3 py-2 text-sm font-medium text-action-secondary-text hover:bg-action-secondary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                >
+                  Open on GitHub
+                </a>
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-secondary">
+                Select a repository to see its details here.
+              </p>
+            )}
+
+            <div className="mt-6 rounded-lg border border-border-muted bg-surface-muted px-4 py-3 text-sm text-secondary">
+              Branch and commit selection will unlock after a repository is chosen.
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  );
 }
 
-export default App
+export default App;

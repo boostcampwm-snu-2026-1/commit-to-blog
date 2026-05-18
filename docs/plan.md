@@ -65,7 +65,7 @@ Related feature doc: [06 AI Blog Draft Generation](features/06-ai-blog-draft-gen
 
 Related feature doc: [07 Frontend Selection Workflow](features/07-frontend-selection-workflow.md)
 
-- [ ] Build repository selection UI.
+- [x] Build repository selection UI.
 - [ ] Build branch selection UI that depends on the selected repository.
 - [ ] Build commit selection UI that depends on the selected branch.
 - [ ] Clear downstream selections when repository or branch changes.
