@@ -19,4 +19,14 @@ export const githubClient = {
       defaultBranch: r.default_branch,
     }));
   },
+
+  async listBranches(repo: string): Promise<string[]> {
+    const [owner, name] = repo.split('/');
+    const { data } = await octokit.repos.listBranches({
+      owner: owner!,
+      repo: name!,
+      per_page: 100,
+    });
+    return data.map((b) => b.name);
+  },
 };
