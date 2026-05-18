@@ -77,7 +77,7 @@ Related feature doc: [07 Frontend Selection Workflow](features/07-frontend-selec
 Related feature doc: [08 Draft Editing and Saving](features/08-draft-editing-and-saving.md)
 
 - [x] Display the generated draft in an editable form.
-- [ ] Allow editing title, summary, and content.
+- [x] Allow editing title, summary, and content.
 - [ ] Save edited content as a `draft` post.
 - [ ] Support updating an existing saved post.
 - [ ] Prevent duplicate save or generate requests while a request is in progress.

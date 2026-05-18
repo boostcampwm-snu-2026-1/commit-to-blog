@@ -9,6 +9,7 @@ type DraftEditorProps = {
   loading: boolean;
   error: string | null;
   onGenerate: () => void;
+  onDraftChange: (field: keyof GeneratedDraft, value: string) => void;
 };
 
 function FieldLabel({
@@ -33,6 +34,7 @@ export function DraftEditor({
   loading,
   error,
   onGenerate,
+  onDraftChange,
 }: DraftEditorProps) {
   const canGenerate =
     repository !== null && branchName !== null && selectedCommits.length > 0;
@@ -90,7 +92,6 @@ export function DraftEditor({
           </div>
         ) : draft ? (
           <form
-            key={`${draft.title}\n${draft.summary}\n${draft.content}`}
             className="grid gap-5"
             onSubmit={(event) => event.preventDefault()}
           >
@@ -100,7 +101,10 @@ export function DraftEditor({
                 id="draft-title"
                 name="title"
                 type="text"
-                defaultValue={draft.title}
+                value={draft.title}
+                onChange={(event) =>
+                  onDraftChange("title", event.currentTarget.value)
+                }
                 className="min-h-11 rounded-md border border-default bg-surface px-3 py-2 text-sm text-primary shadow-none outline-none transition placeholder:text-muted focus:border-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               />
             </div>
@@ -110,7 +114,10 @@ export function DraftEditor({
               <textarea
                 id="draft-summary"
                 name="summary"
-                defaultValue={draft.summary}
+                value={draft.summary}
+                onChange={(event) =>
+                  onDraftChange("summary", event.currentTarget.value)
+                }
                 rows={4}
                 className="min-h-28 resize-y rounded-md border border-default bg-surface px-3 py-2 text-sm text-primary shadow-none outline-none transition placeholder:text-muted focus:border-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               />
@@ -121,7 +128,10 @@ export function DraftEditor({
               <textarea
                 id="draft-content"
                 name="content"
-                defaultValue={draft.content}
+                value={draft.content}
+                onChange={(event) =>
+                  onDraftChange("content", event.currentTarget.value)
+                }
                 rows={14}
                 className="min-h-80 resize-y rounded-md border border-default bg-surface px-3 py-2 font-mono text-sm text-primary shadow-none outline-none transition placeholder:text-muted focus:border-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               />

@@ -176,6 +176,17 @@ function App() {
     );
   }
 
+  function updateDraftField(field: keyof GeneratedDraft, value: string) {
+    setGeneratedDraft((currentDraft) =>
+      currentDraft === null
+        ? currentDraft
+        : {
+            ...currentDraft,
+            [field]: value,
+          },
+    );
+  }
+
   useEffect(() => {
     if (selectedRepository === null || !branchLoading) {
       return;
@@ -579,6 +590,7 @@ function App() {
           loading={draftLoading}
           error={draftError}
           onGenerate={handleGenerateDraft}
+          onDraftChange={updateDraftField}
         />
       </div>
     </main>
