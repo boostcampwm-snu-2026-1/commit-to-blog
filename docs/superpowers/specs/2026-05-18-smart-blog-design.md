@@ -15,7 +15,7 @@
 | 클라이언트 | React + Vite | 가벼운 dev server, 빠른 HMR, 아키텍처 다이어그램의 React Client와 일치 |
 | 서버 | Express (Node, TS) | 과제 요구 ("GitHub API 요청은 Express 기반의 서버환경에서 요청") |
 | 스타일링 | Tailwind CSS | 흑백 톤·여백 중심 목업을 최단 시간으로 재현 가능 |
-| LLM | Anthropic Claude API | 요약 품질 우수. provider 교체 가능하도록 service 레이어로 분리 |
+| LLM | Google Gemini API (`gemini-2.5-flash`) | 무료 티어 제공으로 결제 부담 없음. provider 교체 가능하도록 service 레이어로 분리. **2026-05-19 결정 변경:** 초기에는 Anthropic Claude로 결정했으나, 결제 부담 회피 + 무료 티어 활용 위해 Gemini로 전환. |
 | GitHub 인증 | `.env`의 PAT 1개 | 단일 사용자(과제 제출자 본인) 전제. 로그인 UI 불필요 |
 | 드래프트 저장 | 서버 메모리 (`Map<string, Draft>`) | 과제 스펙의 "memory? DB?" 가이드 중 가장 단순. 재시작 시 소실 허용. |
 | 발행 동작 | 사용자 GitHub repo에 `posts/YYYY-MM-DD-{slug}.md` push | 외부 블로그 플랫폼 연동보다 비용이 작고 GitHub PAT 인증을 재활용 |
@@ -28,7 +28,7 @@
 ### 2.1 포함 (MVP)
 - 저장소 목록 조회 (사용자 본인의 GitHub repo)
 - 브랜치 선택 + 최근 커밋 N개 (기본 20) 조회
-- 커밋 1건 선택 → Claude로 블로그 초안(제목·요약·본문) 생성
+- 커밋 1건 선택 → Gemini로 블로그 초안(제목·요약·본문) 생성
 - 초안 수정 가능한 텍스트 편집기 (단순 textarea)
 - 드래프트를 "저장된 포스트"로 보관 (서버 메모리)
 - 카드형 목록 (브랜치 태그, 요약 프리뷰, 날짜)
@@ -108,7 +108,7 @@ commit-to-blog/
 │   ├── superpowers/specs/       # 디자인 문서 (이 문서 포함)
 │   ├── week1-plan.md            # 주차별 계획 (과제 요구)
 │   └── week2-plan.md
-├── .env                         # GITHUB_TOKEN, ANTHROPIC_API_KEY (gitignore)
+├── .env                         # GITHUB_TOKEN, GEMINI_API_KEY (gitignore)
 ├── .env.example                 # 키 이름만
 ├── package.json                 # npm workspaces 루트
 └── README.md
@@ -166,7 +166,7 @@ server/src/
 │   └── health.ts
 ├── services/
 │   ├── githubClient.ts          # Octokit 래퍼
-│   ├── claudeClient.ts          # Anthropic SDK 래퍼
+│   ├── geminiClient.ts          # Google Gen AI SDK 래퍼
 │   └── draftStore.ts            # Map 기반 메모리 저장소
 ├── prompts/
 │   └── blogDraftPrompt.ts
@@ -224,7 +224,7 @@ server/src/
        └─ POST /api/drafts/generate
            ├─ githubClient.getCommit(sha) → CommitDetail
            ├─ buildPrompt(commit) → string
-           ├─ claudeClient.complete(prompt) → { title, summary, body }
+           ├─ geminiClient.complete(prompt) → { title, summary, body }
            └─ draftStore.save(draft) → Draft
        └─ React Query 캐시에 Draft 주입 → 우측 패널 렌더
 
@@ -256,7 +256,7 @@ server/src/
 
 ### 7.2 테스트 전략 (과제 규모에 맞게 가볍게)
 - **서버 단위 테스트** (Vitest): `prompts/blogDraftPrompt.ts` 입력→출력 형태, `draftStore.ts` 메모리 CRUD
-- **API 통합 테스트** (Vitest + supertest): `/api/drafts/*`, GitHub/Claude는 모킹
+- **API 통합 테스트** (Vitest + supertest): `/api/drafts/*`, GitHub/Gemini는 모킹
 - **수동 E2E 체크리스트:** 주차별 PR 본문에 스크린샷 + 핵심 5단계 시나리오 체크
 
 **비범위:** Playwright/Cypress E2E, 시각 회귀, 부하 테스트.
@@ -266,6 +266,8 @@ server/src/
 ## 8. 주차별 분할 + 작은 commit 체크리스트
 
 각 체크박스 = 1 commit. 항목 문구를 그대로 conventional-commit 메시지로 사용한다.
+
+> ℹ️ 1주차 체크리스트의 `claudeClient` / `Anthropic SDK` 표기는 2026-05-19 LLM 전환 이전의 실제 commit 메시지를 보존하기 위함이다. 전환 후의 코드 베이스는 1절 결정사항 표와 4.3절 디렉토리 구조를 기준으로 한다. 전환 작업은 별도 commit으로 추가된다.
 
 ### 📅 1주차 — 기반 + 얇은 end-to-end
 

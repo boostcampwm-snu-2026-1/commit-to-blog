@@ -9,6 +9,7 @@
 
 - 전체 디자인 / 결정 사항 / 데이터 모델 / API 계약: [docs/superpowers/specs/2026-05-18-smart-blog-design.md](../docs/superpowers/specs/2026-05-18-smart-blog-design.md)
 - 본 파일은 design spec 8절의 1주차 부분을 미러링한다. spec과 불일치 발생 시 spec을 우선하고 본 파일을 갱신한다.
+- **2026-05-19 LLM 전환:** Anthropic Claude → Google Gemini. 아래 "Claude 연동" 섹션의 commit 라벨은 전환 전 실제 commit 메시지를 보존한다. 전환 작업은 별도 commit으로 추가된다.
 
 ## 체크리스트 (각 항목 = 1 commit)
 
