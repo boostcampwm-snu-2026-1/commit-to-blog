@@ -6,6 +6,7 @@ import { useGenerateDraft } from '../hooks/useGenerateDraft';
 import RepoSearchInput from '../components/repo/RepoSearchInput';
 import BranchSelect from '../components/repo/BranchSelect';
 import CommitList from '../components/commit/CommitList';
+import AISummaryPanel from '../components/editor/AISummaryPanel';
 
 function MyBlogPage() {
   const [repoQuery, setRepoQuery] = useState('');
@@ -103,15 +104,7 @@ function MyBlogPage() {
           {generate.isError && (
             <p className="text-sm text-red-600">{generate.error.message}</p>
           )}
-          {generate.data && (
-            <article>
-              <h2 className="text-xl font-bold text-gray-900">{generate.data.title}</h2>
-              <p className="mt-2 text-sm text-gray-600">{generate.data.summary}</p>
-              <div className="mt-4 whitespace-pre-wrap text-sm text-gray-800">
-                {generate.data.body}
-              </div>
-            </article>
-          )}
+          {generate.data && <AISummaryPanel draft={generate.data} />}
         </section>
       </div>
     </main>
