@@ -204,30 +204,24 @@ export async function generateBlogDraft(input: GenerateDraftInput) {
             },
           ],
           generationConfig: {
-            responseFormat: {
-              text: {
-                mimeType: "application/json",
-                schema: {
-                  type: "object",
-                  additionalProperties: false,
-                  properties: {
-                    title: {
-                      type: "string",
-                      description: "The title of the development blog draft.",
-                    },
-                    summary: {
-                      type: "string",
-                      description:
-                        "A concise summary of the development blog draft.",
-                    },
-                    content: {
-                      type: "string",
-                      description: "The body content of the development blog draft.",
-                    },
-                  },
-                  required: ["title", "summary", "content"],
+            response_mime_type: "application/json",
+            response_schema: {
+              type: "OBJECT",
+              properties: {
+                title: {
+                  type: "STRING",
+                  description: "The title of the development blog draft.",
+                },
+                summary: {
+                  type: "STRING",
+                  description: "A concise summary of the development blog draft.",
+                },
+                content: {
+                  type: "STRING",
+                  description: "The body content of the development blog draft.",
                 },
               },
+              required: ["title", "summary", "content"],
             },
           },
         }),
