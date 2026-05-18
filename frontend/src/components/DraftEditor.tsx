@@ -49,6 +49,7 @@ export function DraftEditor({
 }: DraftEditorProps) {
   const canGenerate =
     repository !== null && branchName !== null && selectedCommits.length > 0;
+  const requestInProgress = loading || saving;
   const canSave =
     draft !== null &&
     draft.title.trim() !== "" &&
@@ -71,7 +72,7 @@ export function DraftEditor({
 
         <button
           type="button"
-          disabled={!canGenerate || loading}
+          disabled={!canGenerate || requestInProgress}
           onClick={onGenerate}
           className="inline-flex shrink-0 items-center justify-center rounded-md bg-action-primary px-4 py-2 text-sm font-medium text-action-primary-text hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
@@ -100,8 +101,9 @@ export function DraftEditor({
             <p className="text-sm text-status-danger-text">{error}</p>
             <button
               type="button"
+              disabled={requestInProgress}
               onClick={onGenerate}
-              className="rounded-md bg-action-secondary px-3 py-2 text-sm font-medium text-action-secondary-text hover:bg-action-secondary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+              className="rounded-md bg-action-secondary px-3 py-2 text-sm font-medium text-action-secondary-text hover:bg-action-secondary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             >
               Retry
             </button>
@@ -186,7 +188,7 @@ export function DraftEditor({
 
               <button
                 type="button"
-                disabled={!canSave || saving}
+                disabled={!canSave || requestInProgress}
                 onClick={onSave}
                 className="inline-flex shrink-0 items-center justify-center rounded-md bg-action-primary px-4 py-2 text-sm font-medium text-action-primary-text hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               >

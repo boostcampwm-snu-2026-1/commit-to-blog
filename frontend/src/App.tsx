@@ -324,7 +324,10 @@ function App() {
       selectedRepository === null ||
       selectedBranchName === null ||
       selectedCommits.length === 0 ||
-      draftLoading
+      draftLoading ||
+      saveLoading ||
+      draftControllerRef.current !== null ||
+      saveControllerRef.current !== null
     ) {
       return;
     }
@@ -336,11 +339,6 @@ function App() {
     setHasUnsavedDraftChanges(false);
     setSaveError(null);
 
-    saveControllerRef.current?.abort();
-    saveControllerRef.current = null;
-    setSaveLoading(false);
-
-    draftControllerRef.current?.abort();
     const controller = new AbortController();
     draftControllerRef.current = controller;
 
@@ -385,7 +383,10 @@ function App() {
       selectedBranchName === null ||
       selectedCommits.length === 0 ||
       generatedDraft === null ||
-      saveLoading
+      draftLoading ||
+      saveLoading ||
+      draftControllerRef.current !== null ||
+      saveControllerRef.current !== null
     ) {
       return;
     }
@@ -393,7 +394,6 @@ function App() {
     setSaveLoading(true);
     setSaveError(null);
 
-    saveControllerRef.current?.abort();
     const controller = new AbortController();
     saveControllerRef.current = controller;
     const targetDraftId = savedDraft?.id ?? null;

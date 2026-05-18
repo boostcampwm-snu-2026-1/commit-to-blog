@@ -80,7 +80,7 @@ Related feature doc: [08 Draft Editing and Saving](features/08-draft-editing-and
 - [x] Allow editing title, summary, and content.
 - [x] Save edited content as a `draft` post.
 - [x] Support updating an existing saved post.
-- [ ] Prevent duplicate save or generate requests while a request is in progress.
+- [x] Prevent duplicate save or generate requests while a request is in progress.
 
 ### 9. Saved and Published Post Views
 
