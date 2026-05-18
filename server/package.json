@@ -1,0 +1,16 @@
+{
+  "name": "smart-blog-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Express server: proxies GitHub & LLM API calls (1주차 스캐폴딩)",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
