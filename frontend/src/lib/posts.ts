@@ -32,6 +32,16 @@ type CreatePostResponse = {
   post: Post;
 };
 
+type UpdatePostInput = {
+  title: string;
+  summary: string;
+  content: string;
+};
+
+type UpdatePostResponse = {
+  post: Post;
+};
+
 export async function createDraftPost(
   input: CreatePostInput,
   signal?: AbortSignal,
@@ -50,6 +60,29 @@ export async function createDraftPost(
   }
 
   const body = (await response.json()) as CreatePostResponse;
+
+  return body.post;
+}
+
+export async function updateDraftPost(
+  postId: string,
+  input: UpdatePostInput,
+  signal?: AbortSignal,
+) {
+  const response = await fetch(`/api/posts/${postId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(input),
+    signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(await readApiError(response, "Failed to update draft."));
+  }
+
+  const body = (await response.json()) as UpdatePostResponse;
 
   return body.post;
 }

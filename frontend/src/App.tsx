@@ -14,7 +14,7 @@ import { BranchSelector } from "./components/BranchSelector";
 import { RepositorySelector } from "./components/RepositorySelector";
 import { getErrorMessage } from "./lib/api";
 import { generateBlogDraft, type GeneratedDraft } from "./lib/blog";
-import { createDraftPost, type Post } from "./lib/posts";
+import { createDraftPost, updateDraftPost, type Post } from "./lib/posts";
 import {
   fetchBranches,
   fetchCommits,
@@ -392,27 +392,40 @@ function App() {
 
     setSaveLoading(true);
     setSaveError(null);
-    setSavedDraft(null);
 
     saveControllerRef.current?.abort();
     const controller = new AbortController();
     saveControllerRef.current = controller;
+    const targetDraftId = savedDraft?.id ?? null;
 
-    void createDraftPost(
-      {
-        title: generatedDraft.title,
-        summary: generatedDraft.summary,
-        content: generatedDraft.content,
-        repository: {
-          owner: selectedRepository.owner,
-          name: selectedRepository.name,
-          fullName: selectedRepository.fullName,
-        },
-        branch: selectedBranchName,
-        commits: selectedCommits,
-      },
-      controller.signal,
-    )
+    const saveRequest =
+      targetDraftId === null
+        ? createDraftPost(
+            {
+              title: generatedDraft.title,
+              summary: generatedDraft.summary,
+              content: generatedDraft.content,
+              repository: {
+                owner: selectedRepository.owner,
+                name: selectedRepository.name,
+                fullName: selectedRepository.fullName,
+              },
+              branch: selectedBranchName,
+              commits: selectedCommits,
+            },
+            controller.signal,
+          )
+        : updateDraftPost(
+            targetDraftId,
+            {
+              title: generatedDraft.title,
+              summary: generatedDraft.summary,
+              content: generatedDraft.content,
+            },
+            controller.signal,
+          );
+
+    void saveRequest
       .then((post) => {
         if (!controller.signal.aborted) {
           setSavedDraft(post);
@@ -426,7 +439,14 @@ function App() {
       })
       .catch((requestError: unknown) => {
         if (!controller.signal.aborted) {
-          setSaveError(getErrorMessage(requestError, "Failed to save draft."));
+          setSaveError(
+            getErrorMessage(
+              requestError,
+              targetDraftId === null
+                ? "Failed to save draft."
+                : "Failed to update draft.",
+            ),
+          );
         }
       })
       .finally(() => {

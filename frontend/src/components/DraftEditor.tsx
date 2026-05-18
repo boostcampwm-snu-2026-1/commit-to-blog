@@ -190,7 +190,13 @@ export function DraftEditor({
                 onClick={onSave}
                 className="inline-flex shrink-0 items-center justify-center rounded-md bg-action-primary px-4 py-2 text-sm font-medium text-action-primary-text hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               >
-                {saving ? "Saving..." : "Save draft"}
+                {saving
+                  ? savedDraft
+                    ? "Updating..."
+                    : "Saving..."
+                  : savedDraft
+                    ? "Update draft"
+                    : "Save draft"}
               </button>
             </div>
           </form>
