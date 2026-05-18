@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 
+import { CommitList } from "./components/CommitList";
 import { BranchSelector } from "./components/BranchSelector";
 import { RepositorySelector } from "./components/RepositorySelector";
 import {
   fetchBranches,
+  fetchCommits,
   fetchRepositories,
   type BranchSummary,
+  type CommitSummary,
   type RepositorySummary,
 } from "./lib/github";
 
@@ -18,10 +21,14 @@ function App() {
   const [selectedBranchName, setSelectedBranchName] = useState<string | null>(
     null,
   );
+  const [commits, setCommits] = useState<CommitSummary[]>([]);
+  const [selectedCommitShas, setSelectedCommitShas] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [branchLoading, setBranchLoading] = useState(false);
+  const [commitLoading, setCommitLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [branchError, setBranchError] = useState<string | null>(null);
+  const [commitError, setCommitError] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -36,6 +43,10 @@ function App() {
         const nextRepository = items[0] ?? null;
 
         setSelectedRepositoryId(nextRepository?.id ?? null);
+        setCommits([]);
+        setSelectedCommitShas([]);
+        setCommitError(null);
+        setCommitLoading(false);
 
         if (nextRepository !== null) {
           setBranches([]);
@@ -49,6 +60,14 @@ function App() {
           setError("Failed to load repositories.");
           setRepositories([]);
           setSelectedRepositoryId(null);
+          setBranches([]);
+          setSelectedBranchName(null);
+          setBranchError(null);
+          setBranchLoading(false);
+          setCommits([]);
+          setSelectedCommitShas([]);
+          setCommitError(null);
+          setCommitLoading(false);
         }
       })
       .finally(() => {
@@ -69,6 +88,20 @@ function App() {
     [repositories, selectedRepositoryId],
   );
 
+  const selectedBranch = useMemo(
+    () =>
+      branches.find((branch) => branch.name === selectedBranchName) ?? null,
+    [branches, selectedBranchName],
+  );
+
+  function toggleCommit(commit: CommitSummary) {
+    setSelectedCommitShas((currentSelection) =>
+      currentSelection.includes(commit.sha)
+        ? currentSelection.filter((sha) => sha !== commit.sha)
+        : [...currentSelection, commit.sha],
+    );
+  }
+
   useEffect(() => {
     if (selectedRepository === null || !branchLoading) {
       return;
@@ -87,7 +120,14 @@ function App() {
         }
 
         setBranches(items);
+        setBranchError(null);
         setSelectedBranchName((currentSelection) => {
+          const nextBranchName = items.some(
+            (branch) => branch.name === selectedRepository.defaultBranch,
+          )
+            ? selectedRepository.defaultBranch
+            : items[0]?.name ?? null;
+
           if (
             currentSelection !== null &&
             items.some((item) => item.name === currentSelection)
@@ -95,18 +135,22 @@ function App() {
             return currentSelection;
           }
 
-          return items.some(
-            (branch) => branch.name === selectedRepository.defaultBranch,
-          )
-            ? selectedRepository.defaultBranch
-            : items[0]?.name ?? null;
+          return nextBranchName;
         });
+        setCommits([]);
+        setSelectedCommitShas([]);
+        setCommitError(null);
+        setCommitLoading(items.length > 0);
       })
       .catch(() => {
         if (!controller.signal.aborted) {
           setBranchError("Failed to load branches.");
           setBranches([]);
           setSelectedBranchName(null);
+          setCommits([]);
+          setSelectedCommitShas([]);
+          setCommitError(null);
+          setCommitLoading(false);
         }
       })
       .finally(() => {
@@ -119,6 +163,49 @@ function App() {
       controller.abort();
     };
   }, [branchLoading, selectedRepository]);
+
+  useEffect(() => {
+    if (
+      selectedRepository === null ||
+      selectedBranchName === null ||
+      !commitLoading
+    ) {
+      return;
+    }
+
+    const controller = new AbortController();
+
+    void fetchCommits(
+      selectedRepository.owner,
+      selectedRepository.name,
+      selectedBranchName,
+      controller.signal,
+    )
+      .then((items) => {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setCommits(items);
+        setCommitError(null);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setCommitError("Failed to load commits.");
+          setCommits([]);
+          setSelectedCommitShas([]);
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setCommitLoading(false);
+        }
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, [commitLoading, selectedBranchName, selectedRepository]);
 
   return (
     <main className="min-h-screen bg-background text-primary">
@@ -148,6 +235,10 @@ function App() {
               setSelectedBranchName(null);
               setBranchError(null);
               setBranchLoading(true);
+              setCommits([]);
+              setSelectedCommitShas([]);
+              setCommitError(null);
+              setCommitLoading(false);
             }}
             onRetry={() => {
               setLoading(true);
@@ -159,6 +250,10 @@ function App() {
                   const nextRepository = items[0] ?? null;
 
                   setSelectedRepositoryId(nextRepository?.id ?? null);
+                  setCommits([]);
+                  setSelectedCommitShas([]);
+                  setCommitError(null);
+                  setCommitLoading(false);
 
                   if (nextRepository !== null) {
                     setBranches([]);
@@ -180,6 +275,10 @@ function App() {
                   setSelectedBranchName(null);
                   setBranchError(null);
                   setBranchLoading(false);
+                  setCommits([]);
+                  setSelectedCommitShas([]);
+                  setCommitError(null);
+                  setCommitLoading(false);
                 })
                 .finally(() => {
                   setLoading(false);
@@ -223,6 +322,18 @@ function App() {
                         {selectedRepository.private ? "Private" : "Public"}
                       </dd>
                     </div>
+                    <div className="rounded-lg bg-surface-muted px-4 py-3">
+                      <dt className="text-muted">Selected branch</dt>
+                      <dd className="mt-1 text-primary">
+                        {selectedBranch?.name ?? "None"}
+                      </dd>
+                    </div>
+                    <div className="rounded-lg bg-surface-muted px-4 py-3">
+                      <dt className="text-muted">Selected commits</dt>
+                      <dd className="mt-1 text-primary">
+                        {selectedCommitShas.length}
+                      </dd>
+                    </div>
                   </dl>
 
                   <a
@@ -251,7 +362,13 @@ function App() {
               selectedBranchName={selectedBranchName}
               loading={branchLoading}
               error={branchError}
-              onSelect={(branch) => setSelectedBranchName(branch.name)}
+              onSelect={(branch) => {
+                setSelectedBranchName(branch.name);
+                setCommits([]);
+                setSelectedCommitShas([]);
+                setCommitError(null);
+                setCommitLoading(true);
+              }}
               onRetry={() => {
                 if (selectedRepository === null) {
                   return;
@@ -259,6 +376,28 @@ function App() {
 
                 setBranchLoading(true);
                 setBranchError(null);
+                setCommits([]);
+                setSelectedCommitShas([]);
+                setCommitError(null);
+                setCommitLoading(false);
+              }}
+            />
+
+            <CommitList
+              repository={selectedRepository}
+              branchName={selectedBranchName}
+              commits={commits}
+              selectedCommitShas={selectedCommitShas}
+              loading={commitLoading}
+              error={commitError}
+              onToggle={toggleCommit}
+              onRetry={() => {
+                if (selectedRepository === null || selectedBranchName === null) {
+                  return;
+                }
+
+                setCommitLoading(true);
+                setCommitError(null);
               }}
             />
           </div>

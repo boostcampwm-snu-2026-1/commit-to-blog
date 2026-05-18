@@ -21,6 +21,18 @@ type BranchesResponse = {
   branches: BranchSummary[];
 };
 
+export type CommitSummary = {
+  sha: string;
+  message: string;
+  authorName: string;
+  authorDate: string;
+  htmlUrl: string;
+};
+
+type CommitsResponse = {
+  commits: CommitSummary[];
+};
+
 export async function fetchRepositories(signal?: AbortSignal) {
   const response = await fetch("/api/github/repos", {
     signal,
@@ -51,4 +63,26 @@ export async function fetchBranches(
   const body = (await response.json()) as BranchesResponse;
 
   return body.branches;
+}
+
+export async function fetchCommits(
+  owner: string,
+  repo: string,
+  branch: string,
+  signal?: AbortSignal,
+) {
+  const response = await fetch(
+    `/api/github/repos/${owner}/${repo}/commits?branch=${encodeURIComponent(branch)}`,
+    {
+      signal,
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to load commits.");
+  }
+
+  const body = (await response.json()) as CommitsResponse;
+
+  return body.commits;
 }
