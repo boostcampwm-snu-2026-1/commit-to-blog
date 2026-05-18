@@ -1,0 +1,115 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── 상단 액션 바 ── */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.badge.published {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.badge.draft {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.draftBtn {
+  height: 38px;
+  padding: 0 18px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.draftBtn:hover:not(:disabled) {
+  background: var(--bg);
+  border-color: var(--text-3);
+}
+
+.publishBtn {
+  height: 38px;
+  padding: 0 18px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--blue);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: background 0.15s;
+}
+
+.publishBtn:hover:not(:disabled) {
+  background: var(--blue-hover);
+}
+
+.draftBtn:disabled,
+.publishBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── 제목 ── */
+.titleInput {
+  width: 100%;
+  padding: 20px 24px;
+  background: var(--surface);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-1);
+  letter-spacing: -0.04em;
+  outline: none;
+  transition: box-shadow 0.15s;
+}
+
+.titleInput::placeholder {
+  color: var(--text-4);
+  font-weight: 700;
+}
+
+.titleInput:focus {
+  box-shadow: 0 0 0 2px var(--blue), var(--shadow-sm);
+}

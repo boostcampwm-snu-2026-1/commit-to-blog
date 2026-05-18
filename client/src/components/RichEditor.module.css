@@ -1,0 +1,140 @@
+.wrapper {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* ── 툴바 ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.toolbarBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  letter-spacing: 0;
+}
+
+.toolbarBtn:hover:not(:disabled) {
+  background: var(--bg);
+  color: var(--text-1);
+}
+
+.toolbarBtn.active {
+  background: var(--blue-light);
+  color: var(--blue);
+}
+
+.toolbarBtn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.divider {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ── 에디터 본문 ── */
+.editorContent :global(.tiptap) {
+  padding: 28px 28px 40px;
+  min-height: 440px;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--text-1);
+}
+
+.editorContent :global(.tiptap > * + *) { margin-top: 0.75em; }
+
+.editorContent :global(.tiptap h1) {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
+  color: var(--text-1);
+}
+
+.editorContent :global(.tiptap h2) {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-top: 1.4em;
+  margin-bottom: 0.3em;
+}
+
+.editorContent :global(.tiptap h3) {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 1.2em;
+  margin-bottom: 0.2em;
+}
+
+.editorContent :global(.tiptap p) { margin: 0; }
+
+.editorContent :global(.tiptap code) {
+  background: var(--bg);
+  color: var(--blue);
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+.editorContent :global(.tiptap pre) {
+  background: #0F172A;
+  color: #E2E8F0;
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: 1.2em 0;
+}
+
+.editorContent :global(.tiptap pre code) {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.editorContent :global(.tiptap ul),
+.editorContent :global(.tiptap ol) {
+  padding-left: 1.5rem;
+}
+
+.editorContent :global(.tiptap li + li) { margin-top: 4px; }
+
+.editorContent :global(.tiptap strong) { font-weight: 700; }
+
+.editorContent :global(.tiptap p.is-editor-empty:first-child::before) {
+  content: attr(data-placeholder);
+  color: var(--text-4);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}

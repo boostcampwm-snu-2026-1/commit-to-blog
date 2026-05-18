@@ -1,0 +1,84 @@
+.root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+/* ── Nav ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 28px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: -0.04em;
+  margin-right: auto;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.links a {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: background 0.15s, color 0.15s;
+}
+
+.links a:hover {
+  background: var(--bg);
+  color: var(--text-1);
+}
+
+.active {
+  background: var(--blue-light) !important;
+  color: var(--blue) !important;
+  font-weight: 600 !important;
+}
+
+.loginBtn {
+  margin-left: 16px;
+  height: 36px;
+  padding: 0 18px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.loginBtn:hover {
+  background: var(--blue-hover);
+}
+
+/* ── Main ── */
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 28px;
+}
