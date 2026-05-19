@@ -1,42 +1,43 @@
 import GithubLogo from "../shared/components/icons/GitHub_logo.svg";
+import type { CSSProperties } from "react";
 
 type TechPill = {
   label: string;
   color: string;
   textColor?: string;
-  left: number;
-  top: number;
+  left: string;
+  top: string;
   rotate: number;
   width?: number;
 };
 
 const techPills: TechPill[] = [
-  { label: "REACT", color: "#61dafb", textColor: "rgba(0,0,0,0.7)", left: 78, top: 906, rotate: 27 },
-  { label: "VUE.JS++", color: "#4fc08d", left: 276, top: 928, rotate: -15, width: 232 },
-  { label: "SPRING", color: "#6db33f", left: 948, top: 936, rotate: 10 },
-  { label: "DJANGO", color: "#092e20", left: 682, top: 938, rotate: -10 },
-  { label: "BOOTSTRAP", color: "#7952b3", left: 820, top: 854, rotate: 6 },
-  { label: "FLASK", color: "#000000", left: 506, top: 948, rotate: 5 },
-  { label: "ANGULAR.JS", color: "#dd0031", left: 404, top: 848, rotate: 11 },
-  { label: "NODE.JS", color: "#339933", left: 202, top: 808, rotate: -48 },
-  { label: "PYTHON", color: "#3776ab", left: 1172, top: 952, rotate: 0 },
-  { label: "JAVASCRIPT", color: "#f7df1e", textColor: "rgba(0,0,0,0.7)", left: 1116, top: 844, rotate: -14 },
-  { label: "GIT", color: "#f05032", left: 672, top: 832, rotate: 54 },
-  { label: "FLUTTER", color: "#02569b", left: 34, top: 816, rotate: 11 },
-  { label: "APACHE TOMCAT", color: "#f8dc75", textColor: "rgba(0,0,0,0.7)", left: 104, top: 704, rotate: -10 },
-  { label: "AMAZON AWS", color: "#232f3e", left: 962, top: 786, rotate: -2 },
-  { label: "FONTAWESOME", color: "#339af0", left: 598, top: 754, rotate: 8 },
-  { label: "MARIADB", color: "#003545", left: 430, top: 678, rotate: -48 },
-  { label: "HTML5", color: "#e34f26", left: -2, top: 660, rotate: 146 },
-  { label: "JQUERY", color: "#0769ad", left: 860, top: 706, rotate: -178 },
-  { label: "JAVA", color: "#007396", left: 400, top: 612, rotate: 23 },
-  { label: "C++", color: "#00599c", left: 1280, top: 730, rotate: -34 },
-  { label: "ORACLE", color: "#f80000", left: 1152, top: 684, rotate: -15 },
-  { label: "EXPRESS", color: "#000000", left: 710, top: 630, rotate: -33 },
-  { label: "FIREBASE", color: "#ffca28", textColor: "rgba(0,0,0,0.7)", left: 1010, top: 628, rotate: 90 },
-  { label: "GITHUB", color: "#181717", left: 198, top: 616, rotate: 8 },
-  { label: "LINUX", color: "#fcc624", textColor: "rgba(0,0,0,0.7)", left: 112, top: 532, rotate: 149 },
-  { label: "MYSQL", color: "#4479a1", left: 642, top: 614, rotate: -25 },
+  { label: "LINUX", color: "#fcc624", textColor: "rgba(0,0,0,0.7)", left: "8%", top: "-10%", rotate: 149 },
+  { label: "GITHUB", color: "#181717", left: "13%", top: "7%", rotate: 8 },
+  { label: "JAVA", color: "#007396", left: "28%", top: "6%", rotate: 23 },
+  { label: "MYSQL", color: "#4479a1", left: "44%", top: "7%", rotate: -25 },
+  { label: "EXPRESS", color: "#000000", left: "52%", top: "8%", rotate: -33 },
+  { label: "FIREBASE", color: "#ffca28", textColor: "rgba(0,0,0,0.7)", left: "73%", top: "10%", rotate: 120 },
+  { label: "HTML5", color: "#e34f26", left: "0%", top: "22%", rotate: 146 },
+  { label: "APACHE TOMCAT", color: "#f8dc75", textColor: "rgba(0,0,0,0.7)", left: "7%", top: "27%", rotate: -10 },
+  { label: "MARIADB", color: "#003545", left: "30%", top: "26%", rotate: -48 },
+  { label: "JQUERY", color: "#0769ad", left: "59%", top: "28%", rotate: -178 },
+  { label: "ORACLE", color: "#f80000", left: "83%", top: "26%", rotate: -15 },
+  { label: "C++", color: "#00599c", left: "93%", top: "37%", rotate: -34 },
+  { label: "FLUTTER", color: "#02569b", left: "2%", top: "51%", rotate: 11 },
+  { label: "NODE.JS", color: "#339933", left: "15%", top: "56%", rotate: -48 },
+  { label: "ANGULAR.JS", color: "#dd0031", left: "27%", top: "60%", rotate: 11 },
+  { label: "FONTAWESOME", color: "#339af0", left: "42%", top: "45%", rotate: 8 },
+  { label: "AMAZON AWS", color: "#232f3e", left: "66%", top: "49%", rotate: -2 },
+  { label: "JAVASCRIPT", color: "#f7df1e", textColor: "rgba(0,0,0,0.7)", left: "80%", top: "62%", rotate: -14 },
+  { label: "REACT", color: "#61dafb", textColor: "rgba(0,0,0,0.7)", left: "5%", top: "77%", rotate: 27 },
+  { label: "VUE.JS++", color: "#4fc08d", left: "19%", top: "83%", rotate: -15, width: 232 },
+  { label: "FLASK", color: "#000000", left: "36%", top: "88%", rotate: 5 },
+  { label: "GIT", color: "#f05032", left: "45%", top: "70%", rotate: 54 },
+  { label: "BOOTSTRAP", color: "#7952b3", left: "56%", top: "68%", rotate: 6 },
+  { label: "DJANGO", color: "#092e20", left: "50%", top: "82%", rotate: -10 },
+  { label: "SPRING", color: "#6db33f", left: "71%", top: "82%", rotate: 10 },
+  { label: "PYTHON", color: "#3776ab", left: "86%", top: "84%", rotate: 0 },
 ];
 
 function BrandHeader() {
@@ -52,18 +53,21 @@ function BrandHeader() {
   );
 }
 
-function TechPill({ label, color, textColor = "#ffffff", left, top, rotate, width }: TechPill) {
+function TechPill({ label, color, textColor = "#ffffff", left, top, rotate, width, index }: TechPill & { index: number }) {
+  const style = {
+    "--pill-bg": color,
+    "--pill-color": textColor,
+    "--pill-rotation": `${rotate}deg`,
+    "--pill-delay": `${0.08 + (index % 13) * 0.06}s`,
+    left,
+    top,
+    width,
+  } as CSSProperties;
+
   return (
     <div
       className="tech-pill"
-      style={{
-        backgroundColor: color,
-        color: textColor,
-        left,
-        top,
-        width,
-        transform: `rotate(${rotate}deg)`,
-      }}
+      style={style}
       aria-hidden="true"
     >
       {label}
@@ -92,8 +96,8 @@ export function LoginPage() {
         </button>
 
         <div className="tech-pill-layer" aria-hidden="true">
-          {techPills.map((pill) => (
-            <TechPill key={`${pill.label}-${pill.left}-${pill.top}`} {...pill} />
+          {techPills.map((pill, index) => (
+            <TechPill key={`${pill.label}-${pill.left}-${pill.top}`} {...pill} index={index} />
           ))}
         </div>
       </div>

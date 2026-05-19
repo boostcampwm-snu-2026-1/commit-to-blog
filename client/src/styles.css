@@ -30,26 +30,24 @@ button {
   position: relative;
   width: 100vw;
   height: 100vh;
-  min-height: 640px;
+  min-height: 720px;
   overflow: hidden;
   background: #e1e1e1;
 }
 
 .login-canvas {
-  --stage-scale: min(calc(100vw / 1440), calc(100vh / 1024));
   position: absolute;
-  left: 50%;
+  inset: 0;
   bottom: 0;
-  width: 1440px;
-  height: 1024px;
-  transform: translateX(-50%) scale(var(--stage-scale));
+  width: 100%;
+  height: 100%;
   transform-origin: bottom center;
 }
 
 .brand-header {
   position: absolute;
-  left: 37px;
-  top: 32px;
+  left: clamp(24px, 2.6vw, 37px);
+  top: clamp(24px, 3.1vh, 32px);
   z-index: 3;
   display: flex;
   align-items: center;
@@ -92,8 +90,8 @@ button {
 
 .github-login-button {
   position: absolute;
-  left: 533px;
-  top: 436px;
+  left: 50%;
+  top: clamp(310px, 42vh, 436px);
   z-index: 4;
   display: flex;
   align-items: center;
@@ -111,6 +109,7 @@ button {
     0 6px 10px rgba(0, 0, 0, 0.25),
     inset 0 95px 20px rgba(255, 255, 255, 0.25);
   color: #000000;
+  transform: translateX(-50%);
   transition:
     transform 160ms ease,
     box-shadow 160ms ease,
@@ -118,7 +117,7 @@ button {
 }
 
 .github-login-button:hover {
-  transform: translateY(-2px);
+  transform: translateX(-50%) translateY(-2px);
   background: rgba(248, 248, 248, 0.72);
   box-shadow:
     0 10px 18px rgba(0, 0, 0, 0.22);
@@ -147,7 +146,10 @@ button {
 
 .tech-pill-layer {
   position: absolute;
-  inset: 0;
+  left: clamp(10px, 2.2vw, 32px);
+  right: clamp(10px, 2.2vw, 32px);
+  bottom: 0;
+  height: clamp(300px, 46vh, 500px);
   z-index: 2;
   pointer-events: none;
 }
@@ -161,27 +163,53 @@ button {
   padding: 10px 30px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 62px;
+  background: var(--pill-bg);
   box-shadow:
     0 4px 2px rgba(0, 0, 0, 0.2),
     inset 0 7px 10px rgba(255, 255, 255, 0.25);
+  color: var(--pill-color);
   font-size: 36px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
   white-space: nowrap;
   transform-origin: center;
+  animation: pill-drop 900ms cubic-bezier(0.18, 0.86, 0.32, 1.18) both;
+  animation-delay: var(--pill-delay);
+  will-change: transform, opacity;
+}
+
+@keyframes pill-drop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, calc(-100vh - 260px), 0) rotate(calc(var(--pill-rotation) - 32deg));
+  }
+
+  68% {
+    opacity: 1;
+    transform: translate3d(0, 18px, 0) rotate(calc(var(--pill-rotation) + 4deg));
+  }
+
+  82% {
+    transform: translate3d(0, -8px, 0) rotate(calc(var(--pill-rotation) - 2deg));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(var(--pill-rotation));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-pill {
+    animation: none;
+    transform: rotate(var(--pill-rotation));
+  }
 }
 
 @media (max-width: 760px) {
   .login-page {
-    min-height: 620px;
-  }
-
-  .login-canvas {
-    --stage-scale: min(calc(100vw / 820), calc(100vh / 760));
-    left: 50%;
-    width: 820px;
-    height: 760px;
+    min-height: 680px;
   }
 
   .brand-header {
@@ -195,14 +223,37 @@ button {
   }
 
   .github-login-button {
-    left: 205px;
-    top: 300px;
-    min-width: 430px;
-    min-height: 160px;
+    top: clamp(190px, 31vh, 300px);
+    min-width: min(430px, calc(100vw - 36px));
+    min-height: 132px;
+    gap: 20px;
+    padding: 16px 24px 16px 16px;
+  }
+
+  .github-logo {
+    width: 108px;
+    height: 108px;
+  }
+
+  .github-logo img {
+    width: 108px;
+    height: 108px;
+  }
+
+  .github-login-text {
+    font-size: 28px;
+    line-height: 40px;
   }
 
   .tech-pill-layer {
-    transform: translateX(-280px) translateY(-235px) scale(0.86);
-    transform-origin: bottom center;
+    left: 12px;
+    right: 12px;
+    height: clamp(330px, 52vh, 460px);
+  }
+
+  .tech-pill {
+    min-height: 52px;
+    padding: 8px 22px;
+    font-size: 28px;
   }
 }
