@@ -217,8 +217,14 @@ type Post = {
 /login
   GitHub 로그인
 
-/dashboard
-  저장된 포스트 목록
+/main/myBlog
+  발행된 글 또는 저장된 블로그 글 목록
+
+/main/draft
+  임시 저장 글 목록 및 블로그 생성 진입
+
+/main/setting
+  사용자 설정
 
 /generate
   블로그 생성 시작 페이지
@@ -237,9 +243,6 @@ type Post = {
 
 /posts/:postId/edit
   저장된 글 수정
-
-/posts/:postId/publish
-  최종 검토 및 발행
 ```
 
 ---
@@ -258,7 +261,9 @@ src/
 
   pages/
     LoginPage.tsx
-    DashboardPage.tsx
+    MainMyBlogPage.tsx
+    MainDraftPage.tsx
+    MainSettingPage.tsx
     RepositorySelectPage.tsx
     CommitSelectPage.tsx
     PostGeneratePreviewPage.tsx
@@ -666,7 +671,7 @@ Frontend 편집기로 전달
   ↓
 DB에 draft 저장
   ↓
-Dashboard 카드 목록에 표시
+Main Draft 카드 목록에 표시
   ↓
 수정 또는 발행
 ```
@@ -877,7 +882,7 @@ session id: httpOnly cookie
 - Markdown 편집 가능
 - 미리보기 가능
 - 저장 버튼 제공
-- 저장 성공 후 dashboard로 이동하거나 상세 페이지로 이동
+- 저장 성공 후 `/main/draft`로 이동하거나 상세 페이지로 이동
 - 저장 실패 시 수정 내용이 사라지지 않음
 
 ---
@@ -1130,7 +1135,7 @@ Playwright
 6. 생성된 글 확인
 7. 제목 수정
 8. 저장
-9. dashboard에서 카드 확인
+9. `/main/draft`에서 카드 확인
 10. 카드 클릭
 11. 다시 편집
 12. 발행
@@ -1206,7 +1211,7 @@ draft 저장 API
 ### 6단계: 저장된 포스트 목록
 
 ```txt
-Dashboard 카드 목록
+Main My Blog / Draft 카드 목록
 상태 badge
 브랜치 태그
 요약 미리보기
