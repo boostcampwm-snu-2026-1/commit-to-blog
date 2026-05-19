@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap");
+
+:root {
+  color: #000000;
+  background: #e1e1e1;
+  font-family: "Inter", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.login-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 720px;
+  overflow: hidden;
+  background: #e1e1e1;
+}
+
+.login-canvas {
+  position: absolute;
+  inset: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom center;
+}
+
+.brand-header {
+  position: absolute;
+  left: clamp(24px, 2.6vw, 37px);
+  top: clamp(24px, 3.1vh, 32px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.hamburger {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.hamburger span {
+  display: block;
+  height: 8px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hamburger span:nth-child(1),
+.hamburger span:nth-child(3) {
+  width: 40px;
+}
+
+.hamburger span:nth-child(2) {
+  width: 30px;
+}
+
+.brand-title {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.github-login-button {
+  position: absolute;
+  left: 50%;
+  top: clamp(310px, 42vh, 436px);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  min-width: 460px;
+  min-height: 174px;
+  padding: 20px 38px 20px 20px;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  border-radius: 100px;
+  background: rgba(241, 241, 241, 0.5);
+  box-shadow:
+    0 6px 10px rgba(0, 0, 0, 0.25),
+    inset 0 95px 20px rgba(255, 255, 255, 0.25);
+  color: #000000;
+  transform: translateX(-50%);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.github-login-button:hover {
+  transform: translateX(-50%) translateY(-2px);
+  background: rgba(248, 248, 248, 0.72);
+  box-shadow:
+    0 10px 18px rgba(0, 0, 0, 0.22);
+}
+
+.github-logo {
+  display: grid;
+  width: 146px;
+  height: 142px;
+  place-items: center;
+  border-radius: 50%;
+  background: none;
+}
+
+.github-login-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-family: "Inter", "Noto Sans KR", sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 50px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tech-pill-layer {
+  position: absolute;
+  left: clamp(10px, 2.2vw, 32px);
+  right: clamp(10px, 2.2vw, 32px);
+  bottom: 0;
+  height: clamp(300px, 46vh, 500px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tech-pill {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 10px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 62px;
+  background: var(--pill-bg);
+  box-shadow:
+    0 4px 2px rgba(0, 0, 0, 0.2),
+    inset 0 7px 10px rgba(255, 255, 255, 0.25);
+  color: var(--pill-color);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  transform-origin: center;
+  animation: pill-drop 900ms cubic-bezier(0.18, 0.86, 0.32, 1.18) both;
+  animation-delay: var(--pill-delay);
+  will-change: transform, opacity;
+}
+
+@keyframes pill-drop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, calc(-100vh - 260px), 0) rotate(calc(var(--pill-rotation) - 32deg));
+  }
+
+  68% {
+    opacity: 1;
+    transform: translate3d(0, 18px, 0) rotate(calc(var(--pill-rotation) + 4deg));
+  }
+
+  82% {
+    transform: translate3d(0, -8px, 0) rotate(calc(var(--pill-rotation) - 2deg));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(var(--pill-rotation));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-pill {
+    animation: none;
+    transform: rotate(var(--pill-rotation));
+  }
+}
+
+@media (max-width: 760px) {
+  .login-page {
+    min-height: 680px;
+  }
+
+  .brand-header {
+    left: 28px;
+    top: 28px;
+    gap: 18px;
+  }
+
+  .brand-title {
+    font-size: 32px;
+  }
+
+  .github-login-button {
+    top: clamp(190px, 31vh, 300px);
+    min-width: min(430px, calc(100vw - 36px));
+    min-height: 132px;
+    gap: 20px;
+    padding: 16px 24px 16px 16px;
+  }
+
+  .github-logo {
+    width: 108px;
+    height: 108px;
+  }
+
+  .github-logo img {
+    width: 108px;
+    height: 108px;
+  }
+
+  .github-login-text {
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  .tech-pill-layer {
+    left: 12px;
+    right: 12px;
+    height: clamp(330px, 52vh, 460px);
+  }
+
+  .tech-pill {
+    min-height: 52px;
+    padding: 8px 22px;
+    font-size: 28px;
+  }
+}
