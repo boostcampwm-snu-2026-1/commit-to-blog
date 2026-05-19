@@ -7,11 +7,11 @@
 
 ## Phase 0. 프로젝트 셋업
 
-- [ ] `client/` — Vite + React 프로젝트 초기화
-- [ ] `server/` — Express 프로젝트 초기화 (`npm init`, 의존성 설치)
-- [ ] `.env.example` 파일 생성 (GITHUB_TOKEN, OPENAI_API_KEY, PORT)
-- [ ] `.gitignore` 에 `.env`, `node_modules`, `server/data/posts.json` 추가
-- [ ] `package.json` (루트) — `dev` 스크립트로 client/server 동시 실행 설정
+- [x] `client/` — Vite + React 프로젝트 초기화
+- [x] `server/` — Express 프로젝트 초기화 (`npm init`, 의존성 설치)
+- [x] `.env.example` 파일 생성 (GITHUB_TOKEN, OPENAI_API_KEY, PORT)
+- [x] `.gitignore` 에 `.env`, `node_modules`, `server/data/posts.json` 추가
+- [x] `package.json` (루트) — `dev` 스크립트로 client/server 동시 실행 설정
 
 ---
 
@@ -102,7 +102,7 @@
 
 | Phase | 상태 | 완료일 |
 |-------|------|--------|
-| 0. 셋업 | 🔲 대기 | - |
+| 0. 셋업 | ✅ 완료 | 2026-05-19 |
 | 1. 테마/레이아웃 | 🔲 대기 | - |
 | 2. GitHub 서버 | 🔲 대기 | - |
 | 3. GitHub 클라이언트 | 🔲 대기 | - |
