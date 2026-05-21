@@ -1,6 +1,7 @@
 import { Link, NavLink, Route, Routes } from "react-router-dom";
 import { SavedPostsPage } from "./pages/SavedPostsPage.js";
 import { CreatePostPage } from "./pages/CreatePostPage.js";
+import { EditPostPage } from "./pages/EditPostPage.js";
 
 function NavTab({ to, label }: { to: string; label: string }) {
   return (
@@ -39,6 +40,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SavedPostsPage />} />
           <Route path="/create" element={<CreatePostPage />} />
+          <Route path="/posts/:id/edit" element={<EditPostPage />} />
           <Route
             path="*"
             element={

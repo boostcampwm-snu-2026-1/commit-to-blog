@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
-import type { Repo } from "@commit-to-blog/shared";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import type { Draft, Repo } from "@commit-to-blog/shared";
 import { useRepos } from "../features/repos/useRepos.js";
 import { RepoCard } from "../features/repos/RepoCard.js";
 import { useBranches } from "../features/commits/useBranches.js";
 import { useCommits } from "../features/commits/useCommits.js";
 import { BranchSelect } from "../features/commits/BranchSelect.js";
 import { CommitPicker } from "../features/commits/CommitPicker.js";
+import { AiSummaryPanel } from "../features/drafts/AiSummaryPanel.js";
+import { useGenerateDraft } from "../features/drafts/useGenerateDraft.js";
+import { PostEditor } from "../features/posts/PostEditor.js";
+import { useCreatePost } from "../features/posts/usePosts.js";
 import { Spinner } from "../components/Spinner.js";
 import { Card } from "../components/Card.js";
 
@@ -15,39 +20,97 @@ function splitFullName(fullName: string): [string, string] {
 }
 
 export function CreatePostPage() {
+  const navigate = useNavigate();
+
   const [query, setQuery] = useState("");
   const [selectedRepo, setSelectedRepo] = useState<Repo | null>(null);
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null);
   const [selectedShas, setSelectedShas] = useState<string[]>([]);
+  const [draft, setDraft] = useState<Draft | null>(null);
+  const [editorState, setEditorState] = useState<{
+    title: string;
+    summary: string;
+    body: string;
+  }>({ title: "", summary: "", body: "" });
 
   const repoQuery = useRepos(query || undefined);
-
   const [owner, repo] = selectedRepo
     ? splitFullName(selectedRepo.fullName)
     : [null, null];
-
   const branchQuery = useBranches(owner, repo);
   const commitsQuery = useCommits(owner, repo, selectedBranch);
 
-  // 저장소 선택 시 기본 브랜치로 초기화
+  const generateMut = useGenerateDraft();
+  const createMut = useCreatePost();
+
   useEffect(() => {
     if (!selectedRepo) {
       setSelectedBranch(null);
       setSelectedShas([]);
+      setDraft(null);
       return;
     }
     setSelectedBranch(selectedRepo.defaultBranch);
     setSelectedShas([]);
+    setDraft(null);
   }, [selectedRepo]);
 
-  // 브랜치 바뀌면 선택 초기화
   useEffect(() => {
     setSelectedShas([]);
+    setDraft(null);
   }, [selectedBranch]);
 
   const toggleSha = (sha: string) => {
     setSelectedShas((prev) =>
       prev.includes(sha) ? prev.filter((s) => s !== sha) : [...prev, sha],
+    );
+  };
+
+  const canGenerate = useMemo(
+    () => Boolean(selectedRepo && selectedBranch && selectedShas.length > 0),
+    [selectedRepo, selectedBranch, selectedShas.length],
+  );
+
+  const handleGenerate = () => {
+    if (!selectedRepo || !selectedBranch) return;
+    generateMut.mutate(
+      {
+        repoFullName: selectedRepo.fullName,
+        branch: selectedBranch,
+        commitShas: selectedShas,
+      },
+      {
+        onSuccess: ({ draft: d }) => {
+          setDraft(d);
+          setEditorState({ title: d.title, summary: d.summary, body: d.body });
+        },
+      },
+    );
+  };
+
+  const handleEditorChange = useCallback(
+    (next: { title: string; body: string; summary: string }) => {
+      setEditorState(next);
+    },
+    [],
+  );
+
+  const handleSave = () => {
+    if (!selectedRepo || !selectedBranch || !draft) return;
+    createMut.mutate(
+      {
+        title: editorState.title,
+        body: editorState.body,
+        summary: editorState.summary,
+        source: {
+          repoFullName: selectedRepo.fullName,
+          branch: selectedBranch,
+          commitShas: selectedShas,
+        },
+      },
+      {
+        onSuccess: () => navigate("/"),
+      },
     );
   };
 
@@ -105,14 +168,17 @@ export function CreatePostPage() {
         </>
       )}
 
-      {/* Step 2: 브랜치 + 커밋 선택 */}
+      {/* Step 2~4: 브랜치/커밋/AI/편집 */}
       {selectedRepo && (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+          {/* 왼쪽: 저장소 + 브랜치 + 커밋 */}
           <div className="space-y-4">
             <Card className="border-brand/40 bg-brand-subtle/30">
               <div className="flex items-center justify-between">
                 <div className="min-w-0">
-                  <p className="text-xs font-medium text-brand">선택된 저장소</p>
+                  <p className="text-xs font-medium text-brand">
+                    선택된 저장소
+                  </p>
                   <p className="truncate text-base font-semibold text-slate-900">
                     {selectedRepo.fullName}
                   </p>
@@ -131,14 +197,6 @@ export function CreatePostPage() {
               <div className="flex items-center gap-2 text-sm text-slate-500">
                 <Spinner /> 브랜치를 불러오는 중…
               </div>
-            )}
-
-            {branchQuery.error && (
-              <Card className="border-red-200 bg-red-50">
-                <p className="text-sm text-red-700">
-                  브랜치를 불러오지 못했습니다: {branchQuery.error.message}
-                </p>
-              </Card>
             )}
 
             {branchQuery.data && (
@@ -163,26 +221,59 @@ export function CreatePostPage() {
             </div>
           </div>
 
-          <div>
-            <Card className="border-dashed border-slate-300 bg-white">
-              <h2 className="text-sm font-medium text-slate-700">선택된 커밋</h2>
-              {selectedShas.length === 0 ? (
-                <p className="mt-4 text-sm text-slate-400">
-                  왼쪽에서 커밋을 선택하면 AI 요약 단계로 진행할 수 있습니다.
-                </p>
-              ) : (
-                <ul className="mt-3 space-y-1 text-xs text-slate-700">
-                  {selectedShas.map((sha) => (
-                    <li key={sha} className="font-mono">
-                      {sha.slice(0, 7)}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <p className="mt-6 text-xs text-slate-400">
-                ▶ 다음 단계 (AI 요약 / 편집 / 저장) 는 Phase 2 이후 활성화됩니다.
-              </p>
-            </Card>
+          {/* 오른쪽: AI 패널 + (초안이 있으면) 편집기 */}
+          <div className="space-y-4">
+            <AiSummaryPanel
+              draft={draft}
+              isPending={generateMut.isPending}
+              error={generateMut.error}
+              onGenerate={handleGenerate}
+              canGenerate={canGenerate}
+            />
+
+            {draft && (
+              <Card>
+                <h2 className="mb-3 text-sm font-medium text-slate-700">
+                  📝 편집기
+                </h2>
+                <PostEditor
+                  initialTitle={draft.title}
+                  initialSummary={draft.summary}
+                  initialBody={draft.body}
+                  onChange={handleEditorChange}
+                  disabled={createMut.isPending}
+                />
+
+                {createMut.error && (
+                  <p className="mt-3 text-sm text-red-700">
+                    저장 실패: {createMut.error.message}
+                  </p>
+                )}
+
+                <div className="mt-4 flex items-center justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDraft(null);
+                      setEditorState({ title: "", summary: "", body: "" });
+                    }}
+                    className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                  >
+                    취소
+                  </button>
+                  <button
+                    type="button"
+                    disabled={createMut.isPending}
+                    onClick={handleSave}
+                    className="rounded-md bg-brand px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+                  >
+                    {createMut.isPending
+                      ? "저장 중…"
+                      : "블로그 포스트로 저장 및 게시"}
+                  </button>
+                </div>
+              </Card>
+            )}
           </div>
         </div>
       )}
