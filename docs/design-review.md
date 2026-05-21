@@ -53,6 +53,15 @@ git config core.hooksPath .githooks
 - 상세 검증은 CI와 운영 문서의 production gates가 담당한다.
 - Skill은 자동 실행 장치가 아니라 작업 전 체크리스트이므로 PR과 문서에 사용 흔적을 남겨야 한다.
 
+## Workflow Problems and Improvements
+
+- 문제점: 처음에는 기능 구현과 제출 산출물 정리가 섞여 있어 과제의 핵심인 설계 과정이 잘 드러나지 않았다.
+  - 개선: `docs/weekly-plan.md`, `docs/design-review.md`, `docs/architecture.md`로 계획, 설계 리뷰, 구조 설명을 분리했다.
+- 문제점: PR 본문과 스크린샷은 템플릿만 있고 실제 제출 증빙이 부족했다.
+  - 개선: `docs/pr-description.md`에 채워진 PR 본문 초안을 만들고, `docs/assets/commitgram-workflow-home.png`를 추가했다.
+- 문제점: Docker가 없는 환경에서는 compose 기반 검증을 바로 수행할 수 없었다.
+  - 개선: backend/frontend 개발 서버를 직접 실행하고 Playwright로 동일한 mock 로그인 화면을 캡처하는 대체 검증 경로를 사용했다.
+
 ## PR Notes
 
 - 완료 작업: workflow 문서화, Skill 정의, hook 추가, architecture 설명, PR 템플릿 작성

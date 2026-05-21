@@ -9,6 +9,8 @@
 | Hook 적용 | 완료 | `.githooks/pre-commit` |
 | 서비스 구조 설명 | 완료 | `README.md`, `docs/architecture.md` |
 | PR 작성 workflow | 완료 | `.github/pull_request_template.md` |
+| 실제 PR 본문 작성 | 완료 | `docs/pr-description.md` |
+| 동작 화면 스크린샷 | 완료 | `docs/assets/commitgram-workflow-home.png` |
 
 ## 학습 목표
 
@@ -72,6 +74,13 @@ AI를 활용하기 위한 설계 과정을 이해하고, 반복 가능한 Agent 
 - 완료 조건: `.github/pull_request_template.md`에 완료 작업, 분석/설계, 막힌 점, 배운 점, 다음 개선점 항목이 있다.
 - 검증: 새 PR을 만들 때 템플릿이 자동으로 표시되고, 완료하지 않은 작업을 제외할 수 있다.
 
+### Issue 6. 제출 증빙 보강
+
+- 목표: 보수적인 채점 기준에서도 확인 가능한 PR 본문과 스크린샷을 준비한다.
+- 설계 질문: 템플릿 준비와 실제 제출 내용 작성은 어떻게 구분할 것인가?
+- 완료 조건: `docs/pr-description.md`에 채워진 PR 본문이 있고, `docs/assets/commitgram-workflow-home.png`에 실제 화면 캡처가 있다.
+- 검증: 문서에서 스크린샷 링크가 열리고, PR 본문에 완료 작업/설계 과정/막힌 점/배운 점/개선점이 모두 채워져 있다.
+
 ## 나의 Agent 개발 Workflow
 
 1. 요구사항 재진술: 사용자가 원하는 결과와 제출 조건을 한 문장으로 정리한다.
@@ -107,4 +116,6 @@ git config core.hooksPath .githooks
 - Skill: `.codex/skills/service-design-review/SKILL.md`
 - Hook: `.githooks/pre-commit`
 - PR 템플릿: `.github/pull_request_template.md`
+- 실제 PR 본문 초안: `docs/pr-description.md`
+- 동작 화면 스크린샷: `docs/assets/commitgram-workflow-home.png`
 - hook 활성화 명령: `git config core.hooksPath .githooks`

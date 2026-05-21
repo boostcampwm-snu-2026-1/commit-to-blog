@@ -70,6 +70,7 @@ API 문법 조사와 적용 근거는 [API Integration Research](docs/api-integr
 - [Weekly AI Workflow Plan](docs/weekly-plan.md)
 - [Service Architecture](docs/architecture.md)
 - [Service Design Review](docs/design-review.md)
+- [PR Description Draft](docs/pr-description.md)
 
 ## AI Development Workflow
 
