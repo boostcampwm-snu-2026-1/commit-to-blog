@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import type { Post, PostStatus } from "@commit-to-blog/shared";
+import { env } from "../../config/env.js";
 import { readJsonFile, writeJsonFile } from "../../lib/safeJsonFile.js";
 
 type StoreShape = {
@@ -7,7 +8,7 @@ type StoreShape = {
   posts: Post[];
 };
 
-const STORE_PATH = resolve(process.cwd(), "data", "posts.json");
+const STORE_PATH = resolve(process.cwd(), env.DATA_DIR, "posts.json");
 const FLUSH_DEBOUNCE_MS = 200;
 
 class PostsRepository {
