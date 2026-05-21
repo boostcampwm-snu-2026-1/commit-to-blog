@@ -10,6 +10,7 @@
 
 const PROVIDERS = {
   mock: generateDraftMock,
+  gemini: generateDraftGemini,
   anthropic: generateDraftAnthropic,
   openai: generateDraftOpenAI,
 }
@@ -76,6 +77,79 @@ async function generateDraftMock({ commits }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // 실제 LLM 호출 — 구현 시점에 SDK 임포트 + 응답 파싱만 채우면 됨.
 // 단일 함수 교체 지점.
+
+const GEMINI_MODEL = 'gemini-2.5-flash'
+
+async function generateDraftGemini({ commits }) {
+  const apiKey = process.env.GEMINI_API_KEY
+  if (!apiKey) {
+    const err = new Error(
+      'GEMINI_API_KEY is not set. Add it to server/.env (https://aistudio.google.com/apikey).',
+    )
+    err.code = 'MISSING_API_KEY'
+    err.status = 500
+    throw err
+  }
+
+  // 동적 import — 다른 provider만 쓰는 사용자에게 패키지 로드 비용을 강제하지 않기 위함
+  const { GoogleGenAI } = await import('@google/genai')
+  const ai = new GoogleGenAI({ apiKey })
+
+  const prompt = buildPrompt({ commits })
+
+  let response
+  try {
+    response = await ai.models.generateContent({
+      model: GEMINI_MODEL,
+      contents: prompt,
+      config: {
+        responseMimeType: 'application/json',
+      },
+    })
+  } catch (e) {
+    const err = new Error(`Gemini API 호출 실패: ${e.message}`)
+    err.code = 'LLM_CALL_FAILED'
+    err.status = 502
+    throw err
+  }
+
+  const text = response.text
+  if (!text) {
+    const err = new Error('Gemini가 빈 응답을 반환했습니다.')
+    err.code = 'LLM_EMPTY_RESPONSE'
+    err.status = 502
+    throw err
+  }
+
+  let parsed
+  try {
+    parsed = JSON.parse(text)
+  } catch (e) {
+    const err = new Error(
+      `Gemini 응답이 JSON으로 파싱되지 않았습니다: ${e.message}`,
+    )
+    err.code = 'LLM_INVALID_JSON'
+    err.status = 502
+    err.cause = text.slice(0, 500)
+    throw err
+  }
+
+  const { title, content, summary } = parsed
+  if (
+    typeof title !== 'string' ||
+    typeof content !== 'string' ||
+    typeof summary !== 'string'
+  ) {
+    const err = new Error(
+      'Gemini 응답에 title/content/summary 필드가 누락되었습니다.',
+    )
+    err.code = 'LLM_INVALID_SHAPE'
+    err.status = 502
+    throw err
+  }
+
+  return { title, content, summary }
+}
 
 async function generateDraftAnthropic({ commits }) {
   void buildPrompt({ commits })
