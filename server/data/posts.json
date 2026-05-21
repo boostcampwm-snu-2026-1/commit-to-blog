@@ -1,3 +1,21 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "id": "p_1779345682760_tvvq",
+      "title": "Update README.md",
+      "content": "# Update README.md\n\n이번 작업에서는 1개의 커밋을 통해 Update README.md 관련 변경을 진행했습니다.\n\n## 주요 커밋\n- 36193cb — Update README.md\n\n## 변경된 파일\n- `README.md` (modified, +9/-0)\n\n## 다음 단계\n- 회귀 테스트 보강jgjgjgij\n- 관련 문서 업데이트\n\n> (이 글은 mock LLM 어댑터가 생성한 더미 초안입니다.)",
+      "summary": "# Update README.md\n\n이번 작업에서는 1개의 커밋을 통해 Update README.md 관련 변경을 진행했습니다.\n\n## 주요 커밋\n- 36193cb — Update README.md\n\n## 변경된 파일\n- `README.md` (modified, +9/-0)\n\n## 다음 단계\n- 회귀 테스트 보강jgjgjgij\n- 관련 문서 업데이트\n\n> (이 글은 mock LLM 어댑터가 생성한 더미 초안입니다.)",
+      "status": "published",
+      "source": {
+        "owner": "snumprlab",
+        "repo": "realfred",
+        "branch": "master",
+        "commitShas": [
+          "36193cb406d86a58411bc941254692ecb2125c15"
+        ]
+      },
+      "createdAt": "2026-05-21T06:41:22.760Z",
+      "updatedAt": "2026-05-21T06:41:22.760Z"
+    }
+  ]
 }
