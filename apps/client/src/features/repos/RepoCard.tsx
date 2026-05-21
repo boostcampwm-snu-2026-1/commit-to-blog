@@ -14,23 +14,25 @@ export function RepoCard({ repo, onSelect }: Props) {
         <img
           src={repo.owner.avatarUrl}
           alt={`${repo.owner.login} avatar`}
-          className="h-10 w-10 rounded-full border border-slate-200 bg-slate-100"
+          className="h-10 w-10 rounded-full border border-slate-200 bg-slate-100 dark:border-slate-600 dark:bg-slate-700"
           loading="lazy"
         />
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="truncate text-base font-semibold text-slate-900">
+            <h3 className="truncate text-base font-semibold text-slate-900 dark:text-slate-100">
               {repo.name}
             </h3>
-            <span className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+            <span className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-200">
               {repo.defaultBranch}
             </span>
           </div>
-          <p className="truncate text-xs text-slate-500">{repo.fullName}</p>
-          <p className="mt-2 line-clamp-2 text-sm text-slate-700">
+          <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+            {repo.fullName}
+          </p>
+          <p className="mt-2 line-clamp-2 text-sm text-slate-700 dark:text-slate-300">
             {repo.description ?? "설명이 없습니다."}
           </p>
-          <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+          <div className="mt-3 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500">
             <span>업데이트: {formatDate(repo.updatedAt)}</span>
             {onSelect && (
               <button

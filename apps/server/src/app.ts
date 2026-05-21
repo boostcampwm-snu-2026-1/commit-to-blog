@@ -4,6 +4,8 @@ import { notFound } from "./middlewares/notFound.js";
 import { requestLogger } from "./middlewares/requestLogger.js";
 import { healthzRouter } from "./routes/healthz.js";
 import { reposRouter } from "./routes/repos.js";
+import { draftsRouter } from "./routes/drafts.js";
+import { postsRouter } from "./routes/posts.js";
 
 export function createApp(): express.Express {
   const app = express();
@@ -13,6 +15,8 @@ export function createApp(): express.Express {
 
   app.use(healthzRouter);
   app.use("/api", reposRouter);
+  app.use("/api", draftsRouter);
+  app.use("/api", postsRouter);
 
   app.use(notFound);
   app.use(errorHandler);

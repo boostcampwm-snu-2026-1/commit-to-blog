@@ -16,23 +16,26 @@
 
 ## 우선순위 (Must → Should → Could)
 
-### Must (반드시 완성)
-- `GET /api/repos/:owner/:repo/branches` — 선택한 저장소의 브랜치 목록
-- `GET /api/repos/:owner/:repo/commits?branch=...` — 선택한 브랜치의 최근 커밋
-- `POST /api/posts/draft` — 선택된 커밋 + diff 를 LLM에 보내 블로그 초안 반환
-- React: 저장소 검색/선택 → 브랜치 드롭다운 → 커밋 카드 리스트 → AI 요약 패널
-- React: 저장된 포스트 카드 목록 (in-memory + JSON 파일 영속화)
-- 편집기에서 초안 수정 → "발행하기" 클릭 시 상태가 `published` 로 변경
+### Must (반드시 완성) — ✅ 전체 완료
+- [x] `GET /api/repos/:owner/:repo/branches` — Octokit GraphQL `refs(refPrefix:"refs/heads/")` + mock fallback
+- [x] `GET /api/repos/:owner/:repo/commits?branch=...` — GraphQL `history` + `limit` 1~50 검증
+- [x] `POST /api/posts/draft` — `getDiff` → 프롬프트 직렬화 → `chat.completions.create` (`response_format: json_object`)
+- [x] React 플로우: 검색/선택 → 브랜치 드롭다운 → 커밋 카드 리스트 → AI 요약 패널 → 편집기
+- [x] React: 저장된 포스트 카드 목록 (Map + 200ms debounce JSON 영속화, atomic write)
+- [x] 편집기 → "저장 및 게시" → POST 후 `/` 리다이렉트, 카드에서 발행/취소/수정/삭제
 
-### Should (있으면 좋음)
-- 커밋 다중 선택 → 묶음 요약
-- 마크다운 미리보기
-- 발행된 포스트의 공유용 URL (`/posts/:id` 정적 페이지)
+### Should (있으면 좋음) — 전부 완료
+- [x] 커밋 다중 선택 → 묶음 요약 (`commitShas: string[]` 그대로 LLM 입력에 누적)
+- [x] LLM 응답 LRU 캐시 (`makeContextKey` + `LruCache` 50개)
+- [x] diff truncation (파일별 8KB / 전체 32KB, 잘린 사실은 프롬프트에 명시)
+- [x] 마크다운 미리보기 (react-markdown + remark-gfm + Tailwind typography, 편집기 분할/편집/미리보기 모드 토글)
+- [x] 발행된 포스트의 공유용 URL `/posts/:id` 정적 페이지 (PostDetailPage, "공유 URL 복사" 버튼)
 
-### Could (시간 남으면)
-- 다크 모드
-- 포스트 검색
-- 발행된 포스트를 GitHub Issues/Discussions 로 push (선택)
+### Could (시간 남으면) — 전부 완료
+- [x] 다크 모드 (Tailwind class 전략, localStorage 영속, system prefers-color-scheme 초기값, 헤더 토글 버튼)
+- [x] 포스트 검색 (서버 사이드 `q` 파라미터, 제목/요약/본문 부분일치, 300ms 디바운스)
+- [x] 태그 시스템 (Post.tags + 정규화 + 카드/편집기/필터 UI, 서버 사이드 `tag` 파라미터)
+- [x] 외부 플랫폼 publish (`POST /api/posts/:id/publish-external` → Octokit `issues.create`, mock fallback, `publishedExternalUrl` 저장)
 
 ## 일정 (5일)
 
