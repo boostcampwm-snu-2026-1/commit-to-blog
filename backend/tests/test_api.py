@@ -1,0 +1,163 @@
+from collections.abc import Generator
+
+import pytest
+from fastapi.testclient import TestClient
+from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel.pool import StaticPool
+
+from app.core.config import Settings, get_settings
+from app.db.session import get_session
+from app.main import app
+from app.modules.auth.repository import AuthSessionRepository
+from app.modules.auth.schemas import CurrentUser
+
+
+def test_cors_config_rejects_wildcard_origin() -> None:
+    with pytest.raises(ValueError, match="CORS_ORIGINS"):
+        Settings(cors_origins="*")
+
+
+@pytest.fixture(name="client")
+def client_fixture() -> Generator[TestClient, None, None]:
+    engine = create_engine(
+        "sqlite://",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    SQLModel.metadata.create_all(engine)
+
+    def get_test_session() -> Generator[Session, None, None]:
+        with Session(engine) as session:
+            yield session
+
+    app.dependency_overrides[get_session] = get_test_session
+    get_settings.cache_clear()
+    with TestClient(app) as client:
+        settings = get_settings()
+        with Session(engine) as session:
+            user = CurrentUser(
+                id=1,
+                login="mock-octocat",
+                name="Mock Octocat",
+                organizations=["octo"],
+                github_access_token="mock_token",
+            )
+            session_id, _ = AuthSessionRepository(session).create(user, settings)
+        client.cookies.set(settings.session_cookie_name, session_id)
+        yield client
+    app.dependency_overrides.clear()
+
+
+def test_health_and_swagger(client: TestClient) -> None:
+    health = client.get("/health")
+    assert health.json() == {"status": "ok", "service": "commit-to-blog-api"}
+    assert health.headers["x-request-id"]
+    assert client.get("/ready").json() == {"status": "ready"}
+    docs = client.get("/docs")
+    assert docs.status_code == 200
+    assert "swagger" in docs.text.lower()
+
+
+def test_auth_status_requires_session_for_protected_routes() -> None:
+    get_settings.cache_clear()
+    with TestClient(app) as anonymous:
+        assert anonymous.get("/auth/me").json() == {"authenticated": False, "user": None}
+        assert anonymous.get("/github/repositories").status_code == 401
+
+
+def test_cors_preflight_allows_configured_frontend_origin(client: TestClient) -> None:
+    response = client.options(
+        "/health",
+        headers={
+            "Origin": "http://localhost:3000",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+    assert response.headers["access-control-allow-credentials"] == "true"
+
+
+def test_cors_preflight_rejects_unknown_origin(client: TestClient) -> None:
+    response = client.options(
+        "/health",
+        headers={
+            "Origin": "https://unknown.example",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "access-control-allow-origin" not in response.headers
+
+
+def test_github_mock_flow_and_draft_generation(client: TestClient) -> None:
+    repos = client.get("/github/repositories").json()
+    assert repos[0]["full_name"] == "octo/commit-to-blog"
+
+    branches = client.get("/github/branches", params={"repository": repos[0]["full_name"]}).json()
+    assert branches[0]["name"] == "main"
+
+    commits = client.get(
+        "/github/commits",
+        params={"repository": repos[0]["full_name"], "branch": branches[0]["name"]},
+    ).json()
+    assert commits
+
+    draft = client.post(
+        "/drafts",
+        json={
+            "repository_full_name": repos[0]["full_name"],
+            "branch": branches[0]["name"],
+            "commit_shas": [commits[0]["sha"]],
+        },
+    ).json()
+    assert draft["title"]
+    assert draft["repository_full_name"] == repos[0]["full_name"]
+    assert draft["changed_files"] > 0
+    assert draft["additions"] > 0
+    assert "커밋 하이라이트" in draft["content"]
+
+
+def test_post_create_update_publish(client: TestClient) -> None:
+    created = client.post(
+        "/posts",
+        json={
+            "title": "테스트 포스트",
+            "repository_full_name": "octo/commit-to-blog",
+            "branch": "main",
+            "summary": "요약",
+            "content": "# 본문",
+            "hero_emoji": "🚀",
+            "author": "Claude Mock",
+            "reading_minutes": 2,
+        },
+    )
+    assert created.status_code == 201
+    post = created.json()
+
+    updated = client.patch(f"/posts/{post['id']}", json={"summary": "수정 요약"}).json()
+    assert updated["summary"] == "수정 요약"
+    assert updated["repository_full_name"] == "octo/commit-to-blog"
+
+    published = client.post(f"/posts/{post['id']}/publish").json()
+    assert published["status"] == "published"
+
+    liked = client.post(f"/posts/{post['id']}/like").json()
+    assert liked["likes"] == 1
+
+    commented = client.post(f"/posts/{post['id']}/comments").json()
+    assert commented["comments"] == 1
+
+    posts = client.get("/posts").json()
+    assert len(posts) == 1
+
+    published_posts = client.get("/posts", params={"status": "published"}).json()
+    assert len(published_posts) == 1
+
+    analytics = client.get("/posts/analytics").json()
+    assert analytics["total_posts"] == 1
+    assert analytics["published_posts"] == 1
+    assert analytics["total_likes"] == 1
+    assert analytics["total_comments"] == 1

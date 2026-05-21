@@ -1,0 +1,523 @@
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --surface-soft: #fafafa;
+  --text: #171717;
+  --muted: #737373;
+  --line: #e5e7eb;
+  --brand: #e1306c;
+  --brand-2: #f77737;
+  --brand-3: #5851db;
+  --good: #047857;
+  --danger: #b42318;
+  --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.buttonLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+
+button.primary {
+  border: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: white;
+  font-weight: 700;
+}
+
+.buttonLink.primary {
+  border: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: white;
+  font-weight: 700;
+}
+
+button.ghost {
+  background: transparent;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+  padding: 10px 12px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.appShell {
+  min-height: 100vh;
+}
+
+.authGate {
+  display: grid;
+  min-height: 58vh;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.authGate h1 {
+  margin: 0;
+  font-size: 44px;
+}
+
+.authGate p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.96);
+  padding: 12px 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.brandMark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 10px;
+  background: radial-gradient(circle at 30% 20%, #ffd166, var(--brand) 48%, var(--brand-3));
+  color: white;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(360px, 34vw);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  padding: 8px 12px;
+  color: var(--muted);
+}
+
+.navTabs {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.navTabs button.active {
+  border-color: #f9a8d4;
+  color: var(--brand);
+  font-weight: 800;
+}
+
+.main {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 22px 0 52px;
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 22px;
+  align-items: start;
+}
+
+.rail {
+  position: sticky;
+  top: 78px;
+  display: grid;
+  gap: 14px;
+}
+
+.panel,
+.postCard {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.panel {
+  padding: 16px;
+}
+
+.panel h2,
+.panel h3 {
+  margin: 0 0 14px;
+}
+
+.stories {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.story {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  min-width: 86px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.avatarRing {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(var(--brand), var(--brand-2), #facc15, var(--brand-3), var(--brand));
+  color: white;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.avatarInner {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: #111827;
+}
+
+.story span {
+  max-width: 84px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.metric {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+  padding: 10px;
+}
+
+.metric strong {
+  display: block;
+  font-size: 18px;
+}
+
+.metric span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.commitList {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.commitItem {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+  padding: 10px;
+}
+
+.commitItem input {
+  margin-top: 4px;
+  width: auto;
+}
+
+.commitStats,
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.editorGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.composerPreview {
+  display: grid;
+  min-height: 240px;
+  place-items: center;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #111827, #312e81 48%, #be185d);
+  color: white;
+  padding: 24px;
+  text-align: center;
+}
+
+.composerPreview strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 24px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feedToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.feedToolbar button.active {
+  border-color: #f9a8d4;
+  color: var(--brand);
+  font-weight: 800;
+}
+
+.feed {
+  display: grid;
+  gap: 18px;
+}
+
+.postCard {
+  overflow: hidden;
+}
+
+.postHeader,
+.postFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.miniAvatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: #111827;
+  color: white;
+  font-weight: 800;
+}
+
+.postHero {
+  display: grid;
+  min-height: 330px;
+  place-items: center;
+  background: linear-gradient(135deg, #111827, #4338ca 45%, #db2777);
+  color: white;
+  padding: 28px;
+  text-align: center;
+}
+
+.postHero .emoji {
+  font-size: 52px;
+}
+
+.postHero h3 {
+  width: min(620px, 100%);
+  margin: 16px 0 0;
+  font-size: 34px;
+  line-height: 1.15;
+}
+
+.postBody {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px 18px;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tag,
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 9px;
+}
+
+.tag {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.status {
+  background: #ecfdf3;
+  color: var(--good);
+}
+
+.status.draft {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 13px;
+}
+
+@media (max-width: 980px) {
+  .topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .navTabs {
+    justify-content: stretch;
+  }
+
+  .navTabs button {
+    flex: 1;
+  }
+
+  .layoutGrid,
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .rail {
+    position: static;
+  }
+}
+
+@media (max-width: 560px) {
+  .main {
+    width: min(100% - 20px, 1180px);
+  }
+
+  .metricGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .postHero {
+    min-height: 260px;
+  }
+
+  .postHero h3 {
+    font-size: 25px;
+  }
+}
