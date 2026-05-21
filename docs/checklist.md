@@ -62,10 +62,12 @@
 ### Client
 - [x] `BranchSelect`, `CommitPicker` 컴포넌트
 - [x] `AiSummaryPanel` + 로딩/에러 상태
-- [x] `PostEditor` (글자수 카운터 — 우하단 `N chars`)
-- [x] `SavedPostsPage` 카드 렌더 (브랜치 태그 + 요약 미리보기 + 날짜 + 상태 뱃지)
-- [x] 수정 / 발행 / 삭제 / 게시 취소 플로우
+- [x] `PostEditor` (글자수 카운터 — 우하단 `N chars`, 편집/분할/미리보기 모드 토글, 태그 입력)
+- [x] `SavedPostsPage` 카드 렌더 (브랜치 태그 + 요약 미리보기 + 날짜 + 상태 뱃지 + 검색 + 태그 필터)
+- [x] 수정 / 발행 / 게시 취소 / 삭제 / GitHub Issue 발행 / 태그 클릭 필터 플로우
 - [x] `EditPostPage` (`/posts/:id/edit`)
+- [x] `PostDetailPage` (`/posts/:id`) — 읽기 전용 마크다운 렌더 + 공유 URL 복사
+- [x] 다크 모드 (Tailwind class 전략, localStorage 영속, 헤더 토글)
 
 ### 검증
 - [x] Vitest 핵심 path 단위 테스트 — 13 tests passing (`makeContextKey`, `LruCache`, `squashDiffsForLlm`)

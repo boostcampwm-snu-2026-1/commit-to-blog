@@ -103,7 +103,8 @@ curl http://localhost:4000/api/posts
 ## 진행 상태
 
 - **11주차** — ✅ 기획·설계·프로토타입 완료.
-- **12주차** — ✅ Must 전 항목 + 일부 Should (LRU 캐시, diff truncation, Vitest) 완료. 화면 3종(`/`, `/create`, `/posts/:id/edit`) 동작. 단위 테스트 13개 통과.
+- **12주차** — ✅ Must / Should / Could 모두 완료. 화면 4종(`/`, `/create`, `/posts/:id`, `/posts/:id/edit`) 동작.
+  - 마크다운 미리보기 (편집/분할/미리보기 모드 토글), 다크 모드 토글, 검색(300ms 디바운스) + 태그 필터, 외부 GitHub Issue 발행, 단위 테스트 13개 통과.
 
 ## 라이선스 / 저작권
 
