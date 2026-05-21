@@ -1,5 +1,15 @@
 # Weekly AI Workflow Plan
 
+## 수행 상태
+
+| 항목 | 상태 | 산출물 |
+| --- | --- | --- |
+| AI 개발 workflow 정립 | 완료 | `README.md`, `docs/weekly-plan.md` |
+| Skill 적용 | 완료 | `.codex/skills/service-design-review/SKILL.md`, `docs/design-review.md` |
+| Hook 적용 | 완료 | `.githooks/pre-commit` |
+| 서비스 구조 설명 | 완료 | `README.md`, `docs/architecture.md` |
+| PR 작성 workflow | 완료 | `.github/pull_request_template.md` |
+
 ## 학습 목표
 
 AI를 활용하기 위한 설계 과정을 이해하고, 반복 가능한 Agent 개발 workflow를 만든다.
@@ -55,6 +65,13 @@ AI를 활용하기 위한 설계 과정을 이해하고, 반복 가능한 Agent 
 - 완료 조건: README에 architecture 요약이 있다.
 - 검증: GitHub 로그인부터 포스트 저장까지의 흐름을 말로 설명할 수 있다.
 
+### Issue 5. PR 작성 workflow 고정
+
+- 목표: 매주 PR에 설계 과정과 회고를 빠뜨리지 않도록 템플릿을 만든다.
+- 설계 질문: 결과만 쓰지 않고 분석 과정과 막힌 순간을 어떻게 남길 것인가?
+- 완료 조건: `.github/pull_request_template.md`에 완료 작업, 분석/설계, 막힌 점, 배운 점, 다음 개선점 항목이 있다.
+- 검증: 새 PR을 만들 때 템플릿이 자동으로 표시되고, 완료하지 않은 작업을 제외할 수 있다.
+
 ## 나의 Agent 개발 Workflow
 
 1. 요구사항 재진술: 사용자가 원하는 결과와 제출 조건을 한 문장으로 정리한다.
@@ -82,3 +99,12 @@ git config core.hooksPath .githooks
 ## PR에 적을 Workflow 요약
 
 이번 주에는 AI에게 바로 구현을 맡기기보다, 먼저 요구사항을 이슈 단위로 나누고 각 이슈마다 영향 범위와 검증 방법을 정리했다. 구현 전에는 `service-design-review` Skill로 FE/BE/API/DB 경계를 확인했고, 커밋 전에는 hook으로 lint/typecheck를 확인하도록 구성했다. 이를 통해 AI 작업 결과를 단순 코드 생성이 아니라 설계, 구현, 검증, 회고가 이어지는 workflow로 만들었다.
+
+## 완료 증빙
+
+- 설계 기록: `docs/design-review.md`
+- 서비스 구조 설명: `docs/architecture.md`
+- Skill: `.codex/skills/service-design-review/SKILL.md`
+- Hook: `.githooks/pre-commit`
+- PR 템플릿: `.github/pull_request_template.md`
+- hook 활성화 명령: `git config core.hooksPath .githooks`

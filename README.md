@@ -68,6 +68,8 @@ API 문법 조사와 적용 근거는 [API Integration Research](docs/api-integr
 - [Product Roadmap](docs/product-roadmap.md)
 - [Operations Runbook](docs/operations.md)
 - [Weekly AI Workflow Plan](docs/weekly-plan.md)
+- [Service Architecture](docs/architecture.md)
+- [Service Design Review](docs/design-review.md)
 
 ## AI Development Workflow
 
@@ -100,6 +102,8 @@ git config core.hooksPath .githooks
 - Domain Modules: `backend/app/modules/*` 아래에서 router, schema, service, repository, model 역할을 분리합니다.
 - Database: SQLModel 모델과 Alembic migration이 PostgreSQL schema를 관리합니다.
 - External APIs: GitHub OAuth/GitHub REST/Claude 호출은 backend service 계층에 격리되어 있고, `USE_MOCKS=true`에서는 키 없이 mock 흐름이 동작합니다.
+
+상세 흐름은 [Service Architecture](docs/architecture.md)에 정리했습니다.
 
 ## Production Gates
 
