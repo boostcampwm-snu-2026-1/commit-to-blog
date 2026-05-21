@@ -18,7 +18,8 @@ export function EditPostPage() {
     title: string;
     summary: string;
     body: string;
-  }>({ title: "", summary: "", body: "" });
+    tags: string[];
+  }>({ title: "", summary: "", body: "", tags: [] });
 
   useEffect(() => {
     if (detail.data?.post) {
@@ -26,6 +27,7 @@ export function EditPostPage() {
         title: detail.data.post.title,
         summary: detail.data.post.summary,
         body: detail.data.post.body,
+        tags: detail.data.post.tags,
       });
     }
   }, [detail.data?.post]);
@@ -36,9 +38,11 @@ export function EditPostPage() {
     <section className="mx-auto max-w-4xl px-6 py-8">
       <header className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">포스트 수정</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            포스트 수정
+          </h1>
           {detail.data?.post && (
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
               {detail.data.post.source.repoFullName} ·{" "}
               {detail.data.post.source.branch}
             </p>
@@ -47,7 +51,7 @@ export function EditPostPage() {
         <button
           type="button"
           onClick={() => navigate("/")}
-          className="text-sm text-slate-500 underline-offset-2 hover:underline"
+          className="text-sm text-slate-500 underline-offset-2 hover:underline dark:text-slate-400"
         >
           ← 목록으로
         </button>
@@ -60,8 +64,8 @@ export function EditPostPage() {
       )}
 
       {detail.error && (
-        <Card className="border-red-200 bg-red-50">
-          <p className="text-sm text-red-700">
+        <Card className="border-red-200 bg-red-50 dark:border-red-500/30 dark:bg-red-900/10">
+          <p className="text-sm text-red-700 dark:text-red-300">
             포스트를 불러오지 못했습니다: {detail.error.message}
           </p>
         </Card>
@@ -73,12 +77,13 @@ export function EditPostPage() {
             initialTitle={detail.data.post.title}
             initialBody={detail.data.post.body}
             initialSummary={detail.data.post.summary}
+            initialTags={detail.data.post.tags}
             onChange={setDraft}
             disabled={updateMut.isPending}
           />
 
           {updateMut.error && (
-            <p className="mt-3 text-sm text-red-700">
+            <p className="mt-3 text-sm text-red-700 dark:text-red-300">
               저장 실패: {updateMut.error.message}
             </p>
           )}
@@ -87,7 +92,7 @@ export function EditPostPage() {
             <button
               type="button"
               onClick={() => navigate("/")}
-              className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
             >
               취소
             </button>

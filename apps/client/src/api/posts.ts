@@ -3,15 +3,27 @@ import type {
   ListPostsResponse,
   Post,
   PostStatus,
+  PublishExternalRequest,
+  PublishExternalResponse,
   UpdatePostRequest,
 } from "@commit-to-blog/shared";
 import { apiFetch } from "./client.js";
 
+export type ListPostsParams = {
+  status?: PostStatus | "all";
+  tag?: string;
+  q?: string;
+};
+
 export function listPosts(
-  status: PostStatus | "all" = "all",
+  params: ListPostsParams = {},
 ): Promise<ListPostsResponse> {
-  const qs = status === "all" ? "" : `?status=${status}`;
-  return apiFetch<ListPostsResponse>(`/api/posts${qs}`);
+  const qs = new URLSearchParams();
+  if (params.status && params.status !== "all") qs.set("status", params.status);
+  if (params.tag) qs.set("tag", params.tag);
+  if (params.q) qs.set("q", params.q);
+  const suffix = qs.toString() ? `?${qs}` : "";
+  return apiFetch<ListPostsResponse>(`/api/posts${suffix}`);
 }
 
 export function getPost(id: string): Promise<{ post: Post }> {
@@ -43,6 +55,19 @@ export function publishPost(
     method: "PATCH",
     body: JSON.stringify({ publish }),
   });
+}
+
+export function publishExternal(
+  id: string,
+  body: PublishExternalRequest = {},
+): Promise<PublishExternalResponse> {
+  return apiFetch<PublishExternalResponse>(
+    `/api/posts/${id}/publish-external`,
+    {
+      method: "POST",
+      body: JSON.stringify(body),
+    },
+  );
 }
 
 export function deletePost(id: string): Promise<void> {

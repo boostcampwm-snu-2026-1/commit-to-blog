@@ -19,7 +19,7 @@ export function CommitPicker({
 }: Props) {
   if (isLoading) {
     return (
-      <div className="flex items-center gap-2 text-sm text-slate-500">
+      <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
         <Spinner /> 커밋을 불러오는 중…
       </div>
     );
@@ -27,7 +27,7 @@ export function CommitPicker({
 
   if (error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+      <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-900/10 dark:text-red-300">
         커밋을 불러오지 못했습니다: {error.message}
       </div>
     );
@@ -35,7 +35,9 @@ export function CommitPicker({
 
   if (!commits || commits.length === 0) {
     return (
-      <p className="text-sm text-slate-400">표시할 커밋이 없습니다.</p>
+      <p className="text-sm text-slate-400 dark:text-slate-500">
+        표시할 커밋이 없습니다.
+      </p>
     );
   }
 

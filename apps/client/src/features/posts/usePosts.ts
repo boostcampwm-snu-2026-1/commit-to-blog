@@ -7,7 +7,8 @@ import type {
   CreatePostRequest,
   ListPostsResponse,
   Post,
-  PostStatus,
+  PublishExternalRequest,
+  PublishExternalResponse,
   UpdatePostRequest,
 } from "@commit-to-blog/shared";
 import {
@@ -15,19 +16,28 @@ import {
   deletePost,
   getPost,
   listPosts,
+  publishExternal,
   publishPost,
   updatePost,
+  type ListPostsParams,
 } from "../../api/posts.js";
 
 const KEYS = {
-  list: (status: PostStatus | "all") => ["posts", "list", status] as const,
+  list: (params: ListPostsParams) =>
+    [
+      "posts",
+      "list",
+      params.status ?? "all",
+      params.tag ?? "",
+      params.q ?? "",
+    ] as const,
   detail: (id: string) => ["posts", "detail", id] as const,
 };
 
-export function usePostsList(status: PostStatus | "all" = "all") {
+export function usePostsList(params: ListPostsParams = {}) {
   return useQuery<ListPostsResponse, Error>({
-    queryKey: KEYS.list(status),
-    queryFn: () => listPosts(status),
+    queryKey: KEYS.list(params),
+    queryFn: () => listPosts(params),
   });
 }
 
@@ -71,6 +81,22 @@ export function usePublishPost() {
   const invalidate = useInvalidatePostsLists();
   return useMutation<{ post: Post }, Error, { id: string; publish: boolean }>({
     mutationFn: ({ id, publish }) => publishPost(id, publish),
+    onSuccess: ({ post }) => {
+      qc.setQueryData(KEYS.detail(post.id), { post });
+      invalidate();
+    },
+  });
+}
+
+export function usePublishExternal() {
+  const qc = useQueryClient();
+  const invalidate = useInvalidatePostsLists();
+  return useMutation<
+    PublishExternalResponse,
+    Error,
+    { id: string; body?: PublishExternalRequest }
+  >({
+    mutationFn: ({ id, body }) => publishExternal(id, body),
     onSuccess: ({ post }) => {
       qc.setQueryData(KEYS.detail(post.id), { post });
       invalidate();

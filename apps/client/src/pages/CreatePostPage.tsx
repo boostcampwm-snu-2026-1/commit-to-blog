@@ -31,7 +31,8 @@ export function CreatePostPage() {
     title: string;
     summary: string;
     body: string;
-  }>({ title: "", summary: "", body: "" });
+    tags: string[];
+  }>({ title: "", summary: "", body: "", tags: [] });
 
   const repoQuery = useRepos(query || undefined);
   const [owner, repo] = selectedRepo
@@ -82,14 +83,19 @@ export function CreatePostPage() {
       {
         onSuccess: ({ draft: d }) => {
           setDraft(d);
-          setEditorState({ title: d.title, summary: d.summary, body: d.body });
+          setEditorState({
+            title: d.title,
+            summary: d.summary,
+            body: d.body,
+            tags: [],
+          });
         },
       },
     );
   };
 
   const handleEditorChange = useCallback(
-    (next: { title: string; body: string; summary: string }) => {
+    (next: { title: string; body: string; summary: string; tags: string[] }) => {
       setEditorState(next);
     },
     [],
@@ -102,6 +108,7 @@ export function CreatePostPage() {
         title: editorState.title,
         body: editorState.body,
         summary: editorState.summary,
+        tags: editorState.tags,
         source: {
           repoFullName: selectedRepo.fullName,
           branch: selectedBranch,
@@ -117,8 +124,8 @@ export function CreatePostPage() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-8">
       <header className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">블로그 생성</h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">블로그 생성</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           저장소를 선택하고 커밋을 골라 AI 초안을 받습니다.
         </p>
       </header>
@@ -127,7 +134,7 @@ export function CreatePostPage() {
       {!selectedRepo && (
         <>
           <div className="mb-6">
-            <label className="mb-2 block text-sm font-medium text-slate-700">
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
               저장소 검색
             </label>
             <input
@@ -135,7 +142,7 @@ export function CreatePostPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Repository name…"
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
+              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"
             />
           </div>
 
@@ -146,8 +153,8 @@ export function CreatePostPage() {
           )}
 
           {repoQuery.error && (
-            <Card className="border-red-200 bg-red-50">
-              <p className="text-sm text-red-700">
+            <Card className="border-red-200 bg-red-50 dark:border-red-500/30 dark:bg-red-900/10">
+              <p className="text-sm text-red-700 dark:text-red-300">
                 저장소 목록을 불러오지 못했습니다: {repoQuery.error.message}
               </p>
             </Card>
@@ -159,7 +166,7 @@ export function CreatePostPage() {
                 <RepoCard key={r.id} repo={r} onSelect={setSelectedRepo} />
               ))}
               {repoQuery.data.repos.length === 0 && (
-                <p className="col-span-full text-sm text-slate-400">
+                <p className="col-span-full text-sm text-slate-400 dark:text-slate-500">
                   일치하는 저장소가 없습니다.
                 </p>
               )}
@@ -173,20 +180,20 @@ export function CreatePostPage() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
           {/* 왼쪽: 저장소 + 브랜치 + 커밋 */}
           <div className="space-y-4">
-            <Card className="border-brand/40 bg-brand-subtle/30">
+            <Card className="border-brand/40 bg-brand-subtle/30 dark:border-brand/40 dark:bg-brand/10">
               <div className="flex items-center justify-between">
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-brand">
                     선택된 저장소
                   </p>
-                  <p className="truncate text-base font-semibold text-slate-900">
+                  <p className="truncate text-base font-semibold text-slate-900 dark:text-slate-100">
                     {selectedRepo.fullName}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedRepo(null)}
-                  className="shrink-0 text-xs text-slate-500 underline-offset-2 hover:underline"
+                  className="shrink-0 text-xs text-slate-500 underline-offset-2 hover:underline dark:text-slate-400"
                 >
                   변경
                 </button>
@@ -194,7 +201,7 @@ export function CreatePostPage() {
             </Card>
 
             {branchQuery.isLoading && (
-              <div className="flex items-center gap-2 text-sm text-slate-500">
+              <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
                 <Spinner /> 브랜치를 불러오는 중…
               </div>
             )}
@@ -208,7 +215,7 @@ export function CreatePostPage() {
             )}
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
+              <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 최근 커밋 ({selectedShas.length}개 선택됨)
               </label>
               <CommitPicker
@@ -233,19 +240,20 @@ export function CreatePostPage() {
 
             {draft && (
               <Card>
-                <h2 className="mb-3 text-sm font-medium text-slate-700">
+                <h2 className="mb-3 text-sm font-medium text-slate-700 dark:text-slate-200">
                   📝 편집기
                 </h2>
                 <PostEditor
                   initialTitle={draft.title}
                   initialSummary={draft.summary}
                   initialBody={draft.body}
+                  initialTags={[]}
                   onChange={handleEditorChange}
                   disabled={createMut.isPending}
                 />
 
                 {createMut.error && (
-                  <p className="mt-3 text-sm text-red-700">
+                  <p className="mt-3 text-sm text-red-700 dark:text-red-300">
                     저장 실패: {createMut.error.message}
                   </p>
                 )}
@@ -255,9 +263,9 @@ export function CreatePostPage() {
                     type="button"
                     onClick={() => {
                       setDraft(null);
-                      setEditorState({ title: "", summary: "", body: "" });
+                      setEditorState({ title: "", summary: "", body: "", tags: [] });
                     }}
-                    className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                    className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
                   >
                     취소
                   </button>
