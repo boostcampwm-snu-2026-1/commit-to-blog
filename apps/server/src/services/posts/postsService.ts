@@ -8,6 +8,18 @@ import type {
 import { ApiError } from "../../lib/ApiError.js";
 import { postsRepository } from "./repository.js";
 
+function normalizeTags(tags: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const raw of tags) {
+    const t = raw.trim().toLowerCase();
+    if (!t || t.length > 30 || seen.has(t)) continue;
+    seen.add(t);
+    out.push(t);
+  }
+  return out.slice(0, 20);
+}
+
 export const postsService = {
   async list(status?: PostStatus | "all"): Promise<Post[]> {
     return postsRepository.list({ status });
@@ -28,6 +40,8 @@ export const postsService = {
       summary: input.summary,
       source: input.source,
       status: "draft",
+      tags: normalizeTags(input.tags ?? []),
+      publishedExternalUrl: null,
       createdAt: now,
       updatedAt: now,
       publishedAt: null,
@@ -36,7 +50,16 @@ export const postsService = {
   },
 
   async update(id: string, patch: UpdatePostRequest): Promise<Post> {
-    const next = await postsRepository.update(id, patch);
+    const normalized: UpdatePostRequest = patch.tags
+      ? { ...patch, tags: normalizeTags(patch.tags) }
+      : patch;
+    const next = await postsRepository.update(id, normalized);
+    if (!next) throw ApiError.notFound(`포스트를 찾을 수 없습니다: ${id}`);
+    return next;
+  },
+
+  async setExternalPublishedUrl(id: string, url: string): Promise<Post> {
+    const next = await postsRepository.update(id, { publishedExternalUrl: url });
     if (!next) throw ApiError.notFound(`포스트를 찾을 수 없습니다: ${id}`);
     return next;
   },

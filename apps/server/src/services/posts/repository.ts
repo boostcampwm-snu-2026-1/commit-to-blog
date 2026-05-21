@@ -24,7 +24,15 @@ class PostsRepository {
       posts: [],
     });
     this.map.clear();
-    for (const p of store.posts) this.map.set(p.id, p);
+    for (const p of store.posts) {
+      // 이전 버전 호환: tags / publishedExternalUrl 가 없는 레코드를 채워준다.
+      const filled: Post = {
+        ...p,
+        tags: Array.isArray(p.tags) ? p.tags : [],
+        publishedExternalUrl: p.publishedExternalUrl ?? null,
+      };
+      this.map.set(filled.id, filled);
+    }
     this.loaded = true;
   }
 
