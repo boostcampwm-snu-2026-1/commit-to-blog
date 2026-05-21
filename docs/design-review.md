@@ -59,8 +59,8 @@ git config core.hooksPath .githooks
   - 개선: `docs/weekly-plan.md`, `docs/design-review.md`, `docs/architecture.md`로 계획, 설계 리뷰, 구조 설명을 분리했다.
 - 문제점: PR 본문과 스크린샷은 템플릿만 있고 실제 제출 증빙이 부족했다.
   - 개선: `docs/pr-description.md`에 채워진 PR 본문 초안을 만들고, `docs/assets/commitgram-workflow-home.png`를 추가했다.
-- 문제점: Docker가 없는 환경에서는 compose 기반 검증을 바로 수행할 수 없었다.
-  - 개선: backend/frontend 개발 서버를 직접 실행하고 Playwright로 동일한 mock 로그인 화면을 캡처하는 대체 검증 경로를 사용했다.
+- 문제점: frontend의 `NEXT_PUBLIC_API_BASE_URL`은 runtime 환경변수만으로는 browser bundle에 반영되지 않는다.
+  - 개선: Docker build arg로 API base URL을 주입하고, Playwright base URL도 환경변수로 바꿔 검증 포트를 유연하게 만들었다.
 
 ## PR Notes
 
