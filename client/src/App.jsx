@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
 import CreateBlog from './pages/CreateBlog.jsx'
 import SavedPosts from './pages/SavedPosts.jsx'
+import EditPost from './pages/EditPost.jsx'
 
 const navStyle = ({ isActive }) => ({
   marginRight: '1rem',
@@ -35,6 +36,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CreateBlog />} />
             <Route path="/posts" element={<SavedPosts />} />
+            <Route path="/posts/:id/edit" element={<EditPost />} />
           </Routes>
         </main>
       </div>

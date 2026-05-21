@@ -6,6 +6,7 @@ export default function PostEditor({
   initialBody = '',
   saving = false,
   error = null,
+  saveLabel = '블로그 포스트로 저장 및 게시',
   onSave,
   onCancel,
 }) {
@@ -46,7 +47,7 @@ export default function PostEditor({
           onClick={() => onSave({ title: title.trim(), body })}
           disabled={!canSave}
         >
-          {saving ? '저장 중...' : '블로그 포스트로 저장 및 게시'}
+          {saving ? '저장 중...' : saveLabel}
         </button>
       </div>
     </div>

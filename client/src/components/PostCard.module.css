@@ -1,0 +1,108 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #fff;
+  min-height: 220px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.branch {
+  padding: 0.15rem 0.55rem;
+  font-size: 0.78rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border-radius: 4px;
+}
+
+.status {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.72rem;
+  border-radius: 4px;
+}
+
+.statusDraft {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.statusPublished {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.date {
+  font-size: 0.78rem;
+  color: #888;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: #111;
+}
+
+.summary {
+  margin: 0;
+  flex: 1;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #555;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.actions button {
+  flex: 1;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.85rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: #f6f6f6;
+}
+
+.primary {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+}
+
+.primary:hover {
+  background: #222 !important;
+}
+
+.danger {
+  flex: 0 0 auto !important;
+  color: #b00020 !important;
+  border-color: #f5c2c0 !important;
+}
+
+.danger:hover {
+  background: #fdecea !important;
+}
