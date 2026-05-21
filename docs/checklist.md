@@ -44,37 +44,39 @@
 - [x] `CLAUDE.md`
 - [x] `docs/checklist.md` (이 파일)
 - [x] `README.md`
-- [ ] `feature/week11` push
-- [ ] Draft PR 생성 (PR 템플릿 4섹션 채움)
+- [x] `feature/week11` push (사용자가 직접 PR 작성)
 
 ---
 
 ## 12주차 (개발)
 
 ### API
-- [ ] `GET /api/repos/:owner/:repo/branches` 실제 구현
-- [ ] `GET /api/repos/:owner/:repo/commits?branch=…&limit=…` 실제 구현
-- [ ] `POST /api/posts/draft` (OpenAI 호출)
-- [ ] `GET /api/posts`, `POST /api/posts`, `GET /api/posts/:id`, `PUT /api/posts/:id`, `PATCH /api/posts/:id/publish`, `DELETE /api/posts/:id`
-- [ ] `apps/server/src/services/posts/repository.ts` (in-memory + JSON 영속화)
-- [ ] `apps/server/src/services/llm/prompts/blogDraft.ts`
+- [x] `GET /api/repos/:owner/:repo/branches` 실제 구현 (Octokit GraphQL + mock fallback)
+- [x] `GET /api/repos/:owner/:repo/commits?branch=…&limit=…` 실제 구현
+- [x] `POST /api/posts/draft` (OpenAI 호출, mock fallback, LRU 캐시 50개)
+- [x] `GET /api/posts`, `POST /api/posts`, `GET /api/posts/:id`, `PUT /api/posts/:id`, `PATCH /api/posts/:id/publish`, `DELETE /api/posts/:id`
+- [x] `apps/server/src/services/posts/repository.ts` (Map + atomic JSON 영속화, 200ms debounce)
+- [x] `apps/server/src/services/llm/prompts/blogDraft.ts`
+- [x] `apps/server/src/services/github/getDiff.ts` (REST compare + 파일별 8KB / 전체 32KB truncation)
 
 ### Client
-- [ ] `BranchSelect`, `CommitPicker` 컴포넌트
-- [ ] `AiSummaryPanel` + 로딩/에러 상태
-- [ ] `PostEditor` (글자수 카운터)
-- [ ] `SavedPostsPage` 카드 렌더 (브랜치 태그, 요약 미리보기, 날짜)
-- [ ] 수정 / 발행 플로우
+- [x] `BranchSelect`, `CommitPicker` 컴포넌트
+- [x] `AiSummaryPanel` + 로딩/에러 상태
+- [x] `PostEditor` (글자수 카운터 — 우하단 `N chars`)
+- [x] `SavedPostsPage` 카드 렌더 (브랜치 태그 + 요약 미리보기 + 날짜 + 상태 뱃지)
+- [x] 수정 / 발행 / 삭제 / 게시 취소 플로우
+- [x] `EditPostPage` (`/posts/:id/edit`)
 
 ### 검증
-- [ ] Vitest 핵심 path 단위 테스트
-- [ ] 통합 시나리오 수동 클릭 (TC-1 ~ TC-7 + 신규 케이스)
-- [ ] 데모용 스크린샷 캡처
+- [x] Vitest 핵심 path 단위 테스트 — 13 tests passing (`makeContextKey`, `LruCache`, `squashDiffsForLlm`)
+- [x] 서버 스모크: branches / commits / draft (mock) / posts CRUD / publish toggle / 404 / Zod 검증 에러
+- [x] 클라이언트 `vite build` 통과 (106 modules, 227kB JS)
+- [ ] 데모용 스크린샷 캡처 *(사용자 영역)*
 
 ### 마감
-- [ ] `feature/week12` 브랜치
-- [ ] PR draft → ready 전환 (자동 머지 적합 시점에 맞춰)
-- [ ] PR 본문 4섹션 작성 + 스크린샷 첨부
+- [x] `feature/week12` 브랜치
+- [ ] PR draft → ready 전환 *(사용자 영역, 자동 머지 일정에 맞춰)*
+- [ ] PR 본문 4섹션 작성 + 스크린샷 첨부 *(사용자 영역)*
 
 ---
 
