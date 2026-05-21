@@ -37,6 +37,10 @@ export const getCommit = (owner, repo, sha) =>
     `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/commits/${sha}`,
   )
 
+// LLM
+export const createDraft = (body) =>
+  request('/draft', { method: 'POST', body: JSON.stringify(body) })
+
 // Posts
 export const getPosts = () => request('/posts')
 
